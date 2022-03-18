@@ -1,0 +1,73 @@
+a {
+    text-decoration: none;
+}
+
+.container {
+    width : 80%;
+    height: 100%;
+    margin: auto;
+}
+
+.card-container {
+    display              : grid;
+    grid-template-columns: 1fr 1fr;
+    padding              : 25px;
+}
+
+.card-container .subtitle {
+    margin: 0 0 10px 0;
+    color : #c0c0c0;
+}
+
+.card-container-form h2 {
+    margin: 10px 0 0 0;
+}
+
+.card-container-form .terminos-grup {
+    margin-top: 10px;
+    font-size : 12px;
+    color     : #c0c0c0;
+}
+
+.card-container-form input[type=text],
+input[type=password],
+input[type=email] {
+    width     : 100%;
+    padding   : 12px 20px;
+    margin    : 10px 0;
+    box-sizing: border-box;
+}
+
+.card-container-form .radiobuttons-grup {
+    width     : 100%;
+    margin    : 10px 0;
+    box-sizing: border-box;
+}
+
+.card-container-form button {
+    width           : 100%;
+    padding         : 12px 20px;
+    margin          : 10px 0;
+    box-sizing      : border-box;
+    background-color: #0b7eaf;
+    color           : #eaf3f7;
+}
+
+.card-container-form .cuentas-question {
+    font-size : 12px;
+    color     : #c0c0c0;
+    text-align: center;
+}
+
+.card-container-img {
+    margin: auto;
+}
+
+::placeholder {
+    color: #7db4d2;
+}
+
+input:focus {
+    outline: none;
+    border: 1px solid #7db4d2;   
+}
