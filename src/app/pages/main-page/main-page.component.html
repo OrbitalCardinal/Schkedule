@@ -1,0 +1,24 @@
+<div class="main-container">
+    <div class="navbar">
+        <div routerLink="home" [routerLinkActive]="['route-active']" class="navbar-item navbar-logo">
+            <img class="navbar-item__icon" id="navbar-logo" src="/assets/img/organization-blue-icon.png">
+        </div>
+        <div routerLink="project" [routerLinkActive]="['route-active']" class="navbar-item">
+            <img class="navbar-item__icon" src="/assets/img/clipboard-blue-icon.png">
+        </div>
+        <div routerLink="kanban" [routerLinkActive]="['route-active']" class="navbar-item">
+            <img class="navbar-item__icon" src="/assets/img/kanban-blue-icon.png">
+        </div>
+        <div routerLink="gantt" [routerLinkActive]="['route-active']" class="navbar-item">
+            <img class="navbar-item__icon" src="/assets/img/gantt-blue-icon.png">
+        </div>
+        <div routerLink="schedule" [routerLinkActive]="['route-active']" class="navbar-item">
+            <img class="navbar-item__icon" src="/assets/img/schedule-blue-icon.png">
+        </div>
+    </div>
+
+    <div class="main-content">    
+        <router-outlet></router-outlet>
+    </div>
+</div>
+

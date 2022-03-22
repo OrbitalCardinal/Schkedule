@@ -1,0 +1,47 @@
+.main-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.main-content {
+    padding: 2em;
+}
+
+.navbar {
+    width: 4vw;
+    height: 100vh;
+    background-color: white;
+}
+
+#navbar-logo {
+    width: 60%;
+}
+
+.navbar-item {
+    height: calc(100vh / 12);
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+        background-color: #4AB3E5;
+        cursor: pointer;
+        img {
+            filter: sepia(60%) brightness(1000%);
+        }
+    }
+}
+
+.navbar-item__icon {
+    width: 50%;
+}
+
+.route-active {
+    background-color: #0B7EAF;
+    cursor: pointer;
+    img {
+        filter: sepia(60%) brightness(1000%);
+    }
+
+}
