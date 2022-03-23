@@ -11,6 +11,7 @@ import { ProjectPageComponent } from './pages/project-page/project-page.componen
 import { KanbanPageComponent } from './pages/kanban-page/kanban-page.component';
 import { GanttPageComponent } from './pages/gantt-page/gantt-page.component';
 import { SchedulePageComponent } from './pages/schedule-page/schedule-page.component';
+import { LoginComponent } from './pages/login/login.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { SchedulePageComponent } from './pages/schedule-page/schedule-page.compo
     ProjectPageComponent,
     KanbanPageComponent,
     GanttPageComponent,
-    SchedulePageComponent
+    SchedulePageComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

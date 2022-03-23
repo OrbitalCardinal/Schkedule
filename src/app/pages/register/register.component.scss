@@ -2,17 +2,31 @@ a {
     text-decoration: none;
 }
 
-.container {
+/*/.container {
     width : 80%;
     height: 100%;
-    margin: auto;
+    margin: 10;
+  background-color: #fff;
+}*/
+
+.container{
+	background-color: white;
+	width:100vw;
+	height:100vh;
+}
+* {
+	margin: 0;
+	padding: 0;
 }
 
 .card-container {
     display              : grid;
     grid-template-columns: 1fr 1fr;
     padding              : 25px;
+    margin-left: 400px;
+    padding-top: 100px;
 }
+
 
 .card-container .subtitle {
     margin: 0 0 10px 0;
@@ -27,6 +41,7 @@ a {
     margin-top: 10px;
     font-size : 12px;
     color     : #c0c0c0;
+
 }
 
 .card-container-form input[type=text],
@@ -60,7 +75,7 @@ input[type=email] {
 }
 
 .card-container-img {
-    margin: auto;
+    margin: 100px;
 }
 
 ::placeholder {
@@ -69,5 +84,8 @@ input[type=email] {
 
 input:focus {
     outline: none;
-    border: 1px solid #7db4d2;   
+    border: 1px solid #7db4d2;
 }
+
+
+
