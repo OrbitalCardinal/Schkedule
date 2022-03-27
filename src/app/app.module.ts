@@ -12,6 +12,7 @@ import { KanbanPageComponent } from './pages/kanban-page/kanban-page.component';
 import { GanttPageComponent } from './pages/gantt-page/gantt-page.component';
 import { SchedulePageComponent } from './pages/schedule-page/schedule-page.component';
 import { LoginComponent } from './pages/login/login.component';
+import { LandingComponent } from './pages/landing/landing.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { LoginComponent } from './pages/login/login.component';
     KanbanPageComponent,
     GanttPageComponent,
     SchedulePageComponent,
-    LoginComponent
+    LoginComponent,
+    LandingComponent
   ],
   imports: [
     BrowserModule,

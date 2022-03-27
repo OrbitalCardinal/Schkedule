@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, Component } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 // Pages
@@ -10,8 +10,10 @@ import { KanbanPageComponent } from './pages/kanban-page/kanban-page.component';
 import { GanttPageComponent } from './pages/gantt-page/gantt-page.component';
 import { SchedulePageComponent } from './pages/schedule-page/schedule-page.component';
 import { HomePageComponent } from './pages/home-page/home-page.component';
+import { LandingComponent } from './pages/landing/landing.component';
 
 const routes: Routes = [
+    {path: '', component: LandingComponent},
     { path: 'register', component: RegisterComponent},
     { path: 'login', component: LoginComponent},
   { path: 'mainpage', component: MainPageComponent, children: [

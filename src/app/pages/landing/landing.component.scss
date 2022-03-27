@@ -1,0 +1,36 @@
+.landing{
+    width: 80%;
+    padding: 50px;
+}
+.navbar-item_icon{
+    width: 3em;
+    margin: .8em;
+}
+.user{
+    width: 2em;
+    color: #0B7EAF;
+}
+nav{
+    border-bottom: 1px solid #B8B8B8;
+    ul{
+        display: flex;
+        justify-content: space-between;
+        li{
+            display: flex;
+            align-items: center;
+            margin-right: 1em;
+            span{
+                color: #0B7EAF;
+                font-size: 2em;
+                font-weight: bold;
+            }
+            a{
+                color: #0B7EAF;
+                font-weight: bold;
+                font-size: 1em;
+                
+            }
+        }
+    }
+    
+}
