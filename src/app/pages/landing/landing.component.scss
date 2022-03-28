@@ -1,0 +1,121 @@
+
+.main-container{
+    
+    width: 100%;
+    background-color: white;
+
+    header{
+        
+        nav{
+            border-bottom: 1px solid #B8B8B8;
+            padding: 1em;
+            ul{
+                display: flex;
+                justify-content: space-between;
+                li{
+                    display: flex;
+                    align-items: center;
+                    span{
+                        color: #0B7EAF;
+                        font-size: 2em;
+                        font-weight: bold;
+                    }
+                    a{
+                        color: #0B7EAF;
+                        font-weight: bold;
+                        font-size: 1em;
+                    }
+                    .user{
+                        width: 2em; 
+                    }
+                    .navbar-item_icon{
+                        width: 3em;    
+                    }
+                }
+            }    
+        }  
+    }
+
+    main {
+        
+        height: 100%;
+        width: 100%;
+        
+    
+        section {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 3em;
+    }
+    
+    .landing-img {
+        display: flex;
+        padding: 1em;
+        align-items: center;
+        justify-content: center;
+        img{
+            width: 70%;
+            
+        }
+    }
+    .part {
+        width: calc(100% / 3);
+    
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .tools-text { 
+        width: 45%; 
+        span {
+        font-size: larger;
+        
+    }}
+    
+    .line { hr {
+        width: 100%;
+    }}
+    .tools{
+        display: flex;
+        flex-direction: column;
+        padding: 1em;
+        
+    }
+    .divider {
+        display: flex;
+        width: 70%;
+        
+    }
+    
+    .cards {
+        
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        width: 70%;
+        padding: 2em;
+        .info{
+            width: 20em;
+    }  
+        img{
+            width: 20%;
+        }
+    }
+    
+    
+    
+    .why-text { span {
+        color: #0B7EAF;
+    }}
+    
+    .circle {
+        padding-bottom: 1em;
+        img{
+            width: 50%;
+            
+            }
+        }
+    }
+}
