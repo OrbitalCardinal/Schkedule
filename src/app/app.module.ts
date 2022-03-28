@@ -13,6 +13,7 @@ import { GanttPageComponent } from './pages/gantt-page/gantt-page.component';
 import { SchedulePageComponent } from './pages/schedule-page/schedule-page.component';
 import { LoginComponent } from './pages/login/login.component';
 import { LandingComponent } from './pages/landing/landing.component';
+import { RegisterInputComponent } from './components/register-input/register-input.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { LandingComponent } from './pages/landing/landing.component';
     GanttPageComponent,
     SchedulePageComponent,
     LoginComponent,
-    LandingComponent
+    LandingComponent,
+    RegisterInputComponent,
   ],
   imports: [
     BrowserModule,

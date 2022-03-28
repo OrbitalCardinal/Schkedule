@@ -1,60 +1,64 @@
 <!-- <p>register works!</p> -->
 <html>
-
-
-<div class="container">
-    <div class="card-container">
-
-        <div class="card-container-form">
-            <h2>Bienvenido</h2>
-            <p class="subtitle">Regístrate para empezar</p>
-            <form action="register">
-                <input type="text" name="name" id="" placeholder="Nombre Completo" />
-                <!-- <br> -->
-
-                <div class="radiobuttons-grup">
-                    Estatus
-                    <label>
-                        <input type="radio" name="estatus" id=""> Estudiante
-                    </label>
-                    <label>
-                        <input type="radio" name="estatus" id=""> Trabajador
-                    </label>
-                </div>
-
-                <!-- <br> -->
-                <input type="email" name="email" id="" placeholder="Correo electrónico" />
-                <br>
-                <input type="password" name="password" id="" placeholder="Contraseña" />
-                <br>
-                <input type="password" name="password" id="" placeholder="Confirmar contraseña" />
-                <br>
-
-                <div class="terminos-grup">
-                    <label for="terminos">
-                        <input type="checkbox" name="terminos" id="">
-                        He leído y acepto los <b>términos y condiciones</b>
-                    </label>
-                </div>
-
-                <br>
-
-                <button class="">Registrarme</button>
-            </form>
-
-            <div class="cuentas-question">
-                <p>¿Ya tienes una cuenta? <a href="#">Iniciar sesión</a></p>
-            </div>
-
+  <div class="container">
+    <div class="register-container">
+      <div class="register-container-left">
+        <div class="register-container-titulos">
+          <h2>Bienvenido</h2>
+          <p class="subtitle">Regístrate para empezar</p>
         </div>
 
-        <div class="card-container-img">
-            <img src="../../../assets/img/logo.jpg" alt="">
+        <app-register-input
+          iconImg="../../../assets/img/user-icon.png"
+          inputType="text"
+          inputPlaceholder="Nombre Completo"
+        ></app-register-input>
+
+        <div class="radiobuttons-grup">
+          <img src="../../../assets/img/briefcase 1.png" />
+          <span>Estatus</span>
+          <label>
+            <input type="radio" name="estatus" checked /> Estudiante
+          </label>
+          <label> <input type="radio" name="estatus" /> Trabajador </label>
         </div>
 
+        <app-register-input
+          iconImg="../../../assets/img/email-icon.png"
+          inputType="email"
+          inputPlaceholder="Correo electrónico"
+        ></app-register-input>
+        <app-register-input
+          iconImg="../../../assets/img/lock-icon.png"
+          inputType="password"
+          inputPlaceholder="Contraseña"
+        ></app-register-input>
+        <app-register-input
+          iconImg="../../../assets/img/lock-icon.png"
+          inputType="password"
+          inputPlaceholder="Confirmar contraseña"
+        ></app-register-input>
+
+        <div class="terminos-grup">
+          <label for="terminos">
+            <input type="checkbox" name="terminos" id="" />
+            He leído y acepto los <b>términos y condiciones</b>
+          </label>
+        </div>
+
+        <button class="">Registrarse</button>
+
+        <div class="cuentas-question">
+          <p>
+            ¿Ya tienes una cuenta? <a href="../login"><b>Iniciar sesión</b></a>
+          </p>
+        </div>
+      </div>
+
+      <div class="register-container-right">
+        <img src="../../../assets/img/organization-blue-icon.png" alt="" />
+        <p><b>Schkedule</b></p>
+      </div>
     </div>
-
-
-</div>
-
+  </div>
 </html>
