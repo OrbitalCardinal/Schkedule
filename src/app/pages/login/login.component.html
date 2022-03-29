@@ -1,21 +1,36 @@
 <!-- <p>login works!</p> -->
-<div class="login-container">
-    <div class="login-form">
+<div class="container">
+  <div class="register-container">
+    <div class="register-container-left">
+      <div class="register-container-titulos">
+        <h2>Bienvenido de nuevo</h2>
+        <p class="subtitle">Ingresa tus datos para comenzar</p>
+      </div>
 
-      <div class="login-form-content">
-        <h1>Bienvenido de nuevo</h1>
-        <p>Favor de llenar el formulario</p>
-        <div class="login-form-input">
-          <label>Email*:</label>
-          <input type="email" placeholder="Email">
-        </div>
-        <div class="login-form-input">
-          <label>Contraseña</label>
-          <input type="password" placeholder="Contraseña">
-        </div>
-        <small>Olvidé contraseña</small>
-          <button>Iniciar sesión</button>
+      <app-register-input
+        iconImg="../../../assets/img/email-icon.png"
+        inputType="email"
+        inputPlaceholder="Correo electrónico"
+      ></app-register-input>
+      <app-register-input
+        iconImg="../../../assets/img/lock-icon.png"
+        inputType="password"
+        inputPlaceholder="Contraseña"
+      ></app-register-input>
 
+      <button class="">Iniciar sesión</button>
+      <button class="">¿Olvidaste tu contraseña?</button>
+
+      <div class="cuentas-question">
+        <p>
+          ¿No tienes una cuenta? <a href="../register"><b>Regístrate</b></a>
+        </p>
       </div>
     </div>
+
+    <div class="register-container-right">
+      <img src="../../../assets/img/organization-blue-icon.png" alt="" />
+      <p><b>Schkedule</b></p>
+    </div>
+  </div>
 </div>
