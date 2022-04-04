@@ -1,0 +1,61 @@
+.back-arrow {
+    width: 20px;
+    padding-right: 10px;
+}
+
+.back-arrow:hover {
+    cursor: pointer;
+}
+
+.title {
+    display: flex;
+}
+
+.task-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1em;
+
+    .task-table__header {
+        font-weight: 600;
+        color: #585858;
+        border-bottom: 2px solid #0B7EAF;
+
+        td {
+            padding: 0.7em 0em;
+        }
+    }
+
+    .task-table__element {
+        color: #0B7EAF;
+        font-weight: bold;
+        td {
+            padding: 0.7em 0em;
+        }
+    }
+
+    .actions__icon {
+        width: 30px;
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
+
+
+    .actions__cell {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+.new-task {
+    font-weight: bold;
+    color: #4AB3E5;
+    margin-top: 20px;
+}
+
+.new-task:hover {
+    cursor: pointer;
+}

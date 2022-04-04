@@ -1,0 +1,57 @@
+img {
+    display:block;
+    position: absolute;
+    right: -10px;
+    top: -10px;
+    @media screen and (max-width: 1366px) {
+        width: 30px;
+    }
+
+    @media screen and (min-width: 1367px) and (max-width: 1920px) {
+        width: 40px;
+    }
+}
+
+.title {
+    font-weight: 500;
+    color: #585858;
+    @media screen and (max-width: 1366px) {
+        font-size: 15px;
+    }
+
+    @media screen and (min-width: 1367px) and (max-width: 1920px) {
+        font-size: 18px;
+    }
+}
+
+.subtitle {
+    color: #6D6D6D;
+    @media screen and (max-width: 1366px) {
+        font-size: 13px;
+    }
+
+    @media screen and (min-width: 1367px) and (max-width: 1920px) {
+        font-size: 15px;
+    }
+}
+
+.card {
+    position: relative;
+    background-color: white;
+    box-shadow: -1px 2px 2px 2px #0000000F;
+    padding: 1.5em 1em;
+
+    @media screen and (max-width: 1366px) {
+        width: 170px;
+    }
+
+    @media screen and (min-width: 1367px) and (max-width: 1920px) {
+        width: 275px;
+    }
+}
+
+
+.recent-projects {
+    display: flex;
+    flex-wrap: wrap;
+}
