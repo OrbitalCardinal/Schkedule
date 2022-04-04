@@ -1,0 +1,14 @@
+.options-bar {
+    padding-top: 1em;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.recent-projects {
+    margin-top: 2em;
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    gap: 2em;
+}

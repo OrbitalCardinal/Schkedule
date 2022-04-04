@@ -11,17 +11,23 @@ import { GanttPageComponent } from './pages/gantt-page/gantt-page.component';
 import { SchedulePageComponent } from './pages/schedule-page/schedule-page.component';
 import { HomePageComponent } from './pages/home-page/home-page.component';
 import { LandingComponent } from './pages/landing/landing.component';
+import { NewProjectPageComponent } from './pages/new-project-page/new-project-page.component';
+import { RecentProjectsPageComponent } from './pages/recent-projects-page/recent-projects-page.component';
 
 const routes: Routes = [
-    {path: '', component: LandingComponent},
+    { path: '', component: LandingComponent},
     { path: 'register', component: RegisterComponent},
     { path: 'login', component: LoginComponent},
-  { path: 'mainpage', component: MainPageComponent, children: [
+    { path: 'mainpage', component: MainPageComponent, children: [
         { path: 'home', component: HomePageComponent },
-        { path: 'project', component: ProjectPageComponent},
+        { path: 'project', component: ProjectPageComponent, children: [
+            { path: '', redirectTo: 'recent-projects', pathMatch: 'full' },
+            { path: 'new-project', component: NewProjectPageComponent },
+            { path: 'recent-projects', component: RecentProjectsPageComponent }
+        ]},
         { path: 'kanban', component: KanbanPageComponent },
         { path: 'gantt', component: GanttPageComponent },
-        { path: 'schedule', component: SchedulePageComponent }
+        { path: 'schedule', component: SchedulePageComponent }, 
     ]}
 ];
 

@@ -14,6 +14,11 @@ import { SchedulePageComponent } from './pages/schedule-page/schedule-page.compo
 import { LoginComponent } from './pages/login/login.component';
 import { LandingComponent } from './pages/landing/landing.component';
 import { RegisterInputComponent } from './components/register-input/register-input.component';
+import { BlueButtonComponent } from './components/blue-button/blue-button.component';
+import { BlueTitleComponent } from './components/blue-title/blue-title.component';
+import { ActivityCardComponent } from './components/activity-card/activity-card.component';
+import { NewProjectPageComponent } from './pages/new-project-page/new-project-page.component';
+import { RecentProjectsPageComponent } from './pages/recent-projects-page/recent-projects-page.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +33,11 @@ import { RegisterInputComponent } from './components/register-input/register-inp
     LoginComponent,
     LandingComponent,
     RegisterInputComponent,
+    BlueButtonComponent,
+    BlueTitleComponent,
+    ActivityCardComponent,
+    NewProjectPageComponent,
+    RecentProjectsPageComponent
   ],
   imports: [
     BrowserModule,

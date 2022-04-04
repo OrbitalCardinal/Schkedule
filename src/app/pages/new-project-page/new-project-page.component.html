@@ -1,0 +1,31 @@
+<div class="title">
+    <img class="back-arrow" src="assets/img/left-arrow-blue.png" routerLink="../">
+    <blue-title>Nueva gestión de proyecto</blue-title>
+</div>
+
+<div class="task-table-container">
+    <table class="task-table">
+       <!-- Header --> 
+        <tr class="task-table__header">
+            <td>No.</td>
+            <td>Nombre</td>
+            <td>Estatus</td>
+            <td>Categoría</td>
+            <td>Fecha estimada</td>
+            <td></td>
+        </tr>
+
+        <!-- Elements -->
+        <tr class="task-table__element" *ngFor="let element of testList">
+            <td>{{element.no}}.</td>
+            <td>{{element.nombre}}</td>
+            <td>{{element.estatus}}</td>
+            <td>{{element.categoria}}</td>
+            <td>{{element.fecha}}</td>
+            <td class="actions__cell">
+                <img class="actions__icon" src="assets/img/delete-red-icon.png" alt="">
+            </td>
+        </tr>
+    </table>
+</div>
+<p class="new-task">+ Añadir nueva tarea</p>
