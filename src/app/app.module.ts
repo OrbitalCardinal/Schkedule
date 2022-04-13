@@ -19,6 +19,10 @@ import { BlueTitleComponent } from './components/blue-title/blue-title.component
 import { ActivityCardComponent } from './components/activity-card/activity-card.component';
 import { NewProjectPageComponent } from './pages/new-project-page/new-project-page.component';
 import { RecentProjectsPageComponent } from './pages/recent-projects-page/recent-projects-page.component';
+import { AngularFireModule } from "@angular/fire/compat";
+import { environment } from 'src/environments/environment';
+import { FormsModule } from '@angular/forms';
+
 
 @NgModule({
   declarations: [
@@ -41,7 +45,9 @@ import { RecentProjectsPageComponent } from './pages/recent-projects-page/recent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig)
   ],
   providers: [],
   bootstrap: [AppComponent]

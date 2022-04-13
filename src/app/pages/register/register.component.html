@@ -1,64 +1,105 @@
 <!-- <p>register works!</p> -->
 <!-- <html> -->
-  <div class="container">
-    <div class="register-container">
-      <div class="register-container-left">
-        <div class="register-container-titulos">
-          <h2>Bienvenido</h2>
-          <p class="subtitle">Regístrate para empezar</p>
-        </div>
+<div class="container">
+  <div class="register-container">
+    <div class="register-container-left">
+      <div class="register-container-titulos">
+        <h2>Bienvenido</h2>
+        <p class="subtitle">Regístrate para empezar</p>
+      </div>
 
+      <form (ngSubmit)="CheckIn()" #formRegister="ngForm">
         <app-register-input
           iconImg="../../../assets/img/user-icon.png"
           inputType="text"
           inputPlaceholder="Nombre Completo"
+          name="name"
+          required
+          ngDefaultControl
+          [(ngModel)]="user.name"
         ></app-register-input>
 
         <div class="radiobuttons-grup">
           <img src="../../../assets/img/briefcase 1.png" />
           <span>Estatus</span>
           <label>
-            <input type="radio" name="estatus" checked /> Estudiante
+            <input
+              type="radio"
+              name="estatus"
+              value="Estudiante"
+              ngDefaultControl
+              [(ngModel)]="user.estatus"
+            />
+            Estudiante
           </label>
-          <label> <input type="radio" name="estatus" /> Trabajador </label>
+          <label>
+            <input
+              type="radio"
+              name="estatus"
+              value="Trabajador"
+              ngDefaultControl
+              [(ngModel)]="user.estatus"
+            />
+            Trabajador
+          </label>
         </div>
 
         <app-register-input
           iconImg="../../../assets/img/email-icon.png"
           inputType="email"
           inputPlaceholder="Correo electrónico"
+          name="email"
+          required
+          ngDefaultControl
+          [(ngModel)]="user.email"
         ></app-register-input>
         <app-register-input
           iconImg="../../../assets/img/lock-icon.png"
           inputType="password"
           inputPlaceholder="Contraseña"
+          name="password"
+          required
+          ngDefaultControl
+          [(ngModel)]="user.password"
         ></app-register-input>
         <app-register-input
           iconImg="../../../assets/img/lock-icon.png"
           inputType="password"
           inputPlaceholder="Confirmar contraseña"
+          name = "passwordConfirm"
+          required
+          ngDefaultControl
+          [(ngModel)]="user.passwordConfirm"
         ></app-register-input>
 
         <div class="terminos-grup">
           <label for="terminos">
-            <input type="checkbox" name="terminos" id="" />
+            <input
+              type="checkbox"
+              name="terminos"
+              required
+              ngDefaultControl
+              [(ngModel)]="user.terminos"
+            />
             He leído y acepto los <b>términos y condiciones</b>
           </label>
         </div>
 
-        <button class="">Registrarse</button>
+        <button [disabled]="formRegister.invalid" type="submit">Registrarse</button>
 
-        <div class="cuentas-question">
-          <p>
-            ¿Ya tienes una cuenta? <a href="../login"><b>Iniciar sesión</b></a>
-          </p>
-        </div>
-      </div>
+      </form>
 
-      <div class="register-container-right">
-        <img src="../../../assets/img/organization-blue-icon.png" alt="" />
-        <p><b>Schkedule</b></p>
+      <div class="cuentas-question">
+        <p>
+          ¿Ya tienes una cuenta? <a href="../login"><b>Iniciar sesión</b></a>
+        </p>
       </div>
     </div>
+
+    <div class="register-container-right">
+      <img src="../../../assets/img/organization-blue-icon.png" alt="" />
+      <p><b>Schkedule</b></p>
+    </div>
   </div>
+</div>
 <!-- </html> -->
