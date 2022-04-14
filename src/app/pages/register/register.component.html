@@ -8,15 +8,13 @@
         <p class="subtitle">Regístrate para empezar</p>
       </div>
 
-      <form (ngSubmit)="CheckIn()" #formRegister="ngForm">
+      <form [formGroup]="registerForm" (ngSubmit)="CheckIn()">
         <app-register-input
           iconImg="../../../assets/img/user-icon.png"
           inputType="text"
           inputPlaceholder="Nombre Completo"
-          name="name"
-          required
           ngDefaultControl
-          [(ngModel)]="user.name"
+          formControlName="name"
         ></app-register-input>
 
         <div class="radiobuttons-grup">
@@ -28,7 +26,7 @@
               name="estatus"
               value="Estudiante"
               ngDefaultControl
-              [(ngModel)]="user.estatus"
+              formControlName="estatus"
             />
             Estudiante
           </label>
@@ -38,7 +36,7 @@
               name="estatus"
               value="Trabajador"
               ngDefaultControl
-              [(ngModel)]="user.estatus"
+              formControlName="estatus"
             />
             Trabajador
           </label>
@@ -48,45 +46,80 @@
           iconImg="../../../assets/img/email-icon.png"
           inputType="email"
           inputPlaceholder="Correo electrónico"
-          name="email"
-          required
           ngDefaultControl
-          [(ngModel)]="user.email"
+          formControlName="email"
         ></app-register-input>
         <app-register-input
           iconImg="../../../assets/img/lock-icon.png"
           inputType="password"
           inputPlaceholder="Contraseña"
-          name="password"
-          required
           ngDefaultControl
-          [(ngModel)]="user.password"
+          formControlName="password"
         ></app-register-input>
         <app-register-input
           iconImg="../../../assets/img/lock-icon.png"
           inputType="password"
           inputPlaceholder="Confirmar contraseña"
-          name = "passwordConfirm"
-          required
           ngDefaultControl
-          [(ngModel)]="user.passwordConfirm"
+          formControlName="passwordConfirm"
         ></app-register-input>
 
         <div class="terminos-grup">
           <label for="terminos">
             <input
               type="checkbox"
-              name="terminos"
-              required
               ngDefaultControl
-              [(ngModel)]="user.terminos"
+              id="terminos"
+              formControlName="terminos"
             />
             He leído y acepto los <b>términos y condiciones</b>
           </label>
         </div>
 
-        <button [disabled]="formRegister.invalid" type="submit">Registrarse</button>
+        <div class="alert-danger">
+          <div
+            class="container-error-message"
+            *ngIf="name?.invalid && (name?.dirty || name?.touched)"
+          >
+            Favor de ingresar su Nombre
+          </div>
+          <div
+            class="container-error-message"
+            *ngIf="email?.invalid && (email?.dirty || email?.touched)"
+          >
+            Correo electrónico no valido
+          </div>
+          <div
+            class="container-error-message"
+            *ngIf="
+              (password?.invalid || passwordConfirm?.invalid) &&
+              (password?.dirty ||
+                passwordConfirm?.dirty ||
+                password?.touched ||
+                passwordConfirm?.touched)
+            "
+          >
+            Las contraseñas no coinciden
+          </div>
+          <div
+            class="container-error-message"
+            *ngIf=" password?.errors?.['minlength'] &&
+              (password?.dirty || password?.touched)
+            "
+          >
+            La contraseña debe tener mínimo 6 caracteres
+          </div>
+          <div
+            class="container-error-message"
+            *ngIf="terminos?.invalid && (terminos?.dirty || terminos?.touched)"
+          >
+            Favor de aceptar los términos y condiciones
+          </div>
+        </div>
 
+        <button type="submit" [disabled]="!registerForm.valid">
+          Registrarse
+        </button>
       </form>
 
       <div class="cuentas-question">

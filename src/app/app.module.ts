@@ -22,7 +22,7 @@ import { RecentProjectsPageComponent } from './pages/recent-projects-page/recent
 import { AngularFireModule } from "@angular/fire/compat";
 import { environment } from 'src/environments/environment';
 import { FormsModule } from '@angular/forms';
-
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -47,6 +47,7 @@ import { FormsModule } from '@angular/forms';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig)
   ],
   providers: [],
