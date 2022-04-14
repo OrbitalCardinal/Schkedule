@@ -1,64 +1,138 @@
 <!-- <p>register works!</p> -->
 <!-- <html> -->
-  <div class="container">
-    <div class="register-container">
-      <div class="register-container-left">
-        <div class="register-container-titulos">
-          <h2>Bienvenido</h2>
-          <p class="subtitle">Regístrate para empezar</p>
-        </div>
+<div class="container">
+  <div class="register-container">
+    <div class="register-container-left">
+      <div class="register-container-titulos">
+        <h2>Bienvenido</h2>
+        <p class="subtitle">Regístrate para empezar</p>
+      </div>
 
+      <form [formGroup]="registerForm" (ngSubmit)="CheckIn()">
         <app-register-input
           iconImg="../../../assets/img/user-icon.png"
           inputType="text"
           inputPlaceholder="Nombre Completo"
+          ngDefaultControl
+          formControlName="name"
         ></app-register-input>
 
         <div class="radiobuttons-grup">
           <img src="../../../assets/img/briefcase 1.png" />
           <span>Estatus</span>
           <label>
-            <input type="radio" name="estatus" checked /> Estudiante
+            <input
+              type="radio"
+              name="estatus"
+              value="Estudiante"
+              ngDefaultControl
+              formControlName="estatus"
+            />
+            Estudiante
           </label>
-          <label> <input type="radio" name="estatus" /> Trabajador </label>
+          <label>
+            <input
+              type="radio"
+              name="estatus"
+              value="Trabajador"
+              ngDefaultControl
+              formControlName="estatus"
+            />
+            Trabajador
+          </label>
         </div>
 
         <app-register-input
           iconImg="../../../assets/img/email-icon.png"
           inputType="email"
           inputPlaceholder="Correo electrónico"
+          ngDefaultControl
+          formControlName="email"
         ></app-register-input>
         <app-register-input
           iconImg="../../../assets/img/lock-icon.png"
           inputType="password"
           inputPlaceholder="Contraseña"
+          ngDefaultControl
+          formControlName="password"
         ></app-register-input>
         <app-register-input
           iconImg="../../../assets/img/lock-icon.png"
           inputType="password"
           inputPlaceholder="Confirmar contraseña"
+          ngDefaultControl
+          formControlName="passwordConfirm"
         ></app-register-input>
 
         <div class="terminos-grup">
           <label for="terminos">
-            <input type="checkbox" name="terminos" id="" />
+            <input
+              type="checkbox"
+              ngDefaultControl
+              id="terminos"
+              formControlName="terminos"
+            />
             He leído y acepto los <b>términos y condiciones</b>
           </label>
         </div>
 
-        <button class="">Registrarse</button>
-
-        <div class="cuentas-question">
-          <p>
-            ¿Ya tienes una cuenta? <a href="../login"><b>Iniciar sesión</b></a>
-          </p>
+        <div class="alert-danger">
+          <div
+            class="container-error-message"
+            *ngIf="name?.invalid && (name?.dirty || name?.touched)"
+          >
+            Favor de ingresar su Nombre
+          </div>
+          <div
+            class="container-error-message"
+            *ngIf="email?.invalid && (email?.dirty || email?.touched)"
+          >
+            Correo electrónico no valido
+          </div>
+          <div
+            class="container-error-message"
+            *ngIf="
+              (password?.invalid || passwordConfirm?.invalid) &&
+              (password?.dirty ||
+                passwordConfirm?.dirty ||
+                password?.touched ||
+                passwordConfirm?.touched)
+            "
+          >
+            Las contraseñas no coinciden
+          </div>
+          <div
+            class="container-error-message"
+            *ngIf=" password?.errors?.['minlength'] &&
+              (password?.dirty || password?.touched)
+            "
+          >
+            La contraseña debe tener mínimo 6 caracteres
+          </div>
+          <div
+            class="container-error-message"
+            *ngIf="terminos?.invalid && (terminos?.dirty || terminos?.touched)"
+          >
+            Favor de aceptar los términos y condiciones
+          </div>
         </div>
-      </div>
 
-      <div class="register-container-right">
-        <img src="../../../assets/img/organization-blue-icon.png" alt="" />
-        <p><b>Schkedule</b></p>
+        <button type="submit" [disabled]="!registerForm.valid">
+          Registrarse
+        </button>
+      </form>
+
+      <div class="cuentas-question">
+        <p>
+          ¿Ya tienes una cuenta? <a href="../login"><b>Iniciar sesión</b></a>
+        </p>
       </div>
     </div>
+
+    <div class="register-container-right">
+      <img src="../../../assets/img/organization-blue-icon.png" alt="" />
+      <p><b>Schkedule</b></p>
+    </div>
   </div>
+</div>
 <!-- </html> -->
