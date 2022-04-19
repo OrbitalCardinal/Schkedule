@@ -1,5 +1,6 @@
 .back-arrow {
     width: 20px;
+    height: 20px;
     padding-right: 10px;
 }
 
@@ -9,6 +10,24 @@
 
 .title {
     display: flex;
+    align-items: center;
+    input {
+        font-size: 16pt;
+        padding: 0.5em;
+        font-weight: bold;
+        outline: none;
+        border: none;
+        color: #0B7EAF;
+        // user-select: none;
+        // -moz-user-select: none;
+        // -webkit-user-select: none;
+        // -ms-user-select: none;
+    }
+
+    .enabledInput {
+        border: 2px solid #F4BE37;
+    }
+
 }
 
 .task-table {
@@ -24,6 +43,7 @@
         td {
             padding: 0.7em 0em;
         }
+        
     }
 
     .task-table__element {
@@ -32,6 +52,25 @@
         td {
             padding: 0.7em 0em;
         }
+
+        input {
+            font-size: 12pt;
+            padding: 1em;
+            width: 90%;
+            font-weight: bold;
+            outline: none;
+            border: none;
+            color: #0B7EAF;
+            // user-select: none;
+            // -moz-user-select: none;
+            // -webkit-user-select: none;
+            // -ms-user-select: none;
+        }
+
+        .enabledInput {
+            border: 2px solid #F4BE37;
+        }
+
     }
 
     .actions__icon {

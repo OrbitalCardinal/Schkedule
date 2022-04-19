@@ -6,11 +6,9 @@
 </div>
 
 <div class="recent-projects">
-    <activity-card></activity-card>
-    <activity-card></activity-card>
-    <activity-card></activity-card>
-    <activity-card></activity-card>
-    <activity-card></activity-card>
+    <activity-card [title]="recent.title" 
+                   [last_modified]="recent.last_modified"
+                   *ngFor="let recent of recentTest"></activity-card>
 </div>
 
 <router-outlet></router-outlet>

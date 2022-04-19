@@ -7,6 +7,28 @@ import { Component } from "@angular/core";
 })
 
 export class RecentProjectsPageComponent {
+    recentTest = [
+        {
+            'title': 'Proyect Integrador 1',
+            'last_modified': '12/12/12'
+        },
+        {
+            'title': 'Proyect Integrador 2',
+            'last_modified': '12/12/12'
+        },
+        {
+            'title': 'Proyect Integrador 3',
+            'last_modified': '12/12/12'
+        },
+        {
+            'title': 'Proyect Integrador 4',
+            'last_modified': '12/12/12'
+        },
+        {
+            'title': 'Proyect Integrador 5',
+            'last_modified': '12/12/12'
+        },
+    ]
     test() {
         console.log("TEST")
     }
