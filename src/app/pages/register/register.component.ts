@@ -47,17 +47,20 @@ export class RegisterComponent implements OnInit {
       const email = this.registerForm.value['email']
       const password = this.registerForm.value['password']
 
-      console.log(email, password)
       this.authService.register(email, password).then(res => {
 
         if (res === null) {
-          Swal.fire('','Error al registrar usuario','error')
+          Swal.fire('', 'Error al registrar usuario', 'error')
         } else {
+
           console.log("Respuesta:", res)
+          const uid = res?.user?.uid || "";
+
+          this.AddUserDataInRealtimeDatabase(uid);
           Swal.fire('¡Gracias!', '¡Usuario registrado correctamente!', 'success')
         }
-
       });
+
     } else {
       console.log('Error, form no valido')
     }
@@ -65,6 +68,43 @@ export class RegisterComponent implements OnInit {
 
   onResetForm() {
     this.registerForm.reset();
+  }
+
+  AddUserDataInRealtimeDatabase(uid: string) {
+
+    const url_api = "https://schkedule-default-rtdb.firebaseio.com/";
+    const date: Date = new Date();
+
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    myHeaders.append("Access-Control-Allow-Origin", "*");
+    myHeaders.append("Access-Control-Allow-Methods", "DELETE, POST, GET, OPTIONS");
+    myHeaders.append("Access-Control-Allow-Headers", "Content-Type, Authorization, X-Requested-With");
+
+    const data = {
+      correo_vinculado: this.registerForm.value['email'],
+      exp: 0,
+      fecha_registro: date,
+      id_usuario: uid,
+      nivel: 0,
+      nombre_completo: this.registerForm.value['name'],
+      premium: false,
+      estatus: this.registerForm.value['estatus'],
+      terminos: this.registerForm.value['terminos'],
+    }
+
+    let params: RequestInit = {
+      method: 'POST',
+      headers: myHeaders,
+      body: JSON.stringify(data),
+      redirect: 'follow'
+    };
+
+    fetch(`${url_api}usuarios.json`, params)
+      .then(response => response.text())
+      .then(result => console.log(result))
+      .catch(error => console.log('error', error));
+
   }
 
 }
