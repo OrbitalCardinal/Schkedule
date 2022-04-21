@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CustomValidators } from '../../providers/custom-validators';
+import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 
 
@@ -34,7 +35,7 @@ export class RegisterComponent implements OnInit {
   get estatus() { return this.registerForm.get('estatus'); }
   get terminos() { return this.registerForm.get('terminos'); }
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService, private router: Router) {
     this.registerForm = this.createFormGroup();
   }
 
@@ -102,7 +103,13 @@ export class RegisterComponent implements OnInit {
 
     fetch(`${url_api}usuarios.json`, params)
       .then(response => response.text())
-      .then(result => console.log(result))
+      .then((result) => {
+        // Save in local storage user info
+        localStorage.setItem('user', JSON.stringify(data))
+        console.log(result)
+        this.router.navigate(['/mainpage/home']);
+        
+      })
       .catch(error => console.log('error', error));
 
   }

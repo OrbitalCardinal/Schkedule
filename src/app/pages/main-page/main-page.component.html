@@ -23,7 +23,10 @@
                 <img src="assets/img/search-gray-icon.png" alt="">
                 <input type="text" placeholder="Buscar en Schkedule">
             </div>
-            <img src="assets/img/account-blue-icon.png">
+            <div class="account-option">
+                <span> {{userData.nombre_completo}}</span>
+                <img src="assets/img/account-blue-icon.png">
+            </div>
         </div>
         <div class="content">
             <router-outlet></router-outlet>
