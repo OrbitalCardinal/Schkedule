@@ -15,7 +15,6 @@ import { NewProjectPageComponent } from './pages/new-project-page/new-project-pa
 import { RecentProjectsPageComponent } from './pages/recent-projects-page/recent-projects-page.component';
 
 const routes: Routes = [
-    {path: '', redirectTo:'/home', pathMatch: 'full'},
     { path: '', component: LandingComponent},
     { path: 'register', component: RegisterComponent},
     { path: 'login', component: LoginComponent},
