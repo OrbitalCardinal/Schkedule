@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth'
 
+import { first } from 'rxjs';
+
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-
-  constructor(private auth: AngularFireAuth) {
+  constructor(public auth: AngularFireAuth) {
 
   }
 
@@ -23,13 +24,20 @@ export class AuthService {
 
   async login(email: string, password: string) {
     try {
-
       return await this.auth.signInWithEmailAndPassword(email, password)
 
     } catch (error) {
-      console.log("Error: ", error)
+      console.log(error)
       return null
     }
   }
+
+  async logout () {
+    try{
+      await this.auth.signOut();
+  }catch(error){console.log(error)}
+  }
+
+
 
 }
