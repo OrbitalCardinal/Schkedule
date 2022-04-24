@@ -1,34 +1,42 @@
 <!-- <p>login works!</p> -->
 <div class="container">
-  <div class="register-container">
-    <div class="register-container-left">
-      <div class="register-container-titulos">
+  <div class="login-container">
+    <div class="login-container-left">
+      <div class="login-container-titulos">
         <h2>Bienvenido de nuevo</h2>
         <p class="subtitle">Ingresa tus datos para comenzar</p>
       </div>
+<form [formGroup]="loginForm" (ngSubmit)= "onLogin()">
 
-      <app-register-input
-        iconImg="../../../assets/img/email-icon.png"
-        inputType="email"
-        inputPlaceholder="Correo electrónico"
-      ></app-register-input>
-      <app-register-input
-        iconImg="../../../assets/img/lock-icon.png"
-        inputType="password"
-        inputPlaceholder="Contraseña"
-      ></app-register-input>
+  <app-register-input
+  iconImg="../../../assets/img/email-icon.png"
+  inputType="email"
+  inputPlaceholder="Correo electrónico"
+  ngDefaultControl
+  formControlName="email"
+></app-register-input>
+<app-register-input
+  iconImg="../../../assets/img/lock-icon.png"
+  inputType="password"
+  inputPlaceholder="Contraseña"
+  ngDefaultControl
+  formControlName="password"
+></app-register-input>
 
-      <button class="">Iniciar sesión</button>
+
+      <button type="submit">Iniciar Sesión</button>
+    </form>
+
       <button class="">¿Olvidaste tu contraseña?</button>
 
       <div class="cuentas-question">
         <p>
-          ¿No tienes una cuenta? <a href="../register"><b>Regístrate</b></a>
+          ¿No tienes una cuenta? <a href="../register/"><b>Regístrate</b></a>
         </p>
       </div>
     </div>
 
-    <div class="register-container-right">
+    <div class="login-container-right">
       <img src="../../../assets/img/organization-blue-icon.png" alt="" />
       <p><b>Schkedule</b></p>
     </div>

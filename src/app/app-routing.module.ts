@@ -15,6 +15,7 @@ import { NewProjectPageComponent } from './pages/new-project-page/new-project-pa
 import { RecentProjectsPageComponent } from './pages/recent-projects-page/recent-projects-page.component';
 
 const routes: Routes = [
+    {path: '', redirectTo:'/home', pathMatch: 'full'},
     { path: '', component: LandingComponent},
     { path: 'register', component: RegisterComponent},
     { path: 'login', component: LoginComponent},
@@ -27,7 +28,7 @@ const routes: Routes = [
         ]},
         { path: 'kanban', component: KanbanPageComponent },
         { path: 'gantt', component: GanttPageComponent },
-        { path: 'schedule', component: SchedulePageComponent }, 
+        { path: 'schedule', component: SchedulePageComponent },
     ]}
 ];
 

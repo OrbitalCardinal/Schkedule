@@ -23,6 +23,7 @@ import { AngularFireModule } from "@angular/fire/compat";
 import { environment } from 'src/environments/environment';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 
 @NgModule({
   declarations: [
@@ -41,14 +42,15 @@ import { ReactiveFormsModule } from '@angular/forms';
     BlueTitleComponent,
     ActivityCardComponent,
     NewProjectPageComponent,
-    RecentProjectsPageComponent
+    RecentProjectsPageComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    AngularFireModule.initializeApp(environment.firebaseConfig)
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireAuthModule
   ],
   providers: [],
   bootstrap: [AppComponent]
