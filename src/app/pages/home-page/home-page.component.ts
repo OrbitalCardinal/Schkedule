@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component , OnInit } from "@angular/core";
 
 @Component({
     selector: 'home-page',
@@ -6,4 +6,10 @@ import { Component } from "@angular/core";
     styleUrls: ['./home-page.component.scss']
 })
 
-export class HomePageComponent {}
+export class HomePageComponent implements OnInit { 
+    userData = JSON.parse(localStorage.getItem('user')!);
+
+    ngOnInit() {
+        console.log(this.userData);
+    }
+}
