@@ -1,4 +1,5 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
 
 @Component({
     selector: 'new-project-page',
@@ -6,7 +7,19 @@ import { Component } from "@angular/core";
     styleUrls: ['./new-project-page.component.scss']
 })
 
-export class NewProjectPageComponent {
+export class NewProjectPageComponent implements OnInit {
+    constructor(private router: Router) {
+        // console.log(history.state['projectData']);
+    } 
+
+    projectData!: any;
+    tituloProyecto!: string;
+    ngOnInit(): void {
+       this.projectData = history.state['projectData']; 
+       this.tituloProyecto = this.projectData.nombre_proyecto;
+       console.log(this.projectData.nombre_proyecto);
+    }
+
     testList = [
         {
             'no': '1',
@@ -42,7 +55,7 @@ export class NewProjectPageComponent {
     showModal = false;
 
     // TITULO DE PROYECTO
-    tituloProyecto = 'Nuevo proyecto';
+
     editTituloProyecto = true;
 
     addNewTask() {
