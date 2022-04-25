@@ -11,7 +11,7 @@ a:active {
   background-color: white;
 }
 
-.register-container {
+.login-container {
   display              : grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 100vh;
@@ -19,14 +19,14 @@ a:active {
   align-items: center;
 }
 
-.register-container-right {
+.login-container-right {
   display           : grid;
   grid-template-rows: 2fr 1fr;
   row-gap: 30px;
 }
 
 
-.register-container-right img {
+.login-container-right img {
   // width : 200px;
   // height: 200px;
   width : 40%;
@@ -35,25 +35,25 @@ a:active {
   margin: auto;
 }
 
-.register-container-right p {
+.login-container-right p {
   margin     : auto;
   font-weight: 700;
   font-size  : 64px;
   color      : #4AB3E5;
 }
 
-.register-container-titulos h2 {
+.login-container-titulos h2 {
   margin   : 10px 0 0 0;
   font-size: 52px;
 }
 
-.register-container-titulos p {
+.login-container-titulos p {
   margin   : 0 0 10px 0;
   color    : #6D6D6D;
   font-size: 39px;
 }
 
-.register-container-left button {
+.login-container-left button {
   width           : 100%;
   padding         : 12px 20px;
   margin          : 10px 0;
@@ -64,21 +64,21 @@ a:active {
   font-weight     : bold;
 }
 
-.register-container-left .terminos-grup {
+.login-container-left .terminos-grup {
   margin-top: 10px;
   // font-size : 12px;
   font-size : 14px;
   color     : #6D6D6D;
 }
 
-.register-container-left .cuentas-question {
+.login-container-left .cuentas-question {
   // font-size : 12px;
   font-size : 14px;
   color     : #6D6D6D;
   text-align: center;
 }
 
-.register-container-left .radiobuttons-grup {
+.login-container-left .radiobuttons-grup {
   display    : flex;
   align-items: center;
   width      : 100%;
@@ -87,16 +87,16 @@ a:active {
   box-sizing : border-box;
 }
 
-.register-container-left .radiobuttons-grup span {
+.login-container-left .radiobuttons-grup span {
   color : #0B7EAF;
   margin: 10px;
 }
 
-.register-container-left .radiobuttons-grup label {
+.login-container-left .radiobuttons-grup label {
   margin-right: 10px;
 }
 
-.register-container-left .radiobuttons-grup img {
+.login-container-left .radiobuttons-grup img {
   width : 30px;
   height: 28.45px;
   margin: 0 10px 0 10px;

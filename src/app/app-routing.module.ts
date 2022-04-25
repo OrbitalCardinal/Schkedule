@@ -27,7 +27,7 @@ const routes: Routes = [
         ]},
         { path: 'kanban', component: KanbanPageComponent },
         { path: 'gantt', component: GanttPageComponent },
-        { path: 'schedule', component: SchedulePageComponent }, 
+        { path: 'schedule', component: SchedulePageComponent },
     ]}
 ];
 
