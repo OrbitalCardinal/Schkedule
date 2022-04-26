@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
 
 
 @Component({
@@ -17,7 +18,7 @@ export class LoginComponent implements OnInit {
   })
 
 
-constructor(private authSvc: AuthService, private router:Router){}
+constructor(private authSvc: AuthService, private router:Router, private http: HttpClient){}
 
   ngOnInit(): void {
   }
@@ -25,8 +26,15 @@ constructor(private authSvc: AuthService, private router:Router){}
  async onLogin(){
     const {email, password} = this.loginForm.value;
     try{
-     const user =  await this.authSvc.login(email, password);
+     const user: any | undefined =  await this.authSvc.login(email, password);
      if(user){
+         console.log(user);
+         let id_usuario = user['user']['uid'];
+         this.http.get(`https://schkedule-default-rtdb.firebaseio.com/usuarios.json?orderBy="id_usuario"&equalTo="${id_usuario}"`).subscribe(response => {
+             let userData = Object.values(response)[0];
+             console.log(userData);
+             localStorage.setItem('user', JSON.stringify(userData));
+         })
       //Redirecciona a la homepage
       this.router.navigate(['/mainpage/home']);
      }
