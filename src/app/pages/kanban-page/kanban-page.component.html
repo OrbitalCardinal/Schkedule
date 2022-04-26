@@ -1,1 +1,19 @@
-<h1>Kanban page</h1>
+<blue-title>Nuevo tablero Kanban</blue-title>
+
+<div class="Kanban-container">
+  <div class="Kanban-section" *ngFor="let Section of this.kanbanBoard.sections">
+    <div class="Kanban-section--header">
+      {{ Section.kanbanSectionName }}
+    </div>
+
+      <app-kanban-task-card *ngFor="let Task of Section.tasks"></app-kanban-task-card>
+
+      <div class="Kanban-section--footer">
+        + Añadir elemento
+      </div>
+  </div>
+
+  <button class="Kanban-btn--addSection">+</button>
+</div>
+
+<router-outlet></router-outlet>

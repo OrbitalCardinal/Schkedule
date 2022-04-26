@@ -25,6 +25,7 @@ import { AngularFireModule } from "@angular/fire/compat";
 import { environment } from 'src/environments/environment';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { KanbanTaskCardComponent } from './components/kanban-task-card/kanban-task-card.component';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 
 @NgModule({
@@ -46,6 +47,7 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
     ActivityCardComponent,
     NewProjectPageComponent,
     RecentProjectsPageComponent,
+    KanbanTaskCardComponent
     ForgotPasswordComponent
   ],
   imports: [
