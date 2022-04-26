@@ -1,0 +1,52 @@
+.Kanban-container {
+  display   : flex;
+  padding   : 0;
+  margin    : 20px 0 0 0;
+  overflow-x: auto;
+  width: 82vw;
+}
+
+.Kanban-section {
+  display         : block;
+  height          : fit-content;
+  flex            : 0 0 345px;
+  margin          : 0 10px;
+  padding         : 10px;
+  border-radius   : 4px;
+  background-color: #E5E5E5;
+  box-sizing      : border-box;
+  white-space     : nowrap;
+}
+
+.Kanban-section--header {
+  color      : #0B7EAF;
+  font-size  : 18px;
+  font-weight: 500;
+}
+
+.Kanban-section--footer {
+  margin-top : 15px;
+  color      : #0B7EAF;
+  font-size  : 18px;
+  font-weight: 800;
+}
+
+.Kanban-section--footer:hover {
+  font-size: 20px;
+  cursor   : pointer;
+}
+
+.Kanban-btn--addSection {
+  height          : 47px;
+  flex            : 0 0 47px;
+  border          : 0;
+  box-sizing      : border-box;
+  background-color: #0B7EAF;
+  color           : #ffffff;
+  font-weight     : bold;
+  font-size: 35px;
+}
+
+.Kanban-btn--addSection:hover{
+  cursor: pointer;
+}
