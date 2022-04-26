@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 // Pages
 import { RegisterComponent } from './pages/register/register.component';
 import { LoginComponent } from './pages/login/login.component';
+import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
 import { MainPageComponent } from './pages/main-page/main-page.component';
 import { ProjectPageComponent } from './pages/project-page/project-page.component';
 import { KanbanPageComponent } from './pages/kanban-page/kanban-page.component';
@@ -18,6 +19,7 @@ const routes: Routes = [
     { path: '', component: LandingComponent},
     { path: 'register', component: RegisterComponent},
     { path: 'login', component: LoginComponent},
+    { path: 'forgot-password', component: ForgotPasswordComponent},
     { path: 'mainpage', component: MainPageComponent, children: [
         { path: 'home', component: HomePageComponent },
         { path: 'project', component: ProjectPageComponent, children: [
@@ -27,7 +29,7 @@ const routes: Routes = [
         ]},
         { path: 'kanban', component: KanbanPageComponent },
         { path: 'gantt', component: GanttPageComponent },
-        { path: 'schedule', component: SchedulePageComponent }, 
+        { path: 'schedule', component: SchedulePageComponent },
     ]}
 ];
 
