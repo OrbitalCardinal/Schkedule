@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
-import { Router } from "@angular/router";
+import { ActivatedRoute } from "@angular/router";
+import { HttpClient } from '@angular/common/http';
 
 @Component({
     selector: 'new-project-page',
@@ -8,49 +9,49 @@ import { Router } from "@angular/router";
 })
 
 export class NewProjectPageComponent implements OnInit {
-    constructor(private router: Router) {
-        // console.log(history.state['projectData']);
-    } 
 
-    projectData!: any;
-    tituloProyecto!: string;
-    ngOnInit(): void {
-       this.projectData = history.state['projectData']; 
-       this.tituloProyecto = this.projectData.nombre_proyecto;
-       console.log(this.projectData.nombre_proyecto);
+    projectId: string = '';
+    tituloProyecto = '';
+    projectData: any;
+    isLoading = true;
+    testList: any[] = [];
+
+    editCellListNombre: any[] = [];
+
+    editCellListEstatus: any [] = [];
+
+    editCellListCategoria: any[] = [];
+
+    constructor(private activatedRoute: ActivatedRoute, private http: HttpClient ) {} 
+
+
+    ngOnInit() {
+        this.activatedRoute.queryParams
+        .subscribe(params => {
+            if(Object.keys(params).length > 0) {
+                console.log(params);
+                this.projectId = params['project_id']; 
+                this.http.get(`https://schkedule-default-rtdb.firebaseio.com/proyecto.json?orderBy="$key"&equalTo="${this.projectId}"`).subscribe(result => {
+                this.projectData = result;
+                this.projectData = Object.values(this.projectData)[0];
+                this.tituloProyecto = this.projectData['nombre_proyecto'];
+                console.log(this.projectData)
+                this.isLoading = false;
+                console.log('PROJECT ID: ' + this.projectId);
+
+                this.http.get(`https://schkedule-default-rtdb.firebaseio.com/actividad-proyecto.json?orderBy="id_proyecto"&equalTo="${this.projectId}"`).subscribe(activityResult => {
+                    this.testList = Object.values(activityResult);
+                    for(let i = 0; i < this.testList.length; i++) {
+                        this.editCellListNombre.push(true);
+                        this.editCellListEstatus.push(true);
+                        this.editCellListCategoria.push(true);
+                    }
+                })
+                });
+            }
+        })
+
     }
-
-    testList = [
-        {
-            'no': '1',
-            'nombre': 'Pantalla de estadisticas de USUARIO',
-            'estatus': 'En progeso',
-            'categoria': 'UI',
-            'fecha': '10/10/10'
-        },
-        {
-            'no': '2',
-            'nombre': 'Configuración de rutas',
-            'estatus': 'En progeso',
-            'categoria': 'UI',
-            'fecha': '10/10/10'
-        }
-    ];
-
-    editCellListNombre = [
-        true,
-        true
-    ];
-
-    editCellListEstatus = [
-        true,
-        true
-    ];
-
-    editCellListCategoria = [
-        true,
-        true
-    ];
 
     showModal = false;
 
@@ -67,20 +68,24 @@ export class NewProjectPageComponent implements OnInit {
             lastNo = '0';
         }
         
-        
-        this.testList.push(
-            {
+        let data =  {
                 'no': (parseInt(lastNo) + 1).toString(),
                 'nombre': 'Nueva actividad',
                 'estatus': '',
                 'categoria': '',
-                'fecha': ''
-            },
-        )
+                'fecha': '',
+                'id_proyecto': this.projectId
+            };
+
+        this.testList.push(data);
 
         this.editCellListNombre.push(true);
         this.editCellListEstatus.push(true);
         this.editCellListCategoria.push(true);
+
+        this.http.post(`https://schkedule-default-rtdb.firebaseio.com/actividad-proyecto.json`, data).subscribe(result => {
+            console.log(data);
+        })
     }
 
     deleteTask(no: String) {

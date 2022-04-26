@@ -1,5 +1,6 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
+import { HttpClient } from '@angular/common/http';
 
 @Component({
     selector: 'recent-projects-page',
@@ -7,9 +8,24 @@ import { Router } from "@angular/router";
     styleUrls: ['./recent-projects-page.component.scss']
 })
 
-export class RecentProjectsPageComponent {
-    constructor(private router: Router) {}
+export class RecentProjectsPageComponent implements OnInit {
+
     userData = JSON.parse(localStorage.getItem('user')!);
+    isLoading = true;
+    userProjects: any;
+    userProjectsIds: any;
+
+    constructor(private router: Router, private http: HttpClient) {}
+
+    ngOnInit() {
+        this.http.get(`https://schkedule-default-rtdb.firebaseio.com/proyecto.json?orderBy="id_usuario"&equalTo="${this.userData['id_usuario']}"`).subscribe(result => {
+            this.userProjects = Object.values(result);
+            this.userProjectsIds = Object.keys(result);
+        this.isLoading = false;
+            console.log(this.userProjects);
+        })
+    }
+
     recentTest = [
         {
             'title': 'Proyect Integrador 1',
@@ -57,7 +73,9 @@ export class RecentProjectsPageComponent {
         .then(response => response.text())
         .then(result => {
             console.log(result);
-            this.router.navigate(['/mainpage/project/new-project'], { state: {projectData: data} });
+            this.router.navigate(['/mainpage/project/new-project'], {queryParams: {
+                project_id: JSON.parse(result)['name']
+            }} );
         })
         .catch(error => console.log('error', error));
 

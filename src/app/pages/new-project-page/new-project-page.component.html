@@ -1,42 +1,46 @@
-<div class="title">
-    <img class="back-arrow" src="assets/img/left-arrow-blue.png" routerLink="../">
+<h1 *ngIf="isLoading">Cargando...</h1>
+<div *ngIf="!isLoading">
+    <div class="title">
+        <img class="back-arrow" src="assets/img/left-arrow-blue.png" routerLink="../">
 
-                <input type="text" [(ngModel)]="tituloProyecto" (dblclick)="editTituloProyecto = false" [readonly]="editTituloProyecto" (keyup.enter)="editTituloProyecto = true" [ngClass]="{enabledInput: !editTituloProyecto}">
+                    <input type="text" [(ngModel)]="tituloProyecto" (dblclick)="editTituloProyecto = false" [readonly]="editTituloProyecto" (keyup.enter)="editTituloProyecto = true" [ngClass]="{enabledInput: !editTituloProyecto}">
+    </div>
+
+    <div class="task-table-container">
+        <table class="task-table">
+           <!-- Header --> 
+            <tr class="task-table__header">
+                <td>No.</td>
+                <td>Nombre</td>
+                <td>Estatus</td>
+                <td>Categoría</td>
+                <td>Fecha estimada</td>
+                <td></td>
+            </tr>
+
+            <!-- Elements -->
+            <tr class="task-table__element" *ngFor="let element of testList; let i = index">
+                <td>{{element.no}}.</td>
+                <td>
+                    <input type="text" [(ngModel)]="element.nombre" (dblclick)="editCell(element.no, 'nombre')" [readonly]="editCellListNombre[i]" (keyup.enter)="saveCell()" [ngClass]="{enabledInput: !editCellListNombre[i]}">
+                </td>
+                <td>
+                    <input type="text" [(ngModel)]="element.estatus" (dblclick)="editCell(element.no, 'estatus')" [readonly]="editCellListEstatus[i]" (keyup.enter)="saveCell()" [ngClass]="{enabledInput: !editCellListEstatus[i]}">
+                </td>
+                    <input type="text" [(ngModel)]="element.categoria" (dblclick)="editCell(element.no, 'categoria')" [readonly]="editCellListCategoria[i]" (keyup.enter)="saveCell()" [ngClass]="{enabledInput: !editCellListCategoria[i]}">
+                <td>
+                </td>
+                <td>{{element.fecha}}</td>
+                <td class="actions__cell">
+                    <img class="actions__icon" src="assets/img/delete-red-icon.png" alt="" (click)="deleteTask(element.no)">
+                </td>
+            </tr>
+        </table>
+    </div>
+    <p class="new-task" (click)="addNewTask()">+ Añadir nueva tarea</p>
+
+    <div class="new-task-modal">
+
+    </div>
 </div>
 
-<div class="task-table-container">
-    <table class="task-table">
-       <!-- Header --> 
-        <tr class="task-table__header">
-            <td>No.</td>
-            <td>Nombre</td>
-            <td>Estatus</td>
-            <td>Categoría</td>
-            <td>Fecha estimada</td>
-            <td></td>
-        </tr>
-
-        <!-- Elements -->
-        <tr class="task-table__element" *ngFor="let element of testList; let i = index">
-            <td>{{element.no}}.</td>
-            <td>
-                <input type="text" [(ngModel)]="element.nombre" (dblclick)="editCell(element.no, 'nombre')" [readonly]="editCellListNombre[i]" (keyup.enter)="saveCell()" [ngClass]="{enabledInput: !editCellListNombre[i]}">
-            </td>
-            <td>
-                <input type="text" [(ngModel)]="element.estatus" (dblclick)="editCell(element.no, 'estatus')" [readonly]="editCellListEstatus[i]" (keyup.enter)="saveCell()" [ngClass]="{enabledInput: !editCellListEstatus[i]}">
-            </td>
-                <input type="text" [(ngModel)]="element.categoria" (dblclick)="editCell(element.no, 'categoria')" [readonly]="editCellListCategoria[i]" (keyup.enter)="saveCell()" [ngClass]="{enabledInput: !editCellListCategoria[i]}">
-            <td>
-            </td>
-            <td>{{element.fecha}}</td>
-            <td class="actions__cell">
-                <img class="actions__icon" src="assets/img/delete-red-icon.png" alt="" (click)="deleteTask(element.no)">
-            </td>
-        </tr>
-    </table>
-</div>
-<p class="new-task" (click)="addNewTask()">+ Añadir nueva tarea</p>
-
-<div class="new-task-modal">
-
-</div>
