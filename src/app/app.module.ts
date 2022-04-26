@@ -48,7 +48,7 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
     ActivityCardComponent,
     NewProjectPageComponent,
     RecentProjectsPageComponent,
-    KanbanTaskCardComponent
+    KanbanTaskCardComponent,
     ForgotPasswordComponent
   ],
   imports: [
