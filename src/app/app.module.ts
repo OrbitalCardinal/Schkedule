@@ -13,7 +13,9 @@ import { KanbanPageComponent } from './pages/kanban-page/kanban-page.component';
 import { GanttPageComponent } from './pages/gantt-page/gantt-page.component';
 import { SchedulePageComponent } from './pages/schedule-page/schedule-page.component';
 import { LoginComponent } from './pages/login/login.component';
+import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
 import { LandingComponent } from './pages/landing/landing.component';
+import { LoginInputComponent } from './components/login-input/login-input.component';
 import { RegisterInputComponent } from './components/register-input/register-input.component';
 import { BlueButtonComponent } from './components/blue-button/blue-button.component';
 import { BlueTitleComponent } from './components/blue-title/blue-title.component';
@@ -39,11 +41,13 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
     LoginComponent,
     LandingComponent,
     RegisterInputComponent,
+    LoginInputComponent,
     BlueButtonComponent,
     BlueTitleComponent,
     ActivityCardComponent,
     NewProjectPageComponent,
     RecentProjectsPageComponent,
+    ForgotPasswordComponent
   ],
   imports: [
     BrowserModule,

@@ -38,6 +38,14 @@ export class AuthService {
   }catch(error){console.log(error)}
   }
 
+  async resetPassword(email:string): Promise<void>{
+    try{
+        return this.auth.sendPasswordResetEmail(email);
+    }
+    catch(error){console.log(error)}
+
+  }
+
 
 
 }
