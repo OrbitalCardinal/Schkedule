@@ -6,14 +6,21 @@
       {{ Section.kanbanSectionName }}
     </div>
 
-      <app-kanban-task-card *ngFor="let Task of Section.tasks"></app-kanban-task-card>
+    <app-kanban-task-card
+      *ngFor="let Task of Section.tasks"
+      [kanbanTask] = Task
+    ></app-kanban-task-card>
 
-      <div class="Kanban-section--footer">
-        + Añadir elemento
-      </div>
+    <div (click)="openKanbanModal(Section.id_tarjeta)" class="Kanban-section--footer">
+      + Añadir elemento
+    </div>
   </div>
 
-  <button class="Kanban-btn--addSection">+</button>
+  <button (click)="addKanbanSection()" class="Kanban-btn--addSection">+</button>
 </div>
 
-<router-outlet></router-outlet>
+<div *ngIf="this.modalSwitch == true">
+  <app-kanban-modal> </app-kanban-modal>
+</div>
+
+<!-- <router-outlet></router-outlet> -->

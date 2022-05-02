@@ -1,6 +1,8 @@
 import { KanbanTaskModel } from "../models/kanban-task-model";
 
 export interface KanbanSectionModel {
-   kanbanSectionName: string,
-   tasks: Array<KanbanTaskModel>,
+  id_tarjeta: string,
+  id_tablero: string,
+  kanbanSectionName: string,
+  tasks: Array<KanbanTaskModel>,
 }

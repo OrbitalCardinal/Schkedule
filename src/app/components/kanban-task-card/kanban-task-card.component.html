@@ -1,23 +1,19 @@
 <div class="Kanban-task-card">
   <div class="Kanban-task-priority">
     <span>
-      Baja
+      {{ kanbanTask.priority }}
     </span>
   </div>
   <div class="Kanban-task-description">
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima nulla et, nesciunt dolores odit unde in omnis, nobis explicabo id non? Magni fuga corrupti quibusdam unde in placeat exercitationem voluptates.
+    {{ kanbanTask.kanbanTaskDescription }}
   </div>
   <div class="Kanban-task-tags">
-    <span>Mobile</span>
-    <span>Mobile</span>
-    <span>Web</span>
-    <span>Web</span>
-    <span>Web</span>
-    <span>Web</span>
-    <span>Web</span>
-    <span>Mobile</span>
+    <span
+    *ngFor="let tag of kanbanTask.Tags">
+    {{ tag }}
+  </span>
   </div>
   <div class="Kanban-task-date">
-    Mar 3, 2020
+    {{ kanbanTask.date }}
   </div>
 </div>

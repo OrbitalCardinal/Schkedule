@@ -24,6 +24,7 @@ import { environment } from 'src/environments/environment';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { KanbanTaskCardComponent } from './components/kanban-task-card/kanban-task-card.component';
+import { KanbanModalComponent } from './components/kanban-modal/kanban-modal.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { KanbanTaskCardComponent } from './components/kanban-task-card/kanban-ta
     ActivityCardComponent,
     NewProjectPageComponent,
     RecentProjectsPageComponent,
-    KanbanTaskCardComponent
+    KanbanTaskCardComponent,
+    KanbanModalComponent
   ],
   imports: [
     BrowserModule,
