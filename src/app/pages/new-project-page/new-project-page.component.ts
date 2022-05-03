@@ -128,12 +128,34 @@ export class NewProjectPageComponent implements OnInit {
         }
     }
 
-    saveCell() {
-        console.log(this.testList);
+    saveCell(index: number) {
+        console.log(this.testList[index]);
+        console.log(this.projectData);
+        console.log(this.projectId);
+        this.http.get(`https://schkedule-default-rtdb.firebaseio.com/actividad-proyecto.json?orderBy="id_proyecto"&equalTo="${this.projectId}"`).subscribe(result => {
+            if(Object.keys(result).length > 0) {
+                let objectIndex = Object.values(result).findIndex(elements => elements['id_proyecto'] == this.projectId && elements['no'] == index + 1);
+                console.log(objectIndex);
+                let objectId = Object.keys(result)[objectIndex];
+                this.http.patch(`https://schkedule-default-rtdb.firebaseio.com/actividad-proyecto/${objectId}.json`, this.testList[index]).subscribe(resultPatch => {
+                    console.log(resultPatch);
+                })
+            }
+            
+        })
         for(let i = 0; i < this.editCellListNombre.length; i ++) {
             this.editCellListNombre[i] = true;
             this.editCellListEstatus[i] = true;
             this.editCellListCategoria[i] = true;
         }
     }
+
+    changeProjectName() {
+        this.editTituloProyecto = true;
+        this.projectData['nombre_proyecto'] = this.tituloProyecto;
+        this.http.patch(`https://schkedule-default-rtdb.firebaseio.com/proyecto/${this.projectId}.json`, this.projectData).subscribe(result => {
+            console.log(result);
+        })
+    }
+
 }

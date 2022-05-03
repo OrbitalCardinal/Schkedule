@@ -3,7 +3,7 @@
     <div class="title">
         <img class="back-arrow" src="assets/img/left-arrow-blue.png" routerLink="../">
 
-                    <input type="text" [(ngModel)]="tituloProyecto" (dblclick)="editTituloProyecto = false" [readonly]="editTituloProyecto" (keyup.enter)="editTituloProyecto = true" [ngClass]="{enabledInput: !editTituloProyecto}">
+                    <input type="text" [(ngModel)]="tituloProyecto" (dblclick)="editTituloProyecto = false" [readonly]="editTituloProyecto" (keyup.enter)="changeProjectName()" [ngClass]="{enabledInput: !editTituloProyecto}">
     </div>
 
     <div class="task-table-container">
@@ -22,12 +22,12 @@
             <tr class="task-table__element" *ngFor="let element of testList; let i = index">
                 <td>{{element.no}}.</td>
                 <td>
-                    <input type="text" [(ngModel)]="element.nombre" (dblclick)="editCell(element.no, 'nombre')" [readonly]="editCellListNombre[i]" (keyup.enter)="saveCell()" [ngClass]="{enabledInput: !editCellListNombre[i]}">
+                    <input type="text" [(ngModel)]="element.nombre" (dblclick)="editCell(element.no, 'nombre')" [readonly]="editCellListNombre[i]" (keyup.enter)="saveCell(i)" [ngClass]="{enabledInput: !editCellListNombre[i]}">
                 </td>
                 <td>
-                    <input type="text" [(ngModel)]="element.estatus" (dblclick)="editCell(element.no, 'estatus')" [readonly]="editCellListEstatus[i]" (keyup.enter)="saveCell()" [ngClass]="{enabledInput: !editCellListEstatus[i]}">
+                    <input type="text" [(ngModel)]="element.estatus" (dblclick)="editCell(element.no, 'estatus')" [readonly]="editCellListEstatus[i]" (keyup.enter)="saveCell(i)" [ngClass]="{enabledInput: !editCellListEstatus[i]}">
                 </td>
-                    <input type="text" [(ngModel)]="element.categoria" (dblclick)="editCell(element.no, 'categoria')" [readonly]="editCellListCategoria[i]" (keyup.enter)="saveCell()" [ngClass]="{enabledInput: !editCellListCategoria[i]}">
+                    <input type="text" [(ngModel)]="element.categoria" (dblclick)="editCell(element.no, 'categoria')" [readonly]="editCellListCategoria[i]" (keyup.enter)="saveCell(i)" [ngClass]="{enabledInput: !editCellListCategoria[i]}">
                 <td>
                 </td>
                 <td>{{element.fecha}}</td>
