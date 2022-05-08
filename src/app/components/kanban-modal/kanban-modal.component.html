@@ -1,0 +1,38 @@
+<div class="KanbanModal">
+  <form [formGroup]="KanbanTaskForm">
+  <div class="KanbanModal-body">
+    <button (click)="closeKanbanModal()" class="closeButton">X</button>
+
+      <label for="kanbanTaskDescription">Descripción</label>
+      <!-- <input type="text" name="kanbanTaskDescription" id="kanbanTaskDescription"> -->
+      <textarea
+        name="kanbanTaskDescription"
+        id="kanbanTaskDescription"
+        cols="30"
+        rows="10"
+        ngDefaultControl
+        formControlName="kanbanTaskDescription"
+      ></textarea>
+
+      <label for="Tags">Categoría</label>
+      <input
+        type="text"
+        name="Tags"
+        id="Tags"
+        placeholder="Categoría 1, Categoría 2, ..."
+        ngDefaultControl
+        formControlName="Tags"
+      />
+
+      <label for="priority">Prioridad</label>
+      <select ngDefaultControl formControlName="priority" id="priority">
+        <option>Baja</option>
+        <option>Media</option>
+        <option>Alta</option>
+      </select>
+
+      <button *ngIf="!this.editTask" (click)="addKanbanTask()" class="addButton" [disabled]="!KanbanTaskForm.valid">Añadir</button>
+      <button *ngIf="this.editTask" (click)="addKanbanTask()" class="addButton" [disabled]="!KanbanTaskForm.valid">Modificar</button>
+    </div>
+  </form>
+</div>
