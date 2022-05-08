@@ -56,6 +56,7 @@ import { NewKanbanPageComponent } from './pages/new-kanban-page/new-kanban-page.
     ForgotPasswordComponent,
     RecentKanbanPageComponent,
     NewKanbanPageComponent
+    ForgotPasswordComponent
   ],
   imports: [
     BrowserModule,
