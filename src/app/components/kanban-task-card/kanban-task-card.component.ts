@@ -15,6 +15,7 @@ export class KanbanTaskCardComponent implements OnInit {
     priority: "",
     Tags: [],
     date: "",
+    editTaskKanban: false
   };
 
   constructor() { }

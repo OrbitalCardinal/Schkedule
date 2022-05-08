@@ -5,4 +5,6 @@ export interface KanbanTaskModel {
   priority: string,
   Tags: Array<string>,
   date: string,
+   // Edit Controls
+   editTaskKanban:boolean
 }

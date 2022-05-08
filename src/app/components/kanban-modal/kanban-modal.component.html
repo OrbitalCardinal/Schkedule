@@ -31,7 +31,8 @@
         <option>Alta</option>
       </select>
 
-      <button (click)="addKanbanTask()" class="addButton" [disabled]="!KanbanTaskForm.valid">Añadir</button>
+      <button *ngIf="!this.editTask" (click)="addKanbanTask()" class="addButton" [disabled]="!KanbanTaskForm.valid">Añadir</button>
+      <button *ngIf="this.editTask" (click)="addKanbanTask()" class="addButton" [disabled]="!KanbanTaskForm.valid">Modificar</button>
     </div>
   </form>
 </div>

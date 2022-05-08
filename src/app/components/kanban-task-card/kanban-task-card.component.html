@@ -1,6 +1,8 @@
 <div class="Kanban-task-card">
   <div class="Kanban-task-priority">
-    <span>
+    <span
+    [ngClass]="kanbanTask.priority"
+    >
       {{ kanbanTask.priority }}
     </span>
   </div>

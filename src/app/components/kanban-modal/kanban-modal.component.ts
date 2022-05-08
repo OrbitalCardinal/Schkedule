@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { SwitchKanbanModalService } from 'src/app/services/switch-kanban-modal.service';
 import { KanbanTaskModel } from "../../models/kanban-task-model";
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -10,6 +10,17 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class KanbanModalComponent implements OnInit {
 
+  @Input() kanbanTask: KanbanTaskModel = {
+    id_actividad_kanban: "",
+    id_tarjeta: "",
+    kanbanTaskDescription: "",
+    priority: "",
+    Tags: [],
+    date: "",
+    editTaskKanban: false
+  };
+
+  public editTask: boolean = false;
   public KanbanTaskForm: FormGroup;
 
   constructor(private modalSwitchS: SwitchKanbanModalService) {
@@ -17,6 +28,15 @@ export class KanbanModalComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if (this.kanbanTask != undefined) {
+      if (this.kanbanTask.editTaskKanban == true) {
+        const stringTaks = this.kanbanTask.Tags.reduce((v1, v2) => v1 + ',' + v2)
+        this.KanbanTaskForm.controls['kanbanTaskDescription'].setValue(this.kanbanTask.kanbanTaskDescription);
+        this.KanbanTaskForm.controls['priority'].setValue(this.kanbanTask.priority);
+        this.KanbanTaskForm.controls['Tags'].setValue(stringTaks);
+        this.editTask = true;
+      }
+    }
   }
 
   createFormGroup() {
@@ -42,14 +62,22 @@ export class KanbanModalComponent implements OnInit {
     const localDate = new Date();
     const stringDate = `${MonthDescriptions[localDate.getMonth()]} ${localDate.getDate()}, ${localDate.getFullYear()}`;
     const arrTags = this.KanbanTaskForm.value['Tags'].split(',')
+    let lid_actividad_kanban = ""
+    let lid_tarjeta = ""
+
+    if (this.editTask) {
+      lid_actividad_kanban = this.kanbanTask.id_actividad_kanban;
+      lid_tarjeta = this.kanbanTask.id_tarjeta;
+    }
 
     const KanbanTaskModel: KanbanTaskModel = {
-      id_actividad_kanban: "1",
-      id_tarjeta: "2",
+      id_actividad_kanban: lid_actividad_kanban,
+      id_tarjeta: lid_tarjeta,
       kanbanTaskDescription: this.KanbanTaskForm.value['kanbanTaskDescription'],
       Tags: arrTags,
       priority: this.KanbanTaskForm.value['priority'],
-      date: stringDate
+      date: stringDate,
+      editTaskKanban: this.editTask
     }
 
     this.modalSwitchS.$KanbanTaskModel.emit(KanbanTaskModel)

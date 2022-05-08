@@ -14,6 +14,8 @@ import { HomePageComponent } from './pages/home-page/home-page.component';
 import { LandingComponent } from './pages/landing/landing.component';
 import { NewProjectPageComponent } from './pages/new-project-page/new-project-page.component';
 import { RecentProjectsPageComponent } from './pages/recent-projects-page/recent-projects-page.component';
+import { RecentKanbanPageComponent } from './pages/recent-kanban-page/recent-kanban-page.component';
+import { NewKanbanPageComponent } from './pages/new-kanban-page/new-kanban-page.component';
 
 const routes: Routes = [
     { path: '', component: LandingComponent},
@@ -27,7 +29,13 @@ const routes: Routes = [
             { path: 'new-project', component: NewProjectPageComponent },
             { path: 'recent-projects', component: RecentProjectsPageComponent }
         ]},
-        { path: 'kanban', component: KanbanPageComponent },
+        { path: 'kanban', component: KanbanPageComponent,
+          children: [
+            { path: '', redirectTo: 'recent-kanban', pathMatch: 'full' },
+            { path: 'new-kanban', component: NewKanbanPageComponent },
+            { path: 'recent-kanban', component: RecentKanbanPageComponent }
+          ]
+        },
         { path: 'gantt', component: GanttPageComponent },
         { path: 'schedule', component: SchedulePageComponent },
     ]}

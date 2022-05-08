@@ -5,4 +5,6 @@ export interface KanbanSectionModel {
   id_tablero: string,
   kanbanSectionName: string,
   tasks: Array<KanbanTaskModel>,
+  // Edit Controls
+  editSectionKanban:boolean
 }

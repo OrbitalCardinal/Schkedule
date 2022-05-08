@@ -26,11 +26,10 @@ import { environment } from 'src/environments/environment';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { KanbanTaskCardComponent } from './components/kanban-task-card/kanban-task-card.component';
-<<<<<<< HEAD
 import { KanbanModalComponent } from './components/kanban-modal/kanban-modal.component';
-=======
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
->>>>>>> 06c2cb1f7d86d763ca6c8c33e7bec123b6d21f62
+import { RecentKanbanPageComponent } from './pages/recent-kanban-page/recent-kanban-page.component';
+import { NewKanbanPageComponent } from './pages/new-kanban-page/new-kanban-page.component';
 
 @NgModule({
   declarations: [
@@ -51,13 +50,12 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
     ActivityCardComponent,
     NewProjectPageComponent,
     RecentProjectsPageComponent,
-<<<<<<< HEAD
     KanbanTaskCardComponent,
-    KanbanModalComponent
-=======
-    KanbanTaskCardComponent
-    ForgotPasswordComponent
->>>>>>> 06c2cb1f7d86d763ca6c8c33e7bec123b6d21f62
+    KanbanModalComponent,
+    KanbanTaskCardComponent,
+    ForgotPasswordComponent,
+    RecentKanbanPageComponent,
+    NewKanbanPageComponent
   ],
   imports: [
     BrowserModule,

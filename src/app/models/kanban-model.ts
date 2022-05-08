@@ -4,5 +4,8 @@ export interface KanbanModel {
   id_tablero: string,
   id_usuario: string,
   kanbanName: string,
-  sections: Array<KanbanSectionModel>
+  modifiedAt: string,
+  sections: Array<KanbanSectionModel>,
+  // Edit Controls
+  editTituloKanban: boolean
 }
