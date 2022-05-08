@@ -17,8 +17,20 @@
 
 .Kanban-task-priority span {
   padding         : 4px 8px 4px 8px;
-  background-color: #B8EBB0;
   border-radius   : 20px;
+}
+
+.Baja{
+  background-color: #B8EBB0;
+}
+
+.Media{
+  background-color: #F0CA81;
+}
+
+.Alta{
+  background-color: #DE1D3E;
+  color:  #ffffff;
 }
 
 .Kanban-task-description {
@@ -47,3 +59,5 @@
   color    : #666666;
   font-size: 18px;
 }
+
+

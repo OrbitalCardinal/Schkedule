@@ -1,0 +1,19 @@
+<blue-title>Tableros Kanban recientes</blue-title>
+
+<div class="options-bar">
+  <blue-button (click)="nuevoTableroKanban()" >
+    Nuevo Tablero Kanban
+  </blue-button>
+</div>
+
+<div class="recent-projects">
+  <activity-card
+    [title]="recentKanban.kanbanName"
+    [last_modified]="recentKanban.modifiedAt"
+    (click)="openKanban(recentKanban.id_tablero)"
+    *ngFor="let recentKanban of recentKanbanBoards"
+  >
+  </activity-card>
+</div>
+
+<router-outlet></router-outlet>

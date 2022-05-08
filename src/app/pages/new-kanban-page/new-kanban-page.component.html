@@ -1,0 +1,53 @@
+<!-- <blue-title>{{ this.kanbanBoard[0].kanbanName }}</blue-title> -->
+
+<div class="title">
+  <input
+    type="text"
+    [(ngModel)]="this.kanbanBoard[0].kanbanName"
+    (dblclick)="this.kanbanBoard[0].editTituloKanban = false"
+    [readonly]="this.kanbanBoard[0].editTituloKanban"
+    (keyup.enter)="editKanbanName()"
+    [ngClass]="{ enabledInput: !this.kanbanBoard[0].editTituloKanban }"
+  />
+</div>
+
+<div class="Kanban-container">
+  <div
+    class="Kanban-section"
+    *ngFor="let Section of this.kanbanBoard[0].sections"
+  >
+    <div class="Kanban-section--header">
+      <input
+        type="text"
+        [(ngModel)]="Section.kanbanSectionName"
+        (dblclick)="Section.editSectionKanban = false"
+        [readonly]="Section.editSectionKanban"
+        (keyup.enter)="editSectionName(Section)"
+        [ngClass]="{ enabledInput: !Section.editSectionKanban }"
+      />
+    </div>
+
+    <app-kanban-task-card
+      *ngFor="let Task of Section.tasks"
+      [kanbanTask]="Task"
+      (dblclick)="editKanbanTask(Task)"
+    ></app-kanban-task-card>
+
+    <div
+      (click)="openKanbanModal(Section.id_tarjeta)"
+      class="Kanban-section--footer"
+    >
+      + Añadir elemento
+    </div>
+  </div>
+
+  <button (click)="addKanbanSection()" class="Kanban-btn--addSection">+</button>
+</div>
+
+<div *ngIf="this.modalSwitch == true">
+  <app-kanban-modal
+  [kanbanTask]="this.setTaskKanban[0]"
+  > </app-kanban-modal>
+</div>
+
+<router-outlet></router-outlet>
