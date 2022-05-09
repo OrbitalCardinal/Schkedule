@@ -80,4 +80,12 @@ export class RecentProjectsPageComponent implements OnInit {
         .catch(error => console.log('error', error));
 
     }
+
+    redirectProjectPage(project_id: any) {
+        this.router.navigate([''])
+        console.log(project_id);
+            this.router.navigate(['/mainpage/project/new-project'], {queryParams: {
+                project_id: project_id
+            }} );
+    }
 }

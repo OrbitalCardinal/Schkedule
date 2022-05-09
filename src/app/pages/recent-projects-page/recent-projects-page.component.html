@@ -10,7 +10,7 @@
 <div class="recent-projects" *ngIf="!isLoading">
     <activity-card [title]="project.nombre_proyecto" 
                    [last_modified]="project.fecha_creacion"
-                   [project_id]="userProjectsIds[i]"
+                   (click)="redirectProjectPage(userProjectsIds[i])"
                    *ngFor="let project of userProjects; let i = index"></activity-card>
 </div>
 

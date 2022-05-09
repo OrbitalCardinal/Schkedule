@@ -1,5 +1,34 @@
+<div class="main-container">
+  <div class="right-container"></div>
+  <div [formGroup]="loginForm" class="left-container">
+    <div class="header">
+      <h1 class="title">Hola de nuevo</h1>
+      <h2 class="subtitle">Iniciar sesión para comenzar</h2>
+    </div>
+    <div class="form">
+      <schkedule-input placeHolder="Correo electrónico" icon="fas fa-envelope" ngDefaultControl formControlName="email"></schkedule-input>
+      <schkedule-input placeHolder="Contraseña" icon="fas fa-lock" [isPassword]="true" ngDefaultControl formControlName="password"></schkedule-input>`
+      <p class="forgotPass" (click)="recoverPassword()">¿Olvidaste tu contraseña?</p>
+    </div>
+    <blue-button (click)="onLogin()">Iniciar sesión</blue-button>
+    <div class="cuenta">
+      <p>¿No tienes una cuenta?</p>
+      <b routerLink="/register">Registrate</b>
+    </div>
+  </div>
+</div>
+
 <!-- <p>login works!</p> -->
-<div class="container">
+<!-- <div class="main-container">
+  <div class="left-container">
+    <h1>Bienvenido</h1>
+    <h2>Registrate para empezar</h2>
+    <schkedule-input [placeHolder]="'Nombre completo'" [icon]="'fas fa-user'"></schkedule-input>
+    <schkedule-input [placeHolder]="'Correo electrónico'" [icon]="'fas fa-lock'"></schkedule-input>
+  </div>
+  <div class="right-container"></div>
+</div> -->
+<!-- <div class="container">
   <div class="login-container">
     <div class="login-container-left">
       <div class="login-container-titulos">
@@ -44,4 +73,4 @@
       <p><b>Schkedule</b></p>
     </div>
   </div>
-</div>
+</div> -->

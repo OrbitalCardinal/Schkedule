@@ -18,9 +18,8 @@ export class MainPageComponent implements OnInit {
   async onLogout() {
     try {
       await this.authSvc.logout();
-
       //Redirecciona a la homepage
-      this.router.navigate(['/mainpage/home']);
+      this.router.navigate(['/']);
     } catch (error) {
       console.log(error);
     }
