@@ -4,6 +4,7 @@ import { KanbanSectionModel } from "../../models/kanban-section-model";
 import { KanbanTaskModel } from "../../models/kanban-task-model";
 import { SwitchKanbanModalService } from 'src/app/services/switch-kanban-modal.service';
 import { Router } from '@angular/router';
+import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-new-kanban-page',
