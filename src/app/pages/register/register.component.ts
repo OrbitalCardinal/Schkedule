@@ -9,7 +9,7 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss']
+  styleUrls: ['./new-register.component.scss']
 })
 export class RegisterComponent implements OnInit {
 
@@ -43,7 +43,6 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void { }
 
   CheckIn() {
-
     if (this.registerForm.valid) {
       const email = this.registerForm.value['email']
       const password = this.registerForm.value['password']

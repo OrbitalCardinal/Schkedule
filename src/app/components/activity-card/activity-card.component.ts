@@ -1,4 +1,5 @@
 import { Component, Input } from "@angular/core";
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'activity-card',
@@ -9,4 +10,6 @@ import { Component, Input } from "@angular/core";
 export class ActivityCardComponent {
     @Input() title = '';
     @Input() last_modified = '';
+
+    constructor(private router: Router) {}
 }

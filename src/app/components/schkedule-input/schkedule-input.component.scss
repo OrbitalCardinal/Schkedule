@@ -1,0 +1,40 @@
+.schkedule-input {
+    display: flex;
+    background-color: #F6F6F6;
+    padding: 20px;
+}
+
+i {
+    font-size: 25px;
+    color: #686868;
+    margin-right: 20px;
+}
+
+input {
+    color: #686868;
+    height: 100%;
+    width: 100%;
+    font-size: 20px;
+    font-weight: 500;
+    border: none;
+    outline: none;
+    background-color: #F6F6F6;
+}
+
+.active-input {
+    transition: 0.03s ease-in-out;
+    background-color: white;
+    outline: 3px solid #0B7EAF;
+    
+    i {
+        color: #0B7EAF;
+    }
+
+    input {
+        color: #0B7EAF;
+        background-color: white;
+    }
+}
+
+
+

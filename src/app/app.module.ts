@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
+import { HttpClientModule } from '@angular/common/http';
 
 // Componentes propios
 import { AppComponent } from './app.component';
@@ -30,6 +31,7 @@ import { KanbanModalComponent } from './components/kanban-modal/kanban-modal.com
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { RecentKanbanPageComponent } from './pages/recent-kanban-page/recent-kanban-page.component';
 import { NewKanbanPageComponent } from './pages/new-kanban-page/new-kanban-page.component';
+import { SchkeduleInput } from './components/schkedule-input/schkedule-input.component';
 
 @NgModule({
   declarations: [
@@ -55,8 +57,9 @@ import { NewKanbanPageComponent } from './pages/new-kanban-page/new-kanban-page.
     KanbanTaskCardComponent,
     ForgotPasswordComponent,
     RecentKanbanPageComponent,
-    NewKanbanPageComponent
-    ForgotPasswordComponent
+    NewKanbanPageComponent,
+    ForgotPasswordComponent,
+    SchkeduleInput
   ],
   imports: [
     BrowserModule,
@@ -64,7 +67,8 @@ import { NewKanbanPageComponent } from './pages/new-kanban-page/new-kanban-page.
     FormsModule,
     ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

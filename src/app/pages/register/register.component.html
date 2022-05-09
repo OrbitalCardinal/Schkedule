@@ -1,6 +1,42 @@
 <!-- <p>register works!</p> -->
 <!-- <html> -->
-<div class="container">
+  <div class="main-container">
+    <div [formGroup]="registerForm" class="left-container">
+      <div class="header">
+        <h1 class="title">Bienvenido</h1>
+        <h2 class="subtitle">Registrate para empezar</h2>
+      </div>
+      <schkedule-input [placeHolder]="'Nombre completo'" [icon]="'fas fa-user'" ngDefaultControl formControlName="name"></schkedule-input>
+      <div class="status">
+        <i class="fas fa-briefcase"></i>
+        <p class="status__label">Estatus: </p>
+        <div class="status__option">
+          <input type="radio" value="Estudiante" ngDefaultControl formControlName="estatus">
+          <p>Estudiante</p>
+        </div>
+        <div class="status__option">
+          <input type="radio" value="Trabajador" ngDefaultControl formControlName="estatus">
+          <p>Trabajador</p>
+        </div>
+      </div>
+      <schkedule-input [placeHolder]="'Correo electrónico'" [icon]="'fas fa-envelope'" ngDefaultControl formControlName="email"></schkedule-input>
+      <schkedule-input [placeHolder]="'Contraseña'" [icon]="'fas fa-lock'" [isPassword]="true" ngDefaultControl formControlName="password"></schkedule-input>
+      <schkedule-input [placeHolder]="'Confirmar contraseña'" [icon]="'fas fa-lock'" [isPassword]="true" ngDefaultControl formControlName="passwordConfirm"></schkedule-input>
+      <div class="terms">
+        <input type="checkbox" ngDefaultControl formControlName="terminos"> 
+        <p>He leído y acepto los terminos y condiciones</p>
+      </div>
+
+      <blue-button (click)="CheckIn()">Registrarse</blue-button>
+      <div class="cuenta">
+        <p>Ya tienes una cuenta?</p>
+        <b routerLink="/login">Inicia sesión</b>
+      </div>
+    
+    </div>
+    <div class="right-container"></div>
+  </div>
+<!-- <div class="container">
   <div class="register-container">
     <div class="register-container-left">
       <div class="register-container-titulos">
@@ -134,5 +170,5 @@
       <p><b>Schkedule</b></p>
     </div>
   </div>
-</div>
+</div> -->
 <!-- </html> -->

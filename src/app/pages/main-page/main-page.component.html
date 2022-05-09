@@ -1,5 +1,80 @@
 <div class="main-container">
     <div class="navbar">
+        <div class="navbar__upper">
+            <div class="navbar__logo">
+                <img src="assets/img/new-logo.png" alt="">
+            </div>
+            <div class="navbar__item" routerLink="home" [routerLinkActive]="['route-active']">
+                <div class="navbar__item-icon">
+                    <i class="fas fa-house"></i>
+                </div>
+                <p>Inicio</p>
+            </div>
+            <div class="navbar__item" routerLink="search" [routerLinkActive]="['route-active']">
+                <div class="navbar__item-icon">
+                    <i class="fas fa-search"></i>
+                </div>
+                <p>Buscar</p>
+            </div>
+            <div class="navbar__section">Herramientas</div>
+            <div class="navbar__item" routerLink="project" [routerLinkActive]="['route-active']">
+                <div class="navbar__item-icon">
+                    <i class="fas fa-clipboard"></i>
+                </div>
+                <p>Proyecto</p>
+            </div>
+            <div class="navbar__item" routerLink="kanban" [routerLinkActive]="['route-active']">
+                <div class="navbar__item-icon">
+                    <img src="assets/img/kanban-icon.svg" id="kanban">
+                </div>
+                <p>Kanban</p>
+            </div>
+            <div class="navbar__item" routerLink="gantt" [routerLinkActive]="['route-active']">
+                <div class="navbar__item-icon">
+                    <i class="fas fa-chart-gantt"></i>
+                </div>
+                <p>Gantt</p>
+            </div>
+            <div class="navbar__item" routerLink="schedule" [routerLinkActive]="['route-active']">
+                <div class="navbar__item-icon">
+                    <i class="fas fa-calendar-days"></i>
+                </div>
+                <p>Horario</p>
+            </div>
+            <div class="navbar__section">Personal</div>
+            <div class="navbar__item" [routerLinkActive]="['route-active']">
+                <div class="navbar__item-icon">
+                    <i class="fas fa-money-bill"></i>
+                </div>
+                <p>Suscripción</p>
+            </div>
+            <div class="navbar__item">
+                <div class="navbar__item-icon">
+                    <i class="fas fa-gear"></i>
+                </div>
+                <p>Configuración</p>
+            </div>
+        </div>
+        <div class="navbar__lower">
+            <div class="navbar__user">
+                <div class="navbar__item-icon">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="username">{{userData.nombre_completo}}</div>
+                <i class="fa-solid fa-arrow-right-from-bracket" id="logout" (click)="onLogout()"></i>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="content">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</div>
+
+<!-- <div class="main-container">
+    <div class="navbar">
         <div routerLink="home" [routerLinkActive]="['route-active']" class="navbar-item navbar-logo">
             <img class="navbar-item__icon" id="navbar-logo" src="/assets/img/organization-blue-icon.png">
         </div>
@@ -25,7 +100,8 @@
             </div>
             <div class="account-option">
                 <a class="logout" href="#" (click)="onLogout()">Cerrar sesión</a>
-                <span> {{userData.nombre_completo}}</span>
+                <span> / </span>
+                <b> {{userData.nombre_completo}}</b>
                 <img src="assets/img/account-blue-icon.png">
             </div>
         </div>
@@ -33,5 +109,5 @@
             <router-outlet></router-outlet>
         </div>
     </div>
-</div>
+</div> -->
 

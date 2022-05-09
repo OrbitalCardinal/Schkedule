@@ -12,9 +12,16 @@
             ul{
                 display: flex;
                 justify-content: space-between;
+                align-items: center;
+
+                img {
+                    width: 200px;    
+                }
+
                 li{
                     display: flex;
                     align-items: center;
+
                     span{
                         color: #0B7EAF;
                         font-size: 2em;
@@ -117,5 +124,18 @@
             
             }
         }
+    }
+}
+
+// Nuevo
+
+.navbar__items {
+    width: 20%;
+    display: flex;
+    justify-content: space-between;
+    font-weight: 500;
+    a {
+        text-decoration: none;
+        color: #0B7EAF;
     }
 }

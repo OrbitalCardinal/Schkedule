@@ -1,14 +1,17 @@
 <blue-title>Proyecto recientes</blue-title>
 
 <div class="options-bar">
-    <blue-button (click)="test()" routerLink="../new-project">Nuevo proyecto</blue-button>
+    <blue-button (click)="newProject()" routerLink="../new-project">Nuevo proyecto</blue-button>
     <h2>Fecha</h2>
 </div>
 
-<div class="recent-projects">
-    <activity-card [title]="recent.title" 
-                   [last_modified]="recent.last_modified"
-                   *ngFor="let recent of recentTest"></activity-card>
+<div *ngIf="isLoading">Cargando...</div>
+
+<div class="recent-projects" *ngIf="!isLoading">
+    <activity-card [title]="project.nombre_proyecto" 
+                   [last_modified]="project.fecha_creacion"
+                   (click)="redirectProjectPage(userProjectsIds[i])"
+                   *ngFor="let project of userProjects; let i = index"></activity-card>
 </div>
 
 <router-outlet></router-outlet>
