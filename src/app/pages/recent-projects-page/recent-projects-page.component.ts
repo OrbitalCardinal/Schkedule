@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
 @Component({
     selector: 'recent-projects-page',
     templateUrl: './recent-projects-page.component.html',
-    styleUrls: ['./recent-projects-page.component.scss']
+    styleUrls: ['./recent-projects-page.component.scss', '../global-pages-styles/top-bar-styles.scss']
 })
 
 export class RecentProjectsPageComponent implements OnInit {
@@ -15,7 +15,7 @@ export class RecentProjectsPageComponent implements OnInit {
     userProjects: any;
     userProjectsIds: any;
 
-    constructor(private router: Router, private http: HttpClient) {}
+    constructor(public router: Router, private http: HttpClient) {}
 
     ngOnInit() {
         this.http.get(`https://schkedule-default-rtdb.firebaseio.com/proyecto.json?orderBy="id_usuario"&equalTo="${this.userData['id_usuario']}"`).subscribe(result => {
@@ -81,11 +81,36 @@ export class RecentProjectsPageComponent implements OnInit {
 
     }
 
-    redirectProjectPage(project_id: any) {
+    public redirectProjectPage = (project_id: any) => {
         this.router.navigate([''])
         console.log(project_id);
             this.router.navigate(['/mainpage/project/new-project'], {queryParams: {
                 project_id: project_id
             }} );
     }
+
+    formatDate(date: Date) {
+        let tDate = new Date(date);
+        let year = tDate.getUTCFullYear();
+        let month:any = parseInt(tDate.getUTCMonth().toString()) + 1;
+        let day:any = tDate.getUTCDate();
+        let hours: any = tDate.getHours();
+        let minutes: any = tDate.getMinutes();
+        if(hours < 9) {
+            hours = '0' + hours;
+        }
+        if(minutes < 9) {
+            minutes = '0' + minutes;
+        }
+        if(month < 10) {
+            month = '0' + month.toString();
+        }
+        if(day < 10) {
+            day = '0' + day;
+        }
+        let time =  hours + ':' + minutes;
+        let newDate = year + '/' + month + '/' + day + ' ' + time;
+        return newDate;
+    }
+
 }
