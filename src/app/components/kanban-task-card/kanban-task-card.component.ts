@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { KanbanTaskModel } from "../../models/kanban-task-model";
+import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-kanban-task-card',
@@ -15,7 +16,8 @@ export class KanbanTaskCardComponent implements OnInit {
     priority: "",
     Tags: [],
     date: "",
-    editTaskKanban: false
+    editTaskKanban: false,
+    deleteTaskKanban: false
   };
 
   constructor() { }

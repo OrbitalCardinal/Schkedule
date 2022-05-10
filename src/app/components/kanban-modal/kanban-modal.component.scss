@@ -18,6 +18,21 @@
   left            : 0;
 }
 
+.KanbanModal-header{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin-bottom: 5px;
+
+  button{
+    justify-self: end;
+  }
+
+  img{
+    justify-self: start;
+  }
+
+}
+
 .KanbanModal-body label {
   color      : #0B7EAF;
   font-weight: 700;
@@ -66,3 +81,12 @@ button{
   justify-self: end;
 }
 
+.Kanban-task--delete {
+  width: 25px;
+  justify-self: right;
+  margin-right: 5px;
+
+  &:hover {
+    cursor: pointer;
+  }
+}

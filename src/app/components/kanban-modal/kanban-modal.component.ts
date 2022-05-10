@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { SwitchKanbanModalService } from 'src/app/services/switch-kanban-modal.service';
 import { KanbanTaskModel } from "../../models/kanban-task-model";
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-kanban-modal',
@@ -17,7 +18,8 @@ export class KanbanModalComponent implements OnInit {
     priority: "",
     Tags: [],
     date: "",
-    editTaskKanban: false
+    editTaskKanban: false,
+    deleteTaskKanban: false
   };
 
   public editTask: boolean = false;
@@ -56,7 +58,23 @@ export class KanbanModalComponent implements OnInit {
     this.modalSwitchS.$switchModal.emit(false);
   }
 
-  public addKanbanTask() {
+  public showConfirmMessage() {
+    Swal.fire({
+      title: '¿Estas seguro(a)?',
+      text: "¡No podrás revertir esto!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: '¡Sí, bórralo!'
+    }).then((result) => {
+      if (result.isConfirmed){
+        this.sendData(result.isConfirmed);
+      }
+    })
+  }
+
+  public sendData(flagDelete: boolean) {
 
     const MonthDescriptions = ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"];
     const localDate = new Date();
@@ -64,6 +82,7 @@ export class KanbanModalComponent implements OnInit {
     const arrTags = this.KanbanTaskForm.value['Tags'].split(',')
     let lid_actividad_kanban = ""
     let lid_tarjeta = ""
+
 
     if (this.editTask) {
       lid_actividad_kanban = this.kanbanTask.id_actividad_kanban;
@@ -77,11 +96,23 @@ export class KanbanModalComponent implements OnInit {
       Tags: arrTags,
       priority: this.KanbanTaskForm.value['priority'],
       date: stringDate,
-      editTaskKanban: this.editTask
+      editTaskKanban: this.editTask,
+      deleteTaskKanban: flagDelete
     }
 
     this.modalSwitchS.$KanbanTaskModel.emit(KanbanTaskModel)
     this.modalSwitchS.$switchModal.emit(false);
+
+  }
+
+  public sendInfoKanbanTask(flagDelete: boolean) {
+
+    if (flagDelete) {
+      this.showConfirmMessage()
+    } else {
+      this.sendData(flagDelete);
+    }
+
   }
 
 }
