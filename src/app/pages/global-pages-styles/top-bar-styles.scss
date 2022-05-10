@@ -1,0 +1,52 @@
+.top-bar {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.title {
+    display: flex;
+    align-items:  baseline;
+    justify-content: center;
+    gap: 10px;
+
+    i {
+        font-size: 25px;
+        color: #0B7EAF;
+    }
+}
+
+blue-title {
+    ::ng-deep {
+        div {
+            font-size: 25px;
+        }
+    }
+}
+
+.actions-area {
+    display: flex;
+    gap: 30px;
+}
+
+.vertical-line {
+    height: 100%;
+    border-left: 2px solid #CBCBCB;
+}
+
+.mini-search-bar {
+    ::ng-deep {
+        .schkedule-input {
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+
+        i {
+            font-size: 18px;
+        }
+
+        input {
+            font-size: 18px;
+        }
+    }
+}

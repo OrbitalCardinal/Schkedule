@@ -1,15 +1,55 @@
-img {
-    display:block;
+.card-actions {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+    align-items: center;
     position: absolute;
-    right: -10px;
+    right: -25px;
     top: -10px;
-    @media screen and (max-width: 1366px) {
-        width: 30px;
-    }
+}
 
-    @media screen and (min-width: 1367px) and (max-width: 1920px) {
-        width: 40px;
+.circle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 1000px;
+    width: 50px;
+    height: 50px;
+    background-color: white;
+    box-shadow: 0px 1px 2px #00000080;
+
+}
+.category {
+    font-size: 25px;
+    color: #0B7EAF;
+}
+
+.kanban-icon {
+    width:50%;
+    filter: invert(30%) sepia(76%) saturate(7184%) hue-rotate(184deg) brightness(104%) contrast(91%);
+}
+
+.delete {
+    &:hover {
+        cursor: pointer;
     }
+}
+
+.clickable-area {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 90%;
+    height: 100%;
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.delete {
+    color: red;
+    font-size: 25px;
 }
 
 .title {
@@ -36,11 +76,10 @@ img {
 }
 
 .card {
-    position: relative;
     background-color: white;
-    box-shadow: -1px 2px 2px 2px #0000000F;
+    position: relative;
+    border: 1px solid #CBCBCB;
     padding: 1.5em 1em;
-
     @media screen and (max-width: 1366px) {
         width: 170px;
     }

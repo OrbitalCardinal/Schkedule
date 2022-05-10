@@ -5,27 +5,31 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-recent-kanban-page',
   templateUrl: './recent-kanban-page.component.html',
-  styleUrls: ['./recent-kanban-page.component.scss']
+  styleUrls: ['./recent-kanban-page.component.scss', '../global-pages-styles/top-bar-styles.scss']
 })
 export class RecentKanbanPageComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor(public router: Router) { }
 
   ngOnInit(): void {
     this.getTablerosKanban('');
   }
 
   public recentKanbanBoards: KanbanModel[] = [];
+  
 
   public nuevoTableroKanban() {
     this.postTableroKanban("Nuevo Tablero")
   }
 
-  public openKanban(id_tablero: string) {
+  public openKanban = (id_tablero: string) => {
+    let $this = this;
     const searchByID = (element:KanbanModel) => element.id_tablero == id_tablero;
-    const index = this.recentKanbanBoards.findIndex(searchByID)
-    this.router.navigate(['mainpage/kanban/new-kanban'], {state: this.recentKanbanBoards[index]});
+    const index = $this.recentKanbanBoards.findIndex(searchByID)
+    this.router.navigate(['mainpage/kanban/new-kanban'], {state: $this.recentKanbanBoards[index]});
   }
+
+  public boundedOpenKanban = this.openKanban.bind(this);
 
   private getmyHeaders() {
     const myHeaders = new Headers();

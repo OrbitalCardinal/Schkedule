@@ -139,6 +139,7 @@ export class NewProjectPageComponent implements OnInit {
                 let objectId = Object.keys(result)[objectIndex];
                 this.http.patch(`https://schkedule-default-rtdb.firebaseio.com/actividad-proyecto/${objectId}.json`, this.testList[index]).subscribe(resultPatch => {
                     console.log(resultPatch);
+                    this.changeProjectName();
                 })
             }
             
@@ -153,6 +154,8 @@ export class NewProjectPageComponent implements OnInit {
     changeProjectName() {
         this.editTituloProyecto = true;
         this.projectData['nombre_proyecto'] = this.tituloProyecto;
+        this.projectData['ultima_modificacion'] = new Date().toISOString();
+        console.log(this.projectData);
         this.http.patch(`https://schkedule-default-rtdb.firebaseio.com/proyecto/${this.projectId}.json`, this.projectData).subscribe(result => {
             console.log(result);
         })

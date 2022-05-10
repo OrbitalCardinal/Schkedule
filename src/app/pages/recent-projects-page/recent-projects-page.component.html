@@ -1,16 +1,23 @@
-<blue-title>Proyecto recientes</blue-title>
-
-<div class="options-bar">
-    <blue-button (click)="newProject()" routerLink="../new-project">Nuevo proyecto</blue-button>
-    <h2>Fecha</h2>
+<div class="top-bar">
+    <div class="title">
+        <i class="fas fa-clipboard"></i>
+        <blue-title>Mis proyectos</blue-title>
+    </div>
+    <div class="actions-area">
+        <schkedule-button color="#0B7EAF" leadingIcon="fas fa-plus" (click)="newProject()">Nuevo proyecto</schkedule-button>
+        <schkedule-button color="#CF9400" leadingIcon="fas fa-sort">Ordenar por</schkedule-button>
+        <div class="vertical-line"></div>
+        <schkedule-input class="mini-search-bar" icon="fas fa-search" placeHolder="Buscar"></schkedule-input>
+    </div>
 </div>
 
 <div *ngIf="isLoading">Cargando...</div>
 
 <div class="recent-projects" *ngIf="!isLoading">
     <activity-card [title]="project.nombre_proyecto" 
-                   [last_modified]="project.fecha_creacion"
-                   (click)="redirectProjectPage(userProjectsIds[i])"
+                   [last_modified]="formatDate(project.ultima_modificacion)"
+                   icon="fas fa-clipboard"
+                   [cardFunction] = "[redirectProjectPage, userProjectsIds[i]]"
                    *ngFor="let project of userProjects; let i = index"></activity-card>
 </div>
 
