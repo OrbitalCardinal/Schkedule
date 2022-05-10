@@ -4,6 +4,8 @@ import { KanbanSectionModel } from "../../models/kanban-section-model";
 import { KanbanTaskModel } from "../../models/kanban-task-model";
 import { SwitchKanbanModalService } from 'src/app/services/switch-kanban-modal.service';
 import { Router } from '@angular/router';
+import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-new-kanban-page',
@@ -39,7 +41,12 @@ export class NewKanbanPageComponent implements OnInit {
 
     this.modalSwitchS.$KanbanTaskModel.subscribe(
       (item) => {
-        if (item.editTaskKanban) {
+        if (item.deleteTaskKanban) {
+          this.deleteActividadKanban(
+            item.id_tarjeta,
+            item.id_actividad_kanban
+          )
+        } else if (item.editTaskKanban) {
           this.patchActividadKanban(item);
         } else {
           item.id_tarjeta = this.id_tarjeta;
@@ -48,6 +55,25 @@ export class NewKanbanPageComponent implements OnInit {
       }
     );
 
+  }
+
+  public showConfirmMessage(id_tablero: string, id_tarjeta: string) {
+    Swal.fire({
+      title: '¿Estas seguro(a)?',
+      text: "¡No podrás revertir esto!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: '¡Sí, bórralo!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.deleteTarjetaKanban(
+          id_tablero,
+          id_tarjeta
+        )
+      }
+    })
   }
 
   public addKanbanSection() {
@@ -101,39 +127,12 @@ export class NewKanbanPageComponent implements OnInit {
         Tags: data[taksID]['Tags'],
         date: data[taksID]['date'],
         // Edit Controls
-        editTaskKanban: false
+        editTaskKanban: false,
+        deleteTaskKanban: false
       }
       this.kanbanBoard[0].sections[index].tasks.push(KanbanTaskModel);
     }
   }
-
-  // private postTableroKanban(kanbanName: string) {
-
-  //   // let section = [];
-  //   const url_api = "https://schkedule-default-rtdb.firebaseio.com/Tablero-Kanban/";
-  //   const myHeaders = this.getmyHeaders();
-
-  //   const data = {
-  //     kanbanName: kanbanName
-  //   }
-
-  //   let params: RequestInit = {
-  //     method: 'POST',
-  //     headers: myHeaders,
-  //     body: JSON.stringify(data),
-  //     redirect: 'follow'
-  //   };
-
-  //   const lid_usuario = 'GflliiDTBkUH4PqBwPitmqefNbk2';
-
-  //   fetch(`${url_api}${lid_usuario}.json`, params)
-  //     .then(response => response.text())
-  //     .then((result) => {
-
-  //     })
-  //     .catch(error => console.log('error', error));
-
-  // }
 
   private getTarjetaKanban(id_tablero: string) {
 
@@ -204,6 +203,27 @@ export class NewKanbanPageComponent implements OnInit {
       .catch(error => console.log('error', error));
   }
 
+  public deleteTarjetaKanban(id_tablero: string, id_tarjeta: string) {
+
+    const url_api = "https://schkedule-default-rtdb.firebaseio.com/Tarjeta-Kanban/";
+    const myHeaders = this.getmyHeaders();
+
+    let params: RequestInit = {
+      method: 'DELETE',
+      headers: myHeaders,
+      redirect: 'follow'
+    };
+
+    fetch(`${url_api}${id_tablero}/${id_tarjeta}.json`, params)
+      .then(response => response.text())
+      .then((result) => {
+        const searchByIdTarjeta = (element: KanbanSectionModel) => element.id_tarjeta == id_tarjeta;
+        const index = this.kanbanBoard[0].sections.findIndex(searchByIdTarjeta);
+        this.kanbanBoard[0].sections.splice(index, 1);
+      })
+      .catch(error => console.log('error', error));
+  }
+
   private getActividadKanban(id_tarjeta: string) {
 
     const url_api = "https://schkedule-default-rtdb.firebaseio.com/Actividad-Kanban/";
@@ -228,8 +248,6 @@ export class NewKanbanPageComponent implements OnInit {
     const url_api = "https://schkedule-default-rtdb.firebaseio.com/Actividad-Kanban/";
     const myHeaders = this.getmyHeaders();
 
-    debugger
-
     const data = {
       kanbanTaskDescription: actividadKanban.kanbanTaskDescription,
       priority: actividadKanban.priority,
@@ -248,6 +266,25 @@ export class NewKanbanPageComponent implements OnInit {
       .then(response => response.text())
       .then((result) => {
         this.getActividadKanban(actividadKanban.id_tarjeta);
+      })
+      .catch(error => console.log('error', error));
+
+  }
+
+  private deleteActividadKanban(id_tarjeta: string, id_actividad_kanban: string) {
+    const url_api = "https://schkedule-default-rtdb.firebaseio.com/Actividad-Kanban/";
+    const myHeaders = this.getmyHeaders();
+
+    let params: RequestInit = {
+      method: 'DELETE',
+      headers: myHeaders,
+      redirect: 'follow'
+    };
+
+    fetch(`${url_api}${id_tarjeta}/${id_actividad_kanban}.json`, params)
+      .then(response => response.text())
+      .then((result) => {
+        this.getActividadKanban(id_tarjeta);
       })
       .catch(error => console.log('error', error));
 
@@ -325,6 +362,25 @@ export class NewKanbanPageComponent implements OnInit {
     task.editTaskKanban = true;
     this.setTaskKanban.push(task);
     this.modalSwitch = true
+  }
+
+  public buttonDeleteTarjetaKanban(id_tablero: string, id_tarjeta: string){
+    this.showConfirmMessage(id_tablero,id_tarjeta)
+  }
+
+  drop(event: CdkDragDrop<KanbanSectionModel>) {
+
+    // Eliminar Actividad de la tarjeta donde se esta quitando
+    this.deleteActividadKanban(
+      event.previousContainer.data.tasks[event.previousIndex].id_tarjeta,
+      event.previousContainer.data.tasks[event.previousIndex].id_actividad_kanban
+    )
+
+    // Insertar Actividad a la tarjeta donde se movio
+    this.postActividadKanban(
+      event.container.data.id_tarjeta,
+      event.previousContainer.data.tasks[event.previousIndex]
+    );
   }
 
 }

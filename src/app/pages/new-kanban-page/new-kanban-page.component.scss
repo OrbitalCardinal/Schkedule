@@ -2,8 +2,8 @@
   display   : flex;
   padding   : 0;
   margin    : 20px 0 0 0;
-  overflow-x: auto;
-  width     : 82vw;
+  // overflow-x: auto;
+  width     : 70vw;
 }
 
 .Kanban-section {
@@ -25,31 +25,47 @@
   align-items: center;
 
   input {
-    font-size  : 12pt;
-    padding    : 0.5em;
-    font-weight: bold;
-    outline    : none;
-    border     : none;
-    color      : #0B7EAF;
+    font-size       : 12pt;
+    padding         : 0.5em;
+    font-weight     : bold;
+    outline         : none;
+    border          : none;
+    color           : #0B7EAF;
     background-color: #e5e5e5;
   }
 
   .enabledInput {
-    border: 2px solid #F4BE37;
+    border          : 2px solid #F4BE37;
     background-color: white;
   }
 }
 
-.Kanban-section--footer {
+.Kanban-section--footer{
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  align-items: end;
+}
+
+.Kanban-section--add {
   margin-top : 15px;
   color      : #0B7EAF;
   font-size  : 18px;
   font-weight: 800;
 }
 
-.Kanban-section--footer:hover {
+.Kanban-section--add:hover {
   font-size: 20px;
   cursor   : pointer;
+}
+
+.Kanban-section--delete {
+  width: 25px;
+  justify-self: right;
+  margin-right: 5px;
+
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .Kanban-btn--addSection {
@@ -84,4 +100,33 @@
     border: 2px solid #F4BE37;
   }
 
+}
+
+.drop-card {
+  cursor: move;
+}
+
+
+.cdk-drag-preview {
+  box-sizing   : border-box;
+  border-radius: 4px;
+  box-shadow   : 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+    0 8px 10px 1px rgba(0, 0, 0, 0.14),
+    0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+.cdk-drag-placeholder {
+  opacity: 0;
+}
+
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.drop-card:last-child {
+  border: none;
+}
+
+.Kanban-section.cdk-drop-list-dragging .drop-card:not(.cdk-drag-placeholder) {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }

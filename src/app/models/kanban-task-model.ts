@@ -6,5 +6,6 @@ export interface KanbanTaskModel {
   Tags: Array<string>,
   date: string,
    // Edit Controls
-   editTaskKanban:boolean
+   editTaskKanban:boolean,
+   deleteTaskKanban:boolean
 }
