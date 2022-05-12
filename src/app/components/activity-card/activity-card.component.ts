@@ -12,18 +12,29 @@ export class ActivityCardComponent {
     @Input() last_modified = '';
     @Input() icon = '';
     @Input() cardFunction: any[] = [];
+    @Input() deleteFunction: any[] = []
     @Input() isKanban: Boolean = false;
 
     constructor(private router: Router) {}
 
     
-
-    executeCardFunction() {
-        let params = this.cardFunction.slice(1, this.cardFunction.length);
-        this.cardFunction[0](this.cardFunction[1], ...params);
+    executeDeleteFunction() {
+        if(this.deleteFunction.length > 1) {
+            let params = this.deleteFunction.slice(1, this.deleteFunction.length)
+            this.deleteFunction[0](this.deleteFunction[1], ...params);
+        } else {
+            this.deleteFunction[0]();
+        }
+        
     }
 
-    deleteProject() {
-        console.log("Deleting project");
+    executeCardFunction() {
+        if(this.cardFunction.length > 1) {
+            let params = this.cardFunction.slice(1, this.cardFunction.length);
+            this.cardFunction[0](this.cardFunction[1], ...params);  
+        } else {
+            this.cardFunction[0]();
+        }
+        
     }
 }

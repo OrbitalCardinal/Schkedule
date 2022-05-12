@@ -5,9 +5,9 @@
     <div class="card-actions">
         <div class="circle">
             <i *ngIf="!isKanban" class="{{icon}} category "></i>
-            <img *ngIf="isKanban" src="assets/img/kanban-icon.svg" class="kanban-icon" (click)="deleteProject()">
+            <img *ngIf="isKanban" src="assets/img/kanban-icon.svg" class="kanban-icon">
         </div>
-        <i  class="fas fa-trash delete" (click)="deleteProject()"></i>
+        <i  class="fas fa-trash delete" (click)="executeDeleteFunction()"></i>
         
     </div>
 

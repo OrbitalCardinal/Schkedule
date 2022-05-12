@@ -11,14 +11,24 @@
     </div>
 </div>
 
-<div *ngIf="isLoading">Cargando...</div>
+<div *ngIf="isLoading" class="loading-spinner">
+    <div style="color: #1081b1b0" class="la-ball-atom la-3x">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</div>
+
 
 <div class="recent-projects" *ngIf="!isLoading">
     <activity-card [title]="project.nombre_proyecto" 
                    [last_modified]="formatDate(project.ultima_modificacion)"
                    icon="fas fa-clipboard"
                    [cardFunction] = "[redirectProjectPage, userProjectsIds[i]]"
+                   [deleteFunction]="[deleteProject, userProjectsIds[i], i]"
                    *ngFor="let project of userProjects; let i = index"></activity-card>
 </div>
+
 
 <router-outlet></router-outlet>

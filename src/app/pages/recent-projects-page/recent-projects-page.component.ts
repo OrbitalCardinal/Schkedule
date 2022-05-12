@@ -1,11 +1,16 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { HttpClient } from '@angular/common/http';
+import Swal from "sweetalert2";
 
 @Component({
     selector: 'recent-projects-page',
     templateUrl: './recent-projects-page.component.html',
-    styleUrls: ['./recent-projects-page.component.scss', '../global-pages-styles/top-bar-styles.scss']
+    styleUrls: [
+        './recent-projects-page.component.scss', 
+        '../global-pages-styles/top-bar-styles.scss',
+        '../global-pages-styles/ball-atom.scss'
+    ]
 })
 
 export class RecentProjectsPageComponent implements OnInit {
@@ -18,12 +23,15 @@ export class RecentProjectsPageComponent implements OnInit {
     constructor(public router: Router, private http: HttpClient) {}
 
     ngOnInit() {
-        this.http.get(`https://schkedule-default-rtdb.firebaseio.com/proyecto.json?orderBy="id_usuario"&equalTo="${this.userData['id_usuario']}"`).subscribe(result => {
-            this.userProjects = Object.values(result);
-            this.userProjectsIds = Object.keys(result);
-        this.isLoading = false;
-            console.log(this.userProjects);
-        })
+        setTimeout(() => {
+            this.http.get(`https://schkedule-default-rtdb.firebaseio.com/proyecto.json?orderBy="id_usuario"&equalTo="${this.userData['id_usuario']}"`).subscribe(result => {
+                this.userProjects = Object.values(result);
+                this.userProjectsIds = Object.keys(result);
+            this.isLoading = false;
+                console.log(this.userProjects);
+            })      
+        }, 1100);
+
     }
 
     recentTest = [
@@ -111,6 +119,36 @@ export class RecentProjectsPageComponent implements OnInit {
         let time =  hours + ':' + minutes;
         let newDate = year + '/' + month + '/' + day + ' ' + time;
         return newDate;
+    }
+
+    // Eliminar proyecto desde tarjeta
+
+    public deleteProject = (projectId: any, index: any) => {
+        Swal.fire({
+            title: '¿Estas seguro?',
+            text: "No podras revertir esta acción",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Sí, eliminarlo!',
+            cancelButtonText: 'Cancelar'
+          }).then((result) => {
+            if (result.isConfirmed) {
+                // Eliminar en firebase
+                this.http.delete(`https://schkedule-default-rtdb.firebaseio.com/proyecto/${projectId}.json`).subscribe(result => {
+                    this.userProjects = this.userProjects.filter((_: any, index_: any) => index_ != index);
+                    console.log(result);
+                })
+              Swal.fire(
+                'Eliminado!',
+                '',
+                'success'
+              ).then(() => {
+                window.location.reload();
+              })
+            }
+          })
     }
 
 }

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
@@ -36,6 +36,9 @@ import { SchkeduleInput } from './components/schkedule-input/schkedule-input.com
 import { SchkeduleButtonComponent } from './components/schkedule-button/schkedule-button.component';
 import { RecentGanttPageComponent } from './pages/recent-gantt/recent-gantt-page.component';
 import { RecentSchedulePageComponent } from './pages/recent-schedule/recent-schedule-page.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+// Componentes ajenos
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
   declarations: [
@@ -76,9 +79,15 @@ import { RecentSchedulePageComponent } from './pages/recent-schedule/recent-sche
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
     HttpClientModule,
-    DragDropModule
+    DragDropModule,
+    NgxSpinnerModule,
+    BrowserAnimationsModule
+  ],
+  exports: [
+    NgxSpinnerModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule { }
