@@ -122,6 +122,11 @@ export class RecentProjectsPageComponent implements OnInit {
     }
 
     // Eliminar proyecto desde tarjeta
+    public delProject = (index: any) => {
+        console.log(this.userProjects);
+        this.userProjects = this.userProjects.filter((_: any, index_: any) => index_ != index)
+        console.log(this.userProjects); 
+    }
 
     public deleteProject = (projectId: any, index: any) => {
         Swal.fire({
@@ -137,7 +142,6 @@ export class RecentProjectsPageComponent implements OnInit {
             if (result.isConfirmed) {
                 // Eliminar en firebase
                 this.http.delete(`https://schkedule-default-rtdb.firebaseio.com/proyecto/${projectId}.json`).subscribe(result => {
-                    this.userProjects = this.userProjects.filter((_: any, index_: any) => index_ != index);
                     console.log(result);
                 })
               Swal.fire(
@@ -145,7 +149,7 @@ export class RecentProjectsPageComponent implements OnInit {
                 '',
                 'success'
               ).then(() => {
-                window.location.reload();
+                  this.delProject(index);
               })
             }
           })

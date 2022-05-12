@@ -21,7 +21,8 @@ export class ActivityCardComponent {
     executeDeleteFunction() {
         if(this.deleteFunction.length > 1) {
             let params = this.deleteFunction.slice(1, this.deleteFunction.length)
-            this.deleteFunction[0](this.deleteFunction[1], ...params);
+            console.log(params)
+            this.deleteFunction[0](...params);
         } else {
             this.deleteFunction[0]();
         }
@@ -31,7 +32,8 @@ export class ActivityCardComponent {
     executeCardFunction() {
         if(this.cardFunction.length > 1) {
             let params = this.cardFunction.slice(1, this.cardFunction.length);
-            this.cardFunction[0](this.cardFunction[1], ...params);  
+            console.log(params)
+            this.cardFunction[0](...params);  
         } else {
             this.cardFunction[0]();
         }
