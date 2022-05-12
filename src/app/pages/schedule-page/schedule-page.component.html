@@ -10,111 +10,118 @@
     <div class="sin items">Sabado</div>
     <div class="sin items">Domingo</div>
     <!-- segunda linea -->
-    <div class="horas">07:00</div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <!-- tercera linea -->
-    <div class="horas">08:00</div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <!-- cuarta linea -->
-    <div class="horas">09:00</div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <!-- quinta linea -->
-    <div class="horas">10:00</div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <!-- sexta linea -->
-    <div class="horas">11:00</div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <!-- septima linea -->
-    <div class="horas">12:00</div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <!-- octava linea -->
-    <div class="horas">13:00</div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <!-- novena linea -->
-    <div class="horas">14:00</div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <!-- decima linea -->
-    <div class="horas">15:00</div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <!-- decimo primero linea -->
-    <div class="horas">16:00</div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <!-- decimo segundo linea -->
-    <div class="horas">17:00</div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <!-- decimo tercero linea -->
-    <div class="horas">18:00</div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
 </div>
+
+    <div class="envoltorio sin son" *ngFor="let horas of this.ListActividad">
+      <div clas="items"> 07:00</div>
+      <div clas="items" *ngFor="let dias of horas.listDays" [id]="dias.id_hora_frecuencia"></div>
+    </div>
+
+
+    <!-- <div class="horas">07:00</div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div> -->
+    <!-- tercera linea -->
+    <!-- <div class="horas">08:00</div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div> -->
+    <!-- cuarta linea -->
+    <!-- <div class="horas">09:00</div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div> -->
+    <!-- quinta linea -->
+    <!-- <div class="horas">10:00</div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div> -->
+    <!-- sexta linea -->
+    <!-- <div class="horas">11:00</div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div> -->
+    <!-- septima linea -->
+    <!-- <div class="horas">12:00</div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div> -->
+    <!-- octava linea -->
+    <!-- <div class="horas">13:00</div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div> -->
+    <!-- novena linea -->
+    <!-- <div class="horas">14:00</div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div> -->
+    <!-- decima linea -->
+    <!-- <div class="horas">15:00</div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div> -->
+    <!-- decimo primero linea -->
+    <!-- <div class="horas">16:00</div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div> -->
+    <!-- decimo segundo linea -->
+    <!-- <div class="horas">17:00</div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div> -->
+    <!-- decimo tercero linea -->
+    <!-- <div class="horas">18:00</div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div> -->
