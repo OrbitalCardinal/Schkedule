@@ -39,6 +39,7 @@ import { RecentSchedulePageComponent } from './pages/recent-schedule/recent-sche
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 // Componentes ajenos
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { ConfigPageComponent } from './pages/config-page/config-page.component';
 
 @NgModule({
   declarations: [
@@ -69,7 +70,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     SchkeduleInput,
     SchkeduleButtonComponent,
     RecentGanttPageComponent,
-    RecentSchedulePageComponent
+    RecentSchedulePageComponent,
+    ConfigPageComponent
   ],
   imports: [
     BrowserModule,

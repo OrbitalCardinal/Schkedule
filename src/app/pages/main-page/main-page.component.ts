@@ -12,7 +12,7 @@ export class MainPageComponent implements OnInit {
   userData = JSON.parse(localStorage.getItem('user')!);
 
   ngOnInit() {
-    console.log(this.userData);
+    // console.log(this.userData);
   }
 
   async onLogout() {
