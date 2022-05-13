@@ -1,6 +1,5 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { KanbanTaskModel } from "../models/kanban-task-model";
-import { KanbanModel } from "../models/kanban-model";
 
 @Injectable({
   providedIn: 'root'

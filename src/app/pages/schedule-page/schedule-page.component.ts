@@ -1,8 +1,9 @@
 import { Component } from "@angular/core";
-import { range } from "rxjs";
 import { ActividadHorarioModel } from '../../models/actividad-horario-model';
 import { ListActividadHorarioModel } from '../../models/list-actividad-horario-model'
-// import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import { HorarioModel } from '../../models/horario-model'
+import { SwitchHorarioModalService } from 'src/app/services/switch-horario-modal.service';
+import { KanbanModalComponent } from "src/app/components/kanban-modal/kanban-modal.component";
 
 @Component({
   selector: 'schedule-page',
@@ -12,36 +13,68 @@ import { ListActividadHorarioModel } from '../../models/list-actividad-horario-m
 
 export class SchedulePageComponent {
 
-  public ListActividad:ListActividadHorarioModel[] = []
+  public modalSwitch: boolean = false;
+  public Horario: HorarioModel[] = []
+  public ActividadHorario: ActividadHorarioModel[] = []
+  public ActividadHorarioModal: ActividadHorarioModel[] = []
+  public ListActividad: ListActividadHorarioModel[] = []
 
-  constructor() {
-
-  }
+  constructor(private modalSwitchS: SwitchHorarioModalService) { }
 
   ngOnInit() {
-    this.makeGrid();
+
+    this.getHorario();
+
+    this.modalSwitchS.$switchModal.subscribe((valor) => { this.modalSwitch = valor });
+
+    this.modalSwitchS.$ActividadHorarioModel.subscribe(
+      (item) => {
+        if (item.delete) {
+          this.deleteActividadHorario(
+            item.id_horario,
+            item.id_actividad_horario
+          )
+        } else if (item.edit) {
+          this.patchActividadHorario(item);
+        } else {
+          this.postActividadHorario(item);
+        }
+      }
+    );
+
   }
 
   private makeGrid() {
 
-    let id_hora_frecuencia:number = 0;
+    let id_hora_frecuencia: number = 0;
 
-    const totalHours:number = 12;
+    const totalHours: number = 12;
     const totalDays: number = 7;
-
+    const searchByID = (element: ActividadHorarioModel) => element.id_hora_frecuencia == id_hora_frecuencia
 
     for (let indexHours = 0; indexHours < totalHours; indexHours++) {
 
-
-      const listDays:ActividadHorarioModel[] = []
+      const listDays: ActividadHorarioModel[] = []
 
       for (let indexDays = 0; indexDays < totalDays; indexDays++) {
 
+        const index = this.ActividadHorario.findIndex(searchByID)
+        let id_actividad_horario = "";
+        let descripcion = "";
+
+        if (index >= 0 ){
+          id_actividad_horario = this.ActividadHorario[index].id_actividad_horario
+          descripcion = this.ActividadHorario[index].descripcion
+        }
+
         const actividad: ActividadHorarioModel = {
-          id_actividad_horario: '',
-          id_horario: '',
-          descripcion: '',
-          id_hora_frecuencia: id_hora_frecuencia
+          id_actividad_horario: id_actividad_horario,
+          id_horario: this.Horario[0].id_Horario,
+          descripcion: descripcion,
+          id_hora_frecuencia: id_hora_frecuencia,
+          // Edit Controls
+          edit: false,
+          delete: false
         }
 
         listDays.push(actividad)
@@ -49,7 +82,7 @@ export class SchedulePageComponent {
         id_hora_frecuencia++;
       }
 
-      const listaHoras:ListActividadHorarioModel = {
+      const listaHoras: ListActividadHorarioModel = {
         hora: indexHours.toString(),
         listDays: listDays,
       }
@@ -57,8 +90,18 @@ export class SchedulePageComponent {
       this.ListActividad.push(listaHoras)
     }
 
-    console.log(this.ListActividad)
+    // console.log(this.ListActividad)
 
+  }
+
+  public sendHorarioTask() {
+
+  }
+
+  public openModal(actividad: ActividadHorarioModel) {
+    this.ActividadHorarioModal = []
+    this.ActividadHorarioModal.push(actividad)
+    this.modalSwitch = true;
   }
 
   private getmyHeaders() {
@@ -70,7 +113,39 @@ export class SchedulePageComponent {
     return myHeaders;
   }
 
-  private getHorario(id_tablero: string) {
+  private fillInHorario(result: string) {
+
+    const data = JSON.parse(result);
+
+    for (let id_Horario in data) {
+      const horarioModel: HorarioModel = {
+        id_Horario: id_Horario,
+        nombre_horario: data[id_Horario]['nombre_horario'],
+        // Edit Controls
+        editNombre: true
+      }
+      this.Horario.push(horarioModel);
+    }
+  }
+
+  private fillInActividadHorario(result: string, id_Horario: string) {
+    const data = JSON.parse(result);
+
+    for (let id_Horario in data) {
+      const ActividadHorarioModel: ActividadHorarioModel = {
+        id_actividad_horario: id_Horario,
+        id_horario: id_Horario,
+        descripcion: data[id_Horario]['descripcion'],
+        id_hora_frecuencia: data[id_Horario]['id_hora_frecuencia'],
+        // Edit Controls
+        edit: false,
+        delete: false
+      }
+      this.ActividadHorario.push(ActividadHorarioModel);
+    }
+  }
+
+  private getHorario() {
 
     const url_api = "https://schkedule-default-rtdb.firebaseio.com/Horario/";
     const myHeaders = this.getmyHeaders();
@@ -81,10 +156,18 @@ export class SchedulePageComponent {
       redirect: 'follow'
     };
 
-    fetch(`${url_api}${id_tablero}.json`, params)
+    const localStorageUser = JSON.parse(localStorage['user']);
+    const lid_usuario = localStorageUser.id_usuario;
+
+    fetch(`${url_api}${lid_usuario}.json`, params)
       .then(response => response.text())
       .then((result) => {
-        console.log(result)
+        if (result == 'null') { // Si no hay datos, creamos el registro del usuario
+          this.postHorario('Nuevo Horario')
+        } else {
+          this.fillInHorario(result);
+          this.getActividadHorario(this.Horario[0].id_Horario)
+        }
       })
       .catch(error => console.log('error', error));
 
@@ -112,8 +195,7 @@ export class SchedulePageComponent {
     fetch(`${url_api}${lid_usuario}.json`, params)
       .then(response => response.text())
       .then((result) => {
-        // this.kanbanBoard[0].sections = []
-        // this.getTarjetaKanban(this.kanbanBoard[0].id_tablero)
+        this.getHorario()
       })
       .catch(error => console.log('error', error));
   }
@@ -159,22 +241,19 @@ export class SchedulePageComponent {
     fetch(`${url_api}${id_Horario}.json`, params)
       .then(response => response.text())
       .then((result) => {
-
+        this.fillInActividadHorario(result, id_Horario);
+        this.makeGrid();
       })
       .catch(error => console.log('error', error));
 
   }
 
-  private patchActividadKanban(descripcion: string, id_Horario: string, id_actividad_horario: string) {
+  private patchActividadHorario(actividad: ActividadHorarioModel) {
     const url_api = "https://schkedule-default-rtdb.firebaseio.com/Actividad-Kanban/";
     const myHeaders = this.getmyHeaders();
 
     const data = {
-      descripcion
-      //   kanbanTaskDescription: actividadKanban.kanbanTaskDescription,
-      //   priority: actividadKanban.priority,
-      //   Tags: actividadKanban.Tags,
-      //   date: actividadKanban.date,
+      descripcion: actividad.descripcion
     }
 
     let params: RequestInit = {
@@ -184,7 +263,7 @@ export class SchedulePageComponent {
       redirect: 'follow'
     };
 
-    fetch(`${url_api}${id_Horario}/${id_actividad_horario}.json`, params)
+    fetch(`${url_api}${actividad.id_horario}/${actividad.id_actividad_horario}.json`, params)
       .then(response => response.text())
       .then((result) => {
         // this.getActividadKanban(actividadKanban.id_tarjeta);
@@ -193,8 +272,8 @@ export class SchedulePageComponent {
 
   }
 
-  private deleteActividadKanban(id_tarjeta: string, id_actividad_kanban: string) {
-    const url_api = "https://schkedule-default-rtdb.firebaseio.com/Actividad-Kanban/";
+  private deleteActividadHorario(id_Horario: string, id_actividad_kanban: string) {
+    const url_api = "https://schkedule-default-rtdb.firebaseio.com/Actividad-Horario/";
     const myHeaders = this.getmyHeaders();
 
     let params: RequestInit = {
@@ -203,7 +282,7 @@ export class SchedulePageComponent {
       redirect: 'follow'
     };
 
-    fetch(`${url_api}${id_tarjeta}/${id_actividad_kanban}.json`, params)
+    fetch(`${url_api}${id_Horario}/${id_actividad_kanban}.json`, params)
       .then(response => response.text())
       .then((result) => {
         // this.getActividadKanban(id_tarjeta);
@@ -212,12 +291,15 @@ export class SchedulePageComponent {
 
   }
 
-  private postActividadKanban(id_Horario: string, descripcion: string) {
-    const url_api = "https://schkedule-default-rtdb.firebaseio.com/Actividad-Kanban/";
+  private postActividadHorario(actividad: ActividadHorarioModel) {
+    const url_api = "https://schkedule-default-rtdb.firebaseio.com/Actividad-Horario/";
     const myHeaders = this.getmyHeaders();
 
     const data = {
-      descripcion
+      id_actividad_horario: actividad.id_actividad_horario,
+      id_horario: actividad.id_horario,
+      descripcion: actividad.descripcion,
+      id_hora_frecuencia: actividad.id_hora_frecuencia,
     }
 
     let params: RequestInit = {
@@ -227,13 +309,17 @@ export class SchedulePageComponent {
       redirect: 'follow'
     };
 
-    fetch(`${url_api}${id_Horario}.json`, params)
+    fetch(`${url_api}${actividad.id_horario}.json`, params)
       .then(response => response.text())
       .then((result) => {
-        // this.getActividadKanban(id_tarjeta);
+        // this.getActividadKanban(Actividad-Horario);
       })
       .catch(error => console.log('error', error));
 
+  }
+
+  public editDescription() {
+    this.Horario[0].editNombre = true
   }
 
 }

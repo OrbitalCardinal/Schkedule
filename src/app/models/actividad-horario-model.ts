@@ -3,4 +3,7 @@ export interface ActividadHorarioModel {
   id_horario: string,
   descripcion: string,
   id_hora_frecuencia: number
+   // Edit Controls
+   edit:boolean,
+   delete:boolean
 }

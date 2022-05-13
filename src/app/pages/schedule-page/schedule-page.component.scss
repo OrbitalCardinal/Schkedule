@@ -9,12 +9,18 @@
   font-weight          : bold;
   font-size            : 2.7vh;
 
+  div {
+    min-width: 70px;
+    border-right : 0.1vh solid grey;
+    border-bottom: 0.1vh solid grey
+  }
+
 }
 
-div {
-  border-right : 0.1vh solid grey;
-  border-bottom: 0.1vh solid grey
-}
+// div {
+//   border-right : 0.1vh solid grey;
+//   border-bottom: 0.1vh solid grey
+// }
 
 .sin {
   border-right: none;
@@ -35,4 +41,23 @@ div {
   display        : flex;
   justify-content: center;
   align-items    : center;
+}
+
+.title {
+  display    : flex;
+  align-items: center;
+
+  input {
+    font-size  : 16pt;
+    padding    : 0.5em;
+    font-weight: bold;
+    outline    : none;
+    border     : none;
+    color      : #0B7EAF;
+  }
+
+  .enabledInput {
+    border: 2px solid #F4BE37;
+  }
+
 }

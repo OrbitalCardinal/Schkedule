@@ -1,0 +1,87 @@
+.HorarioModal-body {
+  display           : grid;
+  background-color  : #FFFFFF;
+  width             : 500px;
+  padding           : 10px 20px;
+  margin            : 10% auto;
+  position          : relative;
+  grid-template-rows: repeat(4, auto);
+  align-items       : center;
+}
+
+.HorarioModal {
+  background-color: rgba(0, 0, 0, .8);
+  position        : fixed;
+  top             : 0;
+  right           : 0;
+  bottom          : 0;
+  left            : 0;
+}
+
+.HorarioModal-header{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin-bottom: 5px;
+
+  button{
+    justify-self: end;
+  }
+
+  img{
+    justify-self: start;
+  }
+
+}
+
+.Horario--delete {
+  width: 25px;
+  justify-self: right;
+  margin-right: 5px;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+
+.HorarioModal-body label {
+  color      : #0B7EAF;
+  font-weight: 700;
+}
+
+textarea {
+  resize: vertical;
+  height: 100px;
+}
+
+button{
+  cursor: pointer;
+}
+
+.HorarioModal-body .addButton {
+  background : #0B7EAF;
+  color      : #FFFFFF;
+  height     : 35px;
+  font-weight: 700;
+  border     : none;
+  outline    : none;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+.HorarioModal-body .addButton:disabled{
+  background-color: #0B7EAF;
+  opacity: 0.7;
+  cursor: no-drop;
+}
+
+.HorarioModal-body .closeButton {
+  background  : #ff5252;
+  color       : #FFFFFF;
+  height      : 30px;
+  width       : 30px;
+  font-weight : 700;
+  border      : none;
+  outline     : none;
+  justify-self: end;
+}

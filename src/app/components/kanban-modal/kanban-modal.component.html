@@ -9,6 +9,7 @@
           *ngIf="this.editTask"
           (click)="sendInfoKanbanTask(true)"
         />
+        <div *ngIf="!this.editTask"></div>
         <button (click)="closeKanbanModal()" class="closeButton">X</button>
       </div>
 
