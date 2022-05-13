@@ -98,3 +98,10 @@
 .new-task:hover {
     cursor: pointer;
 }
+
+.loading-spinner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}

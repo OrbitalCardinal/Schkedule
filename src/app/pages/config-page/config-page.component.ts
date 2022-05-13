@@ -29,7 +29,7 @@ export class ConfigPageComponent implements OnInit {
                     this.userObjectId =  Object.keys(result)[0];
                     this.isLoading = false;
             });
-        }, 1100)
+        }, 700)
     }
     
     editName(title:any, previousValue: any, input: any) {
