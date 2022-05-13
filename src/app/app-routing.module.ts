@@ -18,6 +18,7 @@ import { RecentKanbanPageComponent } from './pages/recent-kanban-page/recent-kan
 import { NewKanbanPageComponent } from './pages/new-kanban-page/new-kanban-page.component';
 import { RecentGanttPageComponent } from './pages/recent-gantt/recent-gantt-page.component';
 import { RecentSchedulePageComponent } from './pages/recent-schedule/recent-schedule-page.component';
+import { ConfigPageComponent } from './pages/config-page/config-page.component';
 
 const routes: Routes = [
     { path: '', component: LandingComponent},
@@ -42,12 +43,13 @@ const routes: Routes = [
           children: [
             { path: '', redirectTo: 'recent-gantt', pathMatch: 'full' },
             { path: 'recent-gantt', component: RecentGanttPageComponent }
-          ]},
+        ]},
         { path: 'schedule', component: SchedulePageComponent ,
           children: [
             { path: '', redirectTo: 'recent-schedule', pathMatch: 'full' },
             { path: 'recent-schedule', component: RecentSchedulePageComponent }
-          ]},
+        ]},
+        { path: 'config', component: ConfigPageComponent}
     ]}
 ];
 
