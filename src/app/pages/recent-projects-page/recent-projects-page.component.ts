@@ -18,7 +18,11 @@ export class RecentProjectsPageComponent implements OnInit {
     userData = JSON.parse(localStorage.getItem('user')!);
     isLoading = true;
     userProjects: any;
+    originalProjects: any;
     userProjectsIds: any;
+    showOrderMenu: Boolean = false;
+    actualOrder: String = 'Ordenar por';
+    searchValue: any;
 
     constructor(public router: Router, private http: HttpClient) {}
 
@@ -26,11 +30,12 @@ export class RecentProjectsPageComponent implements OnInit {
         setTimeout(() => {
             this.http.get(`https://schkedule-default-rtdb.firebaseio.com/proyecto.json?orderBy="id_usuario"&equalTo="${this.userData['id_usuario']}"`).subscribe(result => {
                 this.userProjects = Object.values(result);
+                this.originalProjects = [...this.userProjects];
                 this.userProjectsIds = Object.keys(result);
             this.isLoading = false;
                 console.log(this.userProjects);
             })      
-        }, 1100);
+        }, 900);
 
     }
 
@@ -153,6 +158,67 @@ export class RecentProjectsPageComponent implements OnInit {
               })
             }
           })
+    }
+
+    searchProject() {
+        console.log(this.searchValue);
+        if(this.userProjects != '') {
+            this.userProjects = this.originalProjects.filter((element: any) => element['nombre_proyecto'].includes(this.searchValue));
+        } else {
+            this.userProjects = [...this.originalProjects];
+        }
+        
+    }
+
+    orderProjects(mode: String) {
+        if(mode == 'nombre-ascendente') {
+            this.actualOrder = 'Nombre descendente ↑';
+            this.userProjects.sort((a:any, b: any) => {
+                let fa = a['nombre_proyecto'].toLowerCase(),
+                    fb = b['nombre_proyecto'].toLowerCase();
+            
+                if (fa < fb) {
+                    return -1;
+                }
+                if (fa > fb) {
+                    return 1;
+                }
+                return 0;
+            });
+            
+        }
+        else if(mode == 'nombre-descendente') {
+            this.actualOrder = 'Nombre descendente ↓';
+            this.userProjects.sort((a:any, b: any) => {
+                let fa = a['nombre_proyecto'].toLowerCase(),
+                    fb = b['nombre_proyecto'].toLowerCase();
+            
+                if (fb < fa) {
+                    return -1;
+                }
+                if (fb > fa) {
+                    return 1;
+                }
+                return 0;
+            });
+        }
+        else if(mode == 'fecha-ascendente') {
+            this.actualOrder = 'Fecha ascendente ↑';
+            this.userProjects.sort((a:any, b:any) => {
+                let da: any = new Date(a['ultima_modificacion']),
+                    db: any = new Date(b['ultima_modificacion']);
+                return da - db;
+            });
+        }
+        else if(mode == 'fecha-descendente') {
+            this.actualOrder = 'Fecha descendente ↓';
+            this.userProjects.sort((a:any, b:any) => {
+                let da: any = new Date(a['ultima_modificacion']),
+                    db: any = new Date(b['ultima_modificacion']);
+                return db - da;
+            });
+        }
+        this.showOrderMenu = false;
     }
 
 }

@@ -1,5 +1,13 @@
-<h1 *ngIf="isLoading">Cargando...</h1>
-<div *ngIf="!isLoading">
+<div *ngIf="isLoading" class="loading-spinner">
+    <div style="color: #1081b1b0" class="la-ball-atom la-3x">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</div>
+
+<div *ngIf="!isLoading" class="fadeIn">
     <div class="title">
         <img class="back-arrow" src="assets/img/left-arrow-blue.png" routerLink="../">
 
@@ -29,10 +37,10 @@
                 </td>
                     <input type="text" [(ngModel)]="element.categoria" (dblclick)="editCell(element.no, 'categoria')" [readonly]="editCellListCategoria[i]" (keyup.enter)="saveCell(i)" [ngClass]="{enabledInput: !editCellListCategoria[i]}">
                 <td>
+                    <input type="date" [(ngModel)]="element.fecha" (ngModelChange)="saveCell(0)">
                 </td>
-                <td>{{element.fecha}}</td>
                 <td class="actions__cell">
-                    <img class="actions__icon" src="assets/img/delete-red-icon.png" alt="" (click)="deleteTask(element.no)">
+                    <img class="actions__icon" src="assets/img/delete-red-icon.png" alt="" (click)="deleteTask(element)">
                 </td>
             </tr>
         </table>

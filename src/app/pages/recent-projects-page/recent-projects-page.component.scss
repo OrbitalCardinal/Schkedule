@@ -13,6 +13,14 @@
      }
 }
 
+.button-width {
+    ::ng-deep {
+        div {
+            width: 300px;
+        }
+    }
+}
+
 .options-bar {
     padding-top: 1em;
     display: flex;
@@ -20,7 +28,12 @@
     justify-content: space-between;
 }
 
+.recent-projects-container {
+    overflow: scroll;
+    height: 80vh;
+}
 .recent-projects {
+    
     margin-top: 2em;
     display: flex;
     flex-wrap: wrap;
@@ -34,4 +47,32 @@
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.order-menu {
+    position: absolute;
+    display: block;
+    width: 250px;
+    background-color: white;
+    box-shadow: 2px 2px 4px #aaaaaa;
+    color: #585858;
+    font-weight: bold;
+}
+
+.invisible-background {
+    // background-color: red;
+    top: 0;
+    left: 0;
+    position: absolute;
+    height: 100vh;
+    width: 100vw;
+}
+
+.order-menu__option {
+    position: relative;
+    padding: 15px;
+    &:hover {
+        background-color: rgb(238, 238, 238);
+        cursor: pointer;
+    }
 }
