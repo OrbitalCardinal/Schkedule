@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
@@ -34,6 +34,13 @@ import { RecentKanbanPageComponent } from './pages/recent-kanban-page/recent-kan
 import { NewKanbanPageComponent } from './pages/new-kanban-page/new-kanban-page.component';
 import { SchkeduleInput } from './components/schkedule-input/schkedule-input.component';
 import { HorarioModalComponent } from './components/horario-modal/horario-modal.component';
+import { SchkeduleButtonComponent } from './components/schkedule-button/schkedule-button.component';
+import { RecentGanttPageComponent } from './pages/recent-gantt/recent-gantt-page.component';
+import { RecentSchedulePageComponent } from './pages/recent-schedule/recent-schedule-page.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+// Componentes ajenos
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { ConfigPageComponent } from './pages/config-page/config-page.component';
 
 @NgModule({
   declarations: [
@@ -63,6 +70,10 @@ import { HorarioModalComponent } from './components/horario-modal/horario-modal.
     ForgotPasswordComponent,
     SchkeduleInput,
     HorarioModalComponent
+    SchkeduleButtonComponent,
+    RecentGanttPageComponent,
+    RecentSchedulePageComponent,
+    ConfigPageComponent
   ],
   imports: [
     BrowserModule,
@@ -72,9 +83,15 @@ import { HorarioModalComponent } from './components/horario-modal/horario-modal.
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
     HttpClientModule,
-    DragDropModule
+    DragDropModule,
+    NgxSpinnerModule,
+    BrowserAnimationsModule
+  ],
+  exports: [
+    NgxSpinnerModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule { }

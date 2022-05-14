@@ -1,16 +1,22 @@
-<blue-title>Tableros Kanban recientes</blue-title>
-
-<div class="options-bar">
-  <blue-button (click)="nuevoTableroKanban()" >
-    Nuevo Tablero Kanban
-  </blue-button>
+<div class="top-bar">
+  <div class="title">
+      <img class="kanban-title-icon" src="assets/img/kanban-icon.svg" alt="">
+      <blue-title>Mis tableros Kanban</blue-title>
+  </div>
+  <div class="actions-area">
+      <schkedule-button color="#0B7EAF" leadingIcon="fas fa-plus" (click)="nuevoTableroKanban()">Nuevo tablero</schkedule-button>
+      <schkedule-button color="#CF9400" leadingIcon="fas fa-sort">Ordenar por</schkedule-button>
+      <div class="vertical-line"></div>
+      <schkedule-input class="mini-search-bar" icon="fas fa-search" placeHolder="Buscar"></schkedule-input>
+  </div>
 </div>
 
 <div class="recent-projects">
   <activity-card
     [title]="recentKanban.kanbanName"
     [last_modified]="recentKanban.modifiedAt"
-    (click)="openKanban(recentKanban.id_tablero)"
+    [isKanban]="true"
+    [cardFunction]="[openKanban, recentKanban.id_tablero]"
     *ngFor="let recentKanban of recentKanbanBoards"
   >
   </activity-card>

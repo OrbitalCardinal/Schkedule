@@ -1,11 +1,14 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { HttpClient } from '@angular/common/http';
+import Swal from "sweetalert2";
 
 @Component({
     selector: 'new-project-page',
     templateUrl: './new-project-page.component.html',
-    styleUrls: ['./new-project-page.component.scss']
+    styleUrls: ['./new-project-page.component.scss', 
+                '../global-pages-styles/ball-atom.scss',
+                '../global-pages-styles/global.styles.scss']
 })
 
 export class NewProjectPageComponent implements OnInit {
@@ -26,30 +29,34 @@ export class NewProjectPageComponent implements OnInit {
 
 
     ngOnInit() {
-        this.activatedRoute.queryParams
-        .subscribe(params => {
-            if(Object.keys(params).length > 0) {
-                console.log(params);
-                this.projectId = params['project_id']; 
-                this.http.get(`https://schkedule-default-rtdb.firebaseio.com/proyecto.json?orderBy="$key"&equalTo="${this.projectId}"`).subscribe(result => {
-                this.projectData = result;
-                this.projectData = Object.values(this.projectData)[0];
-                this.tituloProyecto = this.projectData['nombre_proyecto'];
-                console.log(this.projectData)
-                this.isLoading = false;
-                console.log('PROJECT ID: ' + this.projectId);
 
-                this.http.get(`https://schkedule-default-rtdb.firebaseio.com/actividad-proyecto.json?orderBy="id_proyecto"&equalTo="${this.projectId}"`).subscribe(activityResult => {
-                    this.testList = Object.values(activityResult);
-                    for(let i = 0; i < this.testList.length; i++) {
-                        this.editCellListNombre.push(true);
-                        this.editCellListEstatus.push(true);
-                        this.editCellListCategoria.push(true);
-                    }
-                })
-                });
-            }
-        })
+        setTimeout(() => {
+            this.activatedRoute.queryParams
+            .subscribe(params => {
+                if(Object.keys(params).length > 0) {
+                    console.log(params);
+                    this.projectId = params['project_id']; 
+                    this.http.get(`https://schkedule-default-rtdb.firebaseio.com/proyecto.json?orderBy="$key"&equalTo="${this.projectId}"`).subscribe(result => {
+                    this.projectData = result;
+                    this.projectData = Object.values(this.projectData)[0];
+                    this.tituloProyecto = this.projectData['nombre_proyecto'];
+                    console.log(this.projectData)
+                    this.isLoading = false;
+                    console.log('PROJECT ID: ' + this.projectId);
+
+                    this.http.get(`https://schkedule-default-rtdb.firebaseio.com/actividad-proyecto.json?orderBy="id_proyecto"&equalTo="${this.projectId}"`).subscribe(activityResult => {
+                        this.testList = Object.values(activityResult);
+                        for(let i = 0; i < this.testList.length; i++) {
+                            this.editCellListNombre.push(true);
+                            this.editCellListEstatus.push(true);
+                            this.editCellListCategoria.push(true);
+                        }
+                    })
+                    });
+                }
+            })
+        }, 700)
+        
 
     }
 
@@ -88,12 +95,40 @@ export class NewProjectPageComponent implements OnInit {
         })
     }
 
-    deleteTask(no: String) {
-        this.testList = this.testList.filter(element => element.no != no);
-        for(let i = 0; i < this.testList.length; i++) {
-            let newNo = i + 1;
-            this.testList[i].no = newNo.toString();
-        }
+    deleteTask(task: any) {
+        Swal.fire({
+            title: '¿Estas seguro?',
+            text: "No podras revertir esta acción",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Sí, eliminarlo!',
+            cancelButtonText: 'Cancelar'
+          }).then((result) => {
+            if (result.isConfirmed) {
+                // Eliminar en firebase
+                let no = task['no'];
+                console.log(task);
+
+                this.http.get(`https://schkedule-default-rtdb.firebaseio.com/actividad-proyecto.json?orderBy="id_proyecto"&equalTo="${this.projectId}"`).subscribe(result => {
+                    let resultValues = Object.values(result);
+                    let resultIndexes = Object.keys(result);
+                    let index = resultValues.findIndex((element: any) => parseInt(element['no']) == parseInt(no));
+                    
+                    this.http.delete(`https://schkedule-default-rtdb.firebaseio.com/actividad-proyecto/${resultIndexes[index]}.json`).subscribe((deleteResult: any) => {
+                        console.log(deleteResult);
+                    });
+                });
+
+                this.testList = this.testList.filter(element => element.no != no);
+                for(let i = 0; i < this.testList.length; i++) {
+                    let newNo = i + 1;
+                    this.testList[i].no = newNo.toString();
+                }
+            }
+          });
+        
     }
 
     toggleModal() {
@@ -139,6 +174,7 @@ export class NewProjectPageComponent implements OnInit {
                 let objectId = Object.keys(result)[objectIndex];
                 this.http.patch(`https://schkedule-default-rtdb.firebaseio.com/actividad-proyecto/${objectId}.json`, this.testList[index]).subscribe(resultPatch => {
                     console.log(resultPatch);
+                    this.changeProjectName();
                 })
             }
             
@@ -153,6 +189,8 @@ export class NewProjectPageComponent implements OnInit {
     changeProjectName() {
         this.editTituloProyecto = true;
         this.projectData['nombre_proyecto'] = this.tituloProyecto;
+        this.projectData['ultima_modificacion'] = new Date().toISOString();
+        console.log(this.projectData);
         this.http.patch(`https://schkedule-default-rtdb.firebaseio.com/proyecto/${this.projectId}.json`, this.projectData).subscribe(result => {
             console.log(result);
         })

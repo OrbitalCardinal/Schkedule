@@ -1,5 +1,15 @@
 <div class="card">
+    <div class="clickable-area" (click)="executeCardFunction()"></div>
     <div class="title">{{title}}</div>
-    <div class="subtitle">Ultima modificación: {{last_modified}}</div>
-    <img src="assets/img/clipboard-blue-icon.png">
+    <div class="subtitle"><b>Ultima modificación:</b> {{last_modified}}</div>
+    <div class="card-actions">
+        <div class="circle">
+            <i *ngIf="!isKanban" class="{{icon}} category "></i>
+            <img *ngIf="isKanban" src="assets/img/kanban-icon.svg" class="kanban-icon">
+        </div>
+        <i  class="fas fa-trash delete" (click)="executeDeleteFunction()"></i>
+        
+    </div>
+
+    
 </div>

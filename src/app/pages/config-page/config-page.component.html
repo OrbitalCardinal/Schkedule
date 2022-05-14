@@ -1,0 +1,39 @@
+<div *ngIf="isLoading" class="loading-spinner">
+    <div style="color: #1081b1b0" class="la-ball-atom la-3x">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</div>
+
+<div *ngIf="!isLoading" class="main-container fadeIn">
+    <div>
+        <blue-title>Datos personales</blue-title>
+        <div class="separator"></div>
+    </div>
+    
+    <b class="section">Nombre completo</b>
+    <div class="data">
+        <p>{{userData['nombre_completo']}}</p>
+        <i class="fas fa-edit" (click)="editName('Ingrese su nuevo nombre de usuario', userData['nombre_completo'], 'text')"></i>
+    </div>
+    <b class="section">Estatus</b>
+    <div class="data">
+        <p>{{userData['estatus']}}</p>
+        <i class="fas fa-edit" (click)="editStatus('Seleccione su nuevo estatus',  userData['estatus'], 'select')"></i>
+    </div>
+    
+    <div>
+        <blue-title>Credenciales</blue-title>
+        <div class="separator"></div>
+    </div>
+    
+    <b class="section">Correo registrado</b>
+    <div class="data">
+        <p class="data">{{userData['correo_vinculado']}}</p>
+    </div>
+    
+    <b class="section">Contraseña de la cuenta</b>
+    <schkedule-button (click)="recoverPassword()">Solicitar restablecimiento de contraseña</schkedule-button>
+</div>
