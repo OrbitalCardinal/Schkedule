@@ -33,6 +33,7 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { RecentKanbanPageComponent } from './pages/recent-kanban-page/recent-kanban-page.component';
 import { NewKanbanPageComponent } from './pages/new-kanban-page/new-kanban-page.component';
 import { SchkeduleInput } from './components/schkedule-input/schkedule-input.component';
+import { HorarioModalComponent } from './components/horario-modal/horario-modal.component';
 import { SchkeduleButtonComponent } from './components/schkedule-button/schkedule-button.component';
 import { RecentGanttPageComponent } from './pages/recent-gantt/recent-gantt-page.component';
 import { RecentSchedulePageComponent } from './pages/recent-schedule/recent-schedule-page.component';
@@ -68,6 +69,7 @@ import { ConfigPageComponent } from './pages/config-page/config-page.component';
     NewKanbanPageComponent,
     ForgotPasswordComponent,
     SchkeduleInput,
+    HorarioModalComponent
     SchkeduleButtonComponent,
     RecentGanttPageComponent,
     RecentSchedulePageComponent,
