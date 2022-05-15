@@ -17,3 +17,11 @@
   width: 23px;
   filter: invert(30%) sepia(76%) saturate(7184%) hue-rotate(184deg) brightness(104%) contrast(91%);
 }
+
+.loading-spinner {
+  width: 100%;
+  height: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

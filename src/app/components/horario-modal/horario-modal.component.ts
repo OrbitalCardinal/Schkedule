@@ -20,6 +20,7 @@ export class HorarioModalComponent implements OnInit {
     descripcion: "",
     id_hora_frecuencia: -1,
     // Edit Controls
+    bgColorClass: "",
     edit: false,
     delete: false
   }
@@ -29,10 +30,11 @@ export class HorarioModalComponent implements OnInit {
   }
 
   ngOnInit(): void {
-      if (this.actividadHorario.edit == true) {
-        this.HorarioTaskForm.controls['descripcion'].setValue(this.actividadHorario.descripcion);
-        this.editHorario = true;
-      }
+    console.log(this.actividadHorario)
+    if (this.actividadHorario.edit == true) {
+      this.HorarioTaskForm.controls['horarioDescription'].setValue(this.actividadHorario.descripcion);
+      this.editHorario = true;
+    }
   }
 
   public createFormGroup() {
@@ -43,7 +45,7 @@ export class HorarioModalComponent implements OnInit {
 
   get descripcion() { return this.HorarioTaskForm.get('horarioDescription'); }
 
-  public showConfirmMessage() {
+  public showConfirmMessage(actividadHorarioModel: ActividadHorarioModel) {
     Swal.fire({
       title: '¿Estas seguro(a)?',
       text: "¡No podrás revertir esto!",
@@ -53,8 +55,9 @@ export class HorarioModalComponent implements OnInit {
       cancelButtonColor: '#d33',
       confirmButtonText: '¡Sí, bórralo!'
     }).then((result) => {
-      if (result.isConfirmed){
-        this.sendData(result.isConfirmed);
+      if (result.isConfirmed) {
+        this.modalSwitchS.$ActividadHorarioModel.emit(actividadHorarioModel)
+        this.modalSwitchS.$switchModal.emit(false);
       }
     })
   }
@@ -66,18 +69,24 @@ export class HorarioModalComponent implements OnInit {
       id_horario: this.actividadHorario.id_horario,
       descripcion: this.HorarioTaskForm.value['horarioDescription'],
       id_hora_frecuencia: this.actividadHorario.id_hora_frecuencia,
-       // Edit Controls
-       edit: this.editHorario,
-       delete: flagDelete
+      // Edit Controls
+      bgColorClass: this.actividadHorario.bgColorClass,
+      edit: this.editHorario,
+      delete: flagDelete
     }
 
-    this.modalSwitchS.$ActividadHorarioModel.emit(actividadHorarioModel)
+    if (flagDelete) {
+      this.showConfirmMessage(actividadHorarioModel)
+    } else {
+      this.modalSwitchS.$ActividadHorarioModel.emit(actividadHorarioModel)
+      this.modalSwitchS.$switchModal.emit(false);
+    }
+
   }
 
   public sendHorarioTask(flagDelete: boolean) {
-    console.log(this.HorarioTaskForm.value['horarioDescription'])
+    // console.log(this.HorarioTaskForm.value['horarioDescription'])
     this.sendData(flagDelete)
-    this.modalSwitchS.$switchModal.emit(false);
   }
 
   public closeKanbanModal() {

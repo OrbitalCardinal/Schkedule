@@ -3,18 +3,22 @@ import { ActividadHorarioModel } from '../../models/actividad-horario-model';
 import { ListActividadHorarioModel } from '../../models/list-actividad-horario-model'
 import { HorarioModel } from '../../models/horario-model'
 import { SwitchHorarioModalService } from 'src/app/services/switch-horario-modal.service';
-import { KanbanModalComponent } from "src/app/components/kanban-modal/kanban-modal.component";
-
 @Component({
   selector: 'schedule-page',
   templateUrl: './schedule-page.component.html',
-  styleUrls: ['./schedule-page.component.scss']
+  styleUrls: ['./schedule-page.component.scss', '../global-pages-styles/ball-atom.scss']
 })
 
 export class SchedulePageComponent {
 
+  public isLoading = true;
   public modalSwitch: boolean = false;
-  public Horario: HorarioModel[] = []
+  public Horario: HorarioModel = {
+    id_Horario: "",
+    nombre_horario: "",
+    // Edit Controls
+    editNombre: true,
+  }
   public ActividadHorario: ActividadHorarioModel[] = []
   public ActividadHorarioModal: ActividadHorarioModel[] = []
   public ListActividad: ListActividadHorarioModel[] = []
@@ -23,7 +27,10 @@ export class SchedulePageComponent {
 
   ngOnInit() {
 
-    this.getHorario();
+    setTimeout(() => {
+      this.getHorario();
+      this.isLoading = false;
+    }, 900);
 
     this.modalSwitchS.$switchModal.subscribe((valor) => { this.modalSwitch = valor });
 
@@ -48,9 +55,12 @@ export class SchedulePageComponent {
 
     let id_hora_frecuencia: number = 0;
 
+    let printHour: number = 7;
     const totalHours: number = 12;
     const totalDays: number = 7;
     const searchByID = (element: ActividadHorarioModel) => element.id_hora_frecuencia == id_hora_frecuencia
+
+    this.ListActividad = []
 
     for (let indexHours = 0; indexHours < totalHours; indexHours++) {
 
@@ -61,46 +71,57 @@ export class SchedulePageComponent {
         const index = this.ActividadHorario.findIndex(searchByID)
         let id_actividad_horario = "";
         let descripcion = "";
+        let bgColorClass = "";
 
         if (index >= 0 ){
           id_actividad_horario = this.ActividadHorario[index].id_actividad_horario
           descripcion = this.ActividadHorario[index].descripcion
+          bgColorClass = "bGblue"
         }
 
         const actividad: ActividadHorarioModel = {
           id_actividad_horario: id_actividad_horario,
-          id_horario: this.Horario[0].id_Horario,
+          id_horario: this.Horario.id_Horario,
           descripcion: descripcion,
           id_hora_frecuencia: id_hora_frecuencia,
           // Edit Controls
+          bgColorClass: bgColorClass,
           edit: false,
           delete: false
         }
 
         listDays.push(actividad)
-
         id_hora_frecuencia++;
       }
 
+      const stringHour = this.formatHour(printHour);
+
       const listaHoras: ListActividadHorarioModel = {
-        hora: indexHours.toString(),
+        hora: stringHour,
         listDays: listDays,
       }
 
       this.ListActividad.push(listaHoras)
+      printHour++;
     }
-
-    // console.log(this.ListActividad)
-
   }
 
-  public sendHorarioTask() {
-
+  public formatHour(hour: number){
+    if (hour < 10){
+      return `0${hour}:00`
+    }else {
+      return `${hour}:00`
+    }
   }
 
   public openModal(actividad: ActividadHorarioModel) {
     this.ActividadHorarioModal = []
     this.ActividadHorarioModal.push(actividad)
+
+    if (this.ActividadHorarioModal[0].id_actividad_horario != "" ){
+      this.ActividadHorarioModal[0].edit = true
+    }
+
     this.modalSwitch = true;
   }
 
@@ -124,12 +145,19 @@ export class SchedulePageComponent {
         // Edit Controls
         editNombre: true
       }
-      this.Horario.push(horarioModel);
+      this.Horario ={
+        id_Horario: horarioModel.id_Horario,
+        nombre_horario: horarioModel.nombre_horario,
+        // Edit Controls
+        editNombre: horarioModel.editNombre,
+      } ;
     }
   }
 
   private fillInActividadHorario(result: string, id_Horario: string) {
+
     const data = JSON.parse(result);
+    this.ActividadHorario = []
 
     for (let id_Horario in data) {
       const ActividadHorarioModel: ActividadHorarioModel = {
@@ -138,6 +166,7 @@ export class SchedulePageComponent {
         descripcion: data[id_Horario]['descripcion'],
         id_hora_frecuencia: data[id_Horario]['id_hora_frecuencia'],
         // Edit Controls
+        bgColorClass: "bGblue",
         edit: false,
         delete: false
       }
@@ -166,7 +195,7 @@ export class SchedulePageComponent {
           this.postHorario('Nuevo Horario')
         } else {
           this.fillInHorario(result);
-          this.getActividadHorario(this.Horario[0].id_Horario)
+          this.getActividadHorario(this.Horario.id_Horario)
         }
       })
       .catch(error => console.log('error', error));
@@ -249,7 +278,7 @@ export class SchedulePageComponent {
   }
 
   private patchActividadHorario(actividad: ActividadHorarioModel) {
-    const url_api = "https://schkedule-default-rtdb.firebaseio.com/Actividad-Kanban/";
+    const url_api = "https://schkedule-default-rtdb.firebaseio.com/Actividad-Horario/";
     const myHeaders = this.getmyHeaders();
 
     const data = {
@@ -266,7 +295,7 @@ export class SchedulePageComponent {
     fetch(`${url_api}${actividad.id_horario}/${actividad.id_actividad_horario}.json`, params)
       .then(response => response.text())
       .then((result) => {
-        // this.getActividadKanban(actividadKanban.id_tarjeta);
+        this.getActividadHorario(this.Horario.id_Horario)
       })
       .catch(error => console.log('error', error));
 
@@ -285,7 +314,7 @@ export class SchedulePageComponent {
     fetch(`${url_api}${id_Horario}/${id_actividad_kanban}.json`, params)
       .then(response => response.text())
       .then((result) => {
-        // this.getActividadKanban(id_tarjeta);
+        this.getActividadHorario(this.Horario.id_Horario)
       })
       .catch(error => console.log('error', error));
 
@@ -312,14 +341,18 @@ export class SchedulePageComponent {
     fetch(`${url_api}${actividad.id_horario}.json`, params)
       .then(response => response.text())
       .then((result) => {
-        // this.getActividadKanban(Actividad-Horario);
+        this.getActividadHorario(this.Horario.id_Horario)
       })
       .catch(error => console.log('error', error));
 
   }
 
   public editDescription() {
-    this.Horario[0].editNombre = true
+    this.Horario.editNombre = true
+    this.patchHorario(
+      this.Horario.nombre_horario,
+      this.Horario.id_Horario
+    )
   }
 
 }
