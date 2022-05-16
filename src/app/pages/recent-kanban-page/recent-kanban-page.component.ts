@@ -16,6 +16,7 @@ import { firstValueFrom } from 'rxjs';
 export class RecentKanbanPageComponent implements OnInit {
 
   public isLoading = true;
+  userData = JSON.parse(localStorage.getItem('user')!);
 
   constructor(public router: Router, private http: HttpClient) { }
 
@@ -171,20 +172,7 @@ public deleteKanban = (projectId: any, index: any) => {
     }).then(async (result) => {
       if (result.isConfirmed) {
           // Eliminar en firebase
-          let parentKey = '';
-          console.log(projectId);
-          let tableros: any = await firstValueFrom(this.http.get(`https://schkedule-default-rtdb.firebaseio.com/Tablero-Kanban.json`));
-          console.log(tableros); 
-          for(let key of Object.keys(tableros)) {
-            for(let key2 of Object.keys(tableros[key])) {
-              console.log(key2);
-              if(key2 == projectId) {
-                parentKey = key;
-                break;
-              }
-            }
-          }
-          this.http.delete(`https://schkedule-default-rtdb.firebaseio.com/Tablero-Kanban/${parentKey}/${projectId}.json`).subscribe(result => {
+          this.http.delete(`https://schkedule-default-rtdb.firebaseio.com/Tablero-Kanban/${this.userData['id_usuario']}/${projectId}.json`).subscribe(result => {
             console.log(result);
           });
         Swal.fire(
@@ -196,6 +184,6 @@ public deleteKanban = (projectId: any, index: any) => {
         })
       }
     })
-}
+  }
 
 }
