@@ -4,6 +4,7 @@ export interface ActividadHorarioModel {
   descripcion: string,
   id_hora_frecuencia: number
    // Edit Controls
+   bgColorClass: string,
    edit:boolean,
    delete:boolean
 }

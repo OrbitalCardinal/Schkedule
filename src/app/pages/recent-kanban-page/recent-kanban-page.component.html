@@ -22,4 +22,14 @@
   </activity-card>
 </div>
 
+<div *ngIf="isLoading" class="loading-spinner">
+  <div style="color: #1081b1b0" class="la-ball-atom la-3x">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+  </div>
+</div>
+
+
 <router-outlet></router-outlet>

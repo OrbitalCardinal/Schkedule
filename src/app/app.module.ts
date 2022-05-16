@@ -69,7 +69,7 @@ import { ConfigPageComponent } from './pages/config-page/config-page.component';
     NewKanbanPageComponent,
     ForgotPasswordComponent,
     SchkeduleInput,
-    HorarioModalComponent
+    HorarioModalComponent,
     SchkeduleButtonComponent,
     RecentGanttPageComponent,
     RecentSchedulePageComponent,
