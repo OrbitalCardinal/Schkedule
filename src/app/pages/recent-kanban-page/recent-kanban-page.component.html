@@ -11,13 +11,15 @@
   </div>
 </div>
 
-<div class="recent-projects">
+<div class="recent-projects" >
   <activity-card
+    class="fadeIn"
     [title]="recentKanban.kanbanName"
-    [last_modified]="recentKanban.modifiedAt"
+    [last_modified]="formatDate(recentKanban.modifiedAt)"
     [isKanban]="true"
     [cardFunction]="[openKanban, recentKanban.id_tablero]"
-    *ngFor="let recentKanban of recentKanbanBoards"
+    [deleteFunction]="[deleteKanban, recentKanban.id_tablero, i]"
+    *ngFor="let recentKanban of recentKanbanBoards; let i = index"
   >
   </activity-card>
 </div>

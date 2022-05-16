@@ -1,17 +1,23 @@
 import { Component, OnInit } from '@angular/core';
 import { KanbanModel } from "../../models/kanban-model";
 import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import Swal from 'sweetalert2';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-recent-kanban-page',
   templateUrl: './recent-kanban-page.component.html',
-  styleUrls: ['./recent-kanban-page.component.scss', '../global-pages-styles/top-bar-styles.scss', '../global-pages-styles/ball-atom.scss']
+  styleUrls: ['./recent-kanban-page.component.scss', 
+  '../global-pages-styles/top-bar-styles.scss', 
+  '../global-pages-styles/ball-atom.scss',
+  '../global-pages-styles/global.styles.scss']
 })
 export class RecentKanbanPageComponent implements OnInit {
 
   public isLoading = true;
 
-  constructor(public router: Router) { }
+  constructor(public router: Router, private http: HttpClient) { }
 
   ngOnInit(): void {
 
@@ -33,6 +39,7 @@ export class RecentKanbanPageComponent implements OnInit {
     let $this = this;
     const searchByID = (element: KanbanModel) => element.id_tablero == id_tablero;
     const index = $this.recentKanbanBoards.findIndex(searchByID)
+    console.log($this.recentKanbanBoards[index])
     this.router.navigate(['mainpage/kanban/new-kanban'], { state: $this.recentKanbanBoards[index] });
   }
 
@@ -97,7 +104,7 @@ export class RecentKanbanPageComponent implements OnInit {
 
     const data = {
       kanbanName: kanbanName,
-      modifiedAt: `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`
+      modifiedAt: date
     }
 
     let params: RequestInit = {
@@ -120,5 +127,75 @@ export class RecentKanbanPageComponent implements OnInit {
       .catch(error => console.log('error', error));
 
   }
+
+  formatDate(date: any) {
+    let tDate = new Date(date);
+    let year = tDate.getUTCFullYear();
+    let month:any = parseInt(tDate.getUTCMonth().toString()) + 1;
+    let day:any = tDate.getUTCDate();
+    let hours: any = tDate.getHours();
+    let minutes: any = tDate.getMinutes();
+    if(hours < 9) {
+        hours = '0' + hours;
+    }
+    if(minutes < 9) {
+        minutes = '0' + minutes;
+    }
+    if(month < 10) {
+        month = '0' + month.toString();
+    }
+    if(day < 10) {
+        day = '0' + day;
+    }
+    let time =  hours + ':' + minutes;
+    let newDate = year + '/' + month + '/' + day + ' ' + time;
+    return newDate;
+}
+
+//  // Eliminar proyecto desde tarjeta
+ public delKanban = (index: any) => {
+  this.recentKanbanBoards = this.recentKanbanBoards.filter((_: any, index_: any) => index_ != index)
+  console.log(this.recentKanbanBoards);
+}
+
+public deleteKanban = (projectId: any, index: any) => {
+  Swal.fire({
+      title: '¿Estas seguro?',
+      text: "No podras revertir esta acción",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Sí, eliminarlo!',
+      cancelButtonText: 'Cancelar'
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+          // Eliminar en firebase
+          let parentKey = '';
+          console.log(projectId);
+          let tableros: any = await firstValueFrom(this.http.get(`https://schkedule-default-rtdb.firebaseio.com/Tablero-Kanban.json`));
+          console.log(tableros); 
+          for(let key of Object.keys(tableros)) {
+            for(let key2 of Object.keys(tableros[key])) {
+              console.log(key2);
+              if(key2 == projectId) {
+                parentKey = key;
+                break;
+              }
+            }
+          }
+          this.http.delete(`https://schkedule-default-rtdb.firebaseio.com/Tablero-Kanban/${parentKey}/${projectId}.json`).subscribe(result => {
+            console.log(result);
+          });
+        Swal.fire(
+          'Eliminado!',
+          '',
+          'success'
+        ).then(() => {
+            this.delKanban(index);
+        })
+      }
+    })
+}
 
 }

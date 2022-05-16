@@ -1,0 +1,12 @@
+.projects-container {
+    overflow: scroll;
+    height: 80vh;
+}
+.recent {
+    
+    margin-top: 2em;
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    gap: 2em;
+}

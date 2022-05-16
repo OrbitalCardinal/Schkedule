@@ -1,9 +1,14 @@
+@import url('../global-pages-styles/global.styles.scss');
+
 .Kanban-container {
   display   : flex;
   padding   : 0;
   margin    : 20px 0 0 0;
   // overflow-x: auto;
   width     : 70vw;
+  animation: fadeInAnimation ease 0.3s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
 }
 
 .Kanban-section {
@@ -16,6 +21,9 @@
   background-color: #E5E5E5;
   box-sizing      : border-box;
   white-space     : nowrap;
+  animation: fadeInAnimation ease 0.3s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
 }
 
 .Kanban-section--header {
@@ -23,6 +31,9 @@
   font-weight: 500;
   display    : flex;
   align-items: center;
+  animation: fadeInAnimation ease 0.3s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
 
   input {
     font-size       : 12pt;
@@ -47,6 +58,9 @@
 }
 
 .Kanban-section--add {
+  animation: fadeInAnimation ease 0.3s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
   margin-top : 15px;
   color      : #0B7EAF;
   font-size  : 18px;

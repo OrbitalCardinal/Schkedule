@@ -41,6 +41,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 // Componentes ajenos
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { ConfigPageComponent } from './pages/config-page/config-page.component';
+import { SearchComponent } from './pages/search-component/search.component';
 
 @NgModule({
   declarations: [
@@ -73,7 +74,8 @@ import { ConfigPageComponent } from './pages/config-page/config-page.component';
     SchkeduleButtonComponent,
     RecentGanttPageComponent,
     RecentSchedulePageComponent,
-    ConfigPageComponent
+    ConfigPageComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,

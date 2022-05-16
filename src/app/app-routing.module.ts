@@ -1,4 +1,4 @@
-import { NgModule, Component } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 // Pages
@@ -19,6 +19,7 @@ import { NewKanbanPageComponent } from './pages/new-kanban-page/new-kanban-page.
 import { RecentGanttPageComponent } from './pages/recent-gantt/recent-gantt-page.component';
 import { RecentSchedulePageComponent } from './pages/recent-schedule/recent-schedule-page.component';
 import { ConfigPageComponent } from './pages/config-page/config-page.component';
+import { SearchComponent } from './pages/search-component/search.component';
 
 const routes: Routes = [
     { path: '', component: LandingComponent},
@@ -49,7 +50,8 @@ const routes: Routes = [
             { path: '', redirectTo: 'recent-schedule', pathMatch: 'full' },
             { path: 'recent-schedule', component: RecentSchedulePageComponent }
         ]},
-        { path: 'config', component: ConfigPageComponent}
+        { path: 'config', component: ConfigPageComponent},
+        { path: 'search', component: SearchComponent}
     ]}
 ];
 

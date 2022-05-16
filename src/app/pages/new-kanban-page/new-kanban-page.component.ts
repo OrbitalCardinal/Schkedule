@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { KanbanModel } from "../../models/kanban-model";
 import { KanbanSectionModel } from "../../models/kanban-section-model";
 import { KanbanTaskModel } from "../../models/kanban-task-model";
-import { SwitchKanbanModalService } from 'src/app/services/switch-kanban-modal.service';
+import { SwitchKanbanModalService } from '../../services/switch-kanban-modal.service';
+
 import { Router } from '@angular/router';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import Swal from 'sweetalert2';
@@ -325,7 +326,7 @@ export class NewKanbanPageComponent implements OnInit {
 
     const data = {
       kanbanName,
-      modifiedAt: `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`
+      modifiedAt: date
     }
 
     let params: RequestInit = {
