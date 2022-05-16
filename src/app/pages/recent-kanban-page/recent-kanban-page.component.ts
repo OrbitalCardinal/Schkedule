@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { KanbanModel } from "../../models/kanban-model";
 import { Router } from '@angular/router';
+import { SwitchKanbanModalService } from 'src/app/services/switch-kanban-modal.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-recent-kanban-page',
@@ -16,7 +18,7 @@ export class RecentKanbanPageComponent implements OnInit {
   }
 
   public recentKanbanBoards: KanbanModel[] = [];
-  
+
 
   public nuevoTableroKanban() {
     this.postTableroKanban("Nuevo Tablero")
@@ -111,6 +113,45 @@ export class RecentKanbanPageComponent implements OnInit {
         this.getTablerosKanban(data.name)
       })
       .catch(error => console.log('error', error));
+
+  }
+
+  public btnDeleteKanban(id_tablero: string){
+
+    Swal.fire({
+      title: '¿Estas seguro(a)?',
+      text: "¡No podrás revertir esto!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: '¡Sí, bórralo!'
+    }).then((result) => {
+      if (result.isConfirmed){
+        const url_api = "https://schkedule-default-rtdb.firebaseio.com/Tablero-Kanban/";
+        const myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        myHeaders.append("Access-Control-Allow-Origin", "*");
+        myHeaders.append("Access-Control-Allow-Methods", "DELETE, POST, GET, OPTIONS");
+        myHeaders.append("Access-Control-Allow-Headers", "Content-Type, Authorization, X-Requested-With");
+
+        let params: RequestInit = {
+          method: 'DELETE',
+          headers: myHeaders,
+          redirect: 'follow'
+        };
+
+        const localStorageUser = JSON.parse(localStorage['user']);
+        const lid_usuario = localStorageUser.id_usuario;
+
+        fetch(`${url_api}${lid_usuario}/${id_tablero}.json`, params)
+          .then(response => response.text())
+          .then((result) => {
+            globalThis.window.location.reload()
+          })
+          .catch(error => console.log('error', error));
+      }
+    })
 
   }
 

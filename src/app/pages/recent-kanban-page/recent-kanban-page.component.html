@@ -17,6 +17,7 @@
     [last_modified]="recentKanban.modifiedAt"
     [isKanban]="true"
     [cardFunction]="[openKanban, recentKanban.id_tablero]"
+    [deleteFunction]="[btnDeleteKanban, recentKanban.id_tablero]"
     *ngFor="let recentKanban of recentKanbanBoards"
   >
   </activity-card>
