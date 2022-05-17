@@ -43,6 +43,16 @@
   }
 }
 
+.order-menu {
+    position: absolute;
+    display: block;
+    width: 250px;
+    background-color: white;
+    box-shadow: 2px 2px 4px #aaaaaa;
+    color: #585858;
+    font-weight: bold;
+}
+
 .order-menu__option {
   position: relative;
   padding: 15px;
