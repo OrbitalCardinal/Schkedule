@@ -4,9 +4,39 @@
         <blue-title>Mis diagramas de Gantt</blue-title>
     </div>
     <div class="actions-area">
-        <schkedule-button color="#0B7EAF" leadingIcon="fas fa-plus">Nuevo diagrama</schkedule-button>
-        <schkedule-button color="#CF9400" leadingIcon="fas fa-sort">Ordenar por</schkedule-button>
+        <schkedule-button color="#0B7EAF" leadingIcon="fas fa-plus" (click)="newGantt()">Nuevo diagrama</schkedule-button>
+        <div class="order-content">
+            <div *ngIf="showOrderMenu" class="invisible-background" (click)="showOrderMenu = false"></div>
+            <schkedule-button class="button-width" color="#CF9400" leadingIcon="fas fa-sort" (click)="showOrderMenu = true">{{actualOrder}}</schkedule-button>
+            <div *ngIf="showOrderMenu" class="order-menu">
+                <div class="order-menu__option" (click)="orderProjects('nombre-ascendente')">Nombre ascendete ↑</div>
+                <div class="order-menu__option" (click)="orderProjects('nombre-descendente')">Nombre descendente ↓</div>
+                <div class="order-menu__option" (click)="orderProjects('fecha-ascendente')">Fecha ascendente ↑</div>
+                <div class="order-menu__option" (click)="orderProjects('fecha-descendente')">Fecha descendente ↓</div>
+            </div>
+        </div>
         <div class="vertical-line"></div>
-        <schkedule-input class="mini-search-bar" icon="fas fa-search" placeHolder="Buscar"></schkedule-input>
+        <schkedule-input class="mini-search-bar" icon="fas fa-search" placeHolder="Buscar" ngDefaultControl [(ngModel)]="searchValue" (ngModelChange)="searchGantt()"></schkedule-input>
     </div>
   </div>
+
+  <div *ngIf="isLoading" class="loading-spinner">
+    <div style="color: #1081b1b0" class="la-ball-atom la-3x">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</div>
+
+
+<div class="recent-projects-container">
+    <div class="recent-projects" *ngIf="!isLoading">
+        <activity-card [title]="project.nombre_gantt" 
+                       [last_modified]="formatDate(project.ultima_modificacion)"
+                       icon="fas fa-chart-gantt"
+                       [deleteFunction]="[deleteGantt, ganttIdList[i], i]"
+                       [cardFunction]="[redirectFunction, ganttIdList[i]]"
+                       *ngFor="let project of ganttList; let i = index"></activity-card>
+    </div>    
+</div>

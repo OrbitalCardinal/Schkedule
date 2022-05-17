@@ -1,0 +1,71 @@
+
+<div class="title">
+    <img class="back-arrow" src="assets/img/left-arrow-blue.png" routerLink="../">
+    <!-- <blue-title>{{ganttInfo['nombre_gantt']}}</blue-title> -->
+    <input type="text" [(ngModel)]="ganttName" (dblclick)="editGanttName = false" [readonly]="editGanttName" (keyup.enter)="changeGanttName()" [ngClass]="{enabledInput: !editGanttName}">
+</div>
+
+<div class="gantt-container">
+    <div class="left-side">
+        <div *ngFor="let datosGantt of datosGantt; let i = index">
+            <div class="section">
+                <blue-title>{{datosGantt.nombre_seccion}}</blue-title>
+            </div>
+            <div class="activities-box">
+                <div class="activity" *ngFor="let actividad of datosGantt.actividades">{{actividad.nombre_actividad}}</div>
+                <div class="activity footer" (click)="openModal(i, datosIdGantt[i])">+ Añadir actividad</div>
+            </div>
+        </div>
+        <div class="section">
+            <blue-title class="footer" (click)="newSection()">+ Añadir seccion</blue-title>
+        </div>
+    </div>
+    <div class="right-side">
+        <div class="header-container">
+            <div class="week" *ngFor="let week of ganttWeeks; let wi = index">
+                <div class="header">
+                    <div class="title">{{week.name}}</div>
+                <div class="subtitle">{{formatDate(week.value)}}</div>
+                </div>
+            </div>    
+        </div>
+        
+        <div class="time-section" *ngFor="let seccion of [].constructor(datosGantt.length); let i = index">
+            <div class="time" *ngFor="let actividad of [].constructor(datosGantt[i].actividades.length); let j = index">
+                <div class="bar-container" >
+                    <ng-container *ngFor="let show of barCount(datosGantt[i].actividades[j])">
+                        <div class="bar" *ngIf="show"></div>
+                        <!-- <div class="white-space" *ngIf="!show"></div> -->
+                    </ng-container>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-container" *ngIf="showModal">
+        <div class="modal">
+            <div>
+                <div class="modal__title">Nueva actividad</div>
+            <schkedule-input placeHolder="Nombre de la actividad" ngDefaultControl [(ngModel)]="nombre_actividad"></schkedule-input>
+            </div>
+
+            <div class="dates-container">
+                <div class="input-container">
+                    <p>Fecha inicial: </p>
+                    <input class="input-date" type="date" ngDefaultControl [(ngModel)]="fecha_inicial">
+                </div>
+                
+                <div class="input-container">
+                    <p>Fecha final: </p>
+                    <input class="input-date" type="date" ngDefaultControl [(ngModel)]="fecha_final">
+                </div>
+            </div>
+
+            <div class="button-container">
+                <schkedule-button (click)="modalNewActivity()">Confirmar</schkedule-button>
+                <schkedule-button class="cancel-button" (click)="showModal = false">Cancelar</schkedule-button>
+            </div>
+        </div>
+    </div>
+</div>

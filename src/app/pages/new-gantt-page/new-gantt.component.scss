@@ -1,0 +1,201 @@
+.back-arrow {
+    width: 20px;
+    height: 20px;
+    padding-right: 10px;
+}
+
+.back-arrow:hover {
+    cursor: pointer;
+}
+
+.title {
+    display: flex;
+    align-items: center;
+    input {
+        font-size: 16pt;
+        padding: 0.5em;
+        font-weight: bold;
+        outline: none;
+        border: none;
+        color: #0B7EAF;
+        width: 400px;
+        // user-select: none;
+        // -moz-user-select: none;
+        // -webkit-user-select: none;
+        // -ms-user-select: none;
+    }
+
+    .enabledInput {
+        border: 2px solid #F4BE37;
+    }
+}
+
+
+// Gantt styles
+.gantt-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+}
+
+.section {
+    padding: 20px;
+    background-color: #EAEAEA;
+
+    blue-title {
+        ::ng-deep {
+            div {
+                font-size: 17px;
+            }
+        }
+        
+    }
+}
+
+.activities-box {
+    font-size: 17px;
+    font-weight: 500;
+    padding: 10px 20px 10px 20px;
+}
+
+.activity {
+    color: #6C6C6C;
+    font-size: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.left-side {
+    width: 35%;
+    // height: 100%;
+    background-color: #F4F4F4;
+}
+
+.footer {
+    color: #0B7EAF;
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.right-side {
+    display: flex;
+    flex-direction: column;
+    
+    width: 100%;
+}
+
+.header-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.week {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    border: 1px solid #0B7EAF;
+
+    .title {
+        color: #0B7EAF;
+        font-weight: 500;
+    }
+
+    .subtitle {
+        color: #6C6C6C;
+    }
+}
+
+.header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+}
+
+.time-section {
+    margin-bottom: 100px;
+    display: flex;
+    flex-direction: column;
+}
+
+.time {
+    height: 100%;
+    width: 100%;
+    flex-direction: row;
+}
+
+.bar-container {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    display: flex;
+}
+.bar {
+    height: 10px;
+    width: 133px;
+    background-color: #0B7EAF;
+}
+
+.white-space {
+    width: 133px;
+}
+
+// Modal
+.modal-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: hsla(0, 0%, 42%, 0.5);
+}
+
+.modal {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-evenly;
+    padding: 50px 80px 50px 80px;
+    height: 300px;
+    // width: 400px;
+    background-color: white;
+}
+
+schkedule-input {
+    ::ng-deep {
+        .schkedule-input {
+            width: 480px !important;
+        }
+    }
+}
+
+.button-container {
+    display: flex;
+    gap: 20px;
+
+    .cancel-button {
+        ::ng-deep {
+            button {
+                background-color: red !important;
+            }
+        }
+    }
+}
+
+.input-date {
+    padding: 10px;
+    width: 100%;
+}
+
+.dates-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}

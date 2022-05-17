@@ -20,3 +20,30 @@
     align-items: center;
     justify-content: center;
 }
+
+.order-menu {
+    position: absolute;
+    display: block;
+    width: 250px;
+    background-color: white;
+    box-shadow: 2px 2px 4px #aaaaaa;
+    color: #585858;
+    font-weight: bold;
+}
+
+.invisible-background {
+    top: 0;
+    left: 0;
+    position: absolute;
+    height: 100vh;
+    width: 100vw;
+}
+
+.order-menu__option {
+    position: relative;
+    padding: 15px;
+    &:hover {
+        background-color: rgb(238, 238, 238);
+        cursor: pointer;
+    }
+}

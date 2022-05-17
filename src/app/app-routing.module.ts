@@ -20,6 +20,7 @@ import { RecentGanttPageComponent } from './pages/recent-gantt/recent-gantt-page
 import { RecentSchedulePageComponent } from './pages/recent-schedule/recent-schedule-page.component';
 import { ConfigPageComponent } from './pages/config-page/config-page.component';
 import { SearchComponent } from './pages/search-component/search.component';
+import { NewGanttPage } from './pages/new-gantt-page/new-gantt.component';
 
 const routes: Routes = [
     { path: '', component: LandingComponent},
@@ -44,7 +45,8 @@ const routes: Routes = [
         { path: 'gantt', component: GanttPageComponent,
           children: [
             { path: '', redirectTo: 'recent-gantt', pathMatch: 'full' },
-            { path: 'recent-gantt', component: RecentGanttPageComponent }
+            { path: 'recent-gantt', component: RecentGanttPageComponent },
+            { path: 'new-gantt', component: NewGanttPage }
         ]},
         { path: 'schedule', component: SchedulePageComponent ,
           children: [

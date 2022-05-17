@@ -20,7 +20,7 @@ export class HomePageService {
         if(this.kanbanResults == null) {
             this.kanbanResults = {};
         }
-        this.ganttResults = await firstValueFrom(this.http.get(`https://schkedule-default-rtdb.firebaseio.com/Diagrama-Gantt.json?orderBy="id_usuario"&equalTo="${this.userData['id_usuario']}"`));   
+        this.ganttResults = await firstValueFrom(this.http.get(`https://schkedule-default-rtdb.firebaseio.com/gantt.json?orderBy="id_usuario"&equalTo="${this.userData['id_usuario']}"`));   
         if(this.ganttResults == null) {
             this.ganttResults = {};
         }

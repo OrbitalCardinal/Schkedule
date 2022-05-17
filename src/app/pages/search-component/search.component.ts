@@ -34,7 +34,7 @@ export class SearchComponent implements OnInit {
         let projectResults = await firstValueFrom(this.http.get(`https://schkedule-default-rtdb.firebaseio.com/proyecto.json?orderBy="id_usuario"&equalTo="${this.userData['id_usuario']}"`));
         let kanbanResults = await firstValueFrom(this.http.get(`https://schkedule-default-rtdb.firebaseio.com/Tablero-Kanban/${this.userData['id_usuario']}.json`));
         this.fillInKanbanData(kanbanResults, this.userData['id_usuario']);
-        let ganttResults = await firstValueFrom(this.http.get(`https://schkedule-default-rtdb.firebaseio.com/Diagrama-Gantt.json?orderBy="id_usuario"&equalTo="${this.userData['id_usuario']}"`));
+        let ganttResults = await firstValueFrom(this.http.get(`https://schkedule-default-rtdb.firebaseio.com/gantt.json?orderBy="id_usuario"&equalTo="${this.userData['id_usuario']}"`));
         let projects = Object.values(projectResults);
         let projectsIds = Object.keys(projectResults);
         projects.forEach(element => {
@@ -60,7 +60,8 @@ export class SearchComponent implements OnInit {
         let gantts = Object.values(ganttResults);
         let ganttsIds = Object.keys(ganttResults);
         gantts.forEach(element => {
-            element['tipo'] = 'gantts';
+            element['nombre'] = element['nombre_gantt'];
+            element['tipo'] = 'chart-gantt';
         })
 
         this.projectList = [...projects, ...kanbans, ...gantts];

@@ -44,6 +44,8 @@ import { ConfigPageComponent } from './pages/config-page/config-page.component';
 import { SearchComponent } from './pages/search-component/search.component';
 import { HomePageService } from './services/home-page.service';
 import { NgxChartsModule }from '@swimlane/ngx-charts';
+import { RecentGanttService } from './services/recent-gantt.service';
+import { NewGanttPage } from './pages/new-gantt-page/new-gantt.component';
 
 @NgModule({
   declarations: [
@@ -77,7 +79,8 @@ import { NgxChartsModule }from '@swimlane/ngx-charts';
     RecentGanttPageComponent,
     RecentSchedulePageComponent,
     ConfigPageComponent,
-    SearchComponent
+    SearchComponent,
+    NewGanttPage
   ],
   imports: [
     BrowserModule,
@@ -95,7 +98,7 @@ import { NgxChartsModule }from '@swimlane/ngx-charts';
   exports: [
     NgxSpinnerModule,
   ],
-  providers: [HomePageService],
+  providers: [HomePageService, RecentGanttService],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

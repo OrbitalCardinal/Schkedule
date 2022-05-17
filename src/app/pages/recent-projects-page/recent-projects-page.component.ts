@@ -166,8 +166,7 @@ export class RecentProjectsPageComponent implements OnInit {
             this.userProjects = this.originalProjects.filter((element: any) => element['nombre_proyecto'].includes(this.searchValue));
         } else {
             this.userProjects = [...this.originalProjects];
-        }
-        
+        }    
     }
 
     orderProjects(mode: String) {
