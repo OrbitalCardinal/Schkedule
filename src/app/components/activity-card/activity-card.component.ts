@@ -14,6 +14,7 @@ export class ActivityCardComponent {
     @Input() cardFunction: any[] = [];
     @Input() deleteFunction: any[] = []
     @Input() isKanban: Boolean = false;
+    @Input() canDelete: Boolean = true;
 
     constructor(private router: Router) {}
 

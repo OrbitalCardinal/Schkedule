@@ -8,14 +8,20 @@ import { firstValueFrom } from 'rxjs';
 @Component({
   selector: 'app-recent-kanban-page',
   templateUrl: './recent-kanban-page.component.html',
-  styleUrls: ['./recent-kanban-page.component.scss', 
-  '../global-pages-styles/top-bar-styles.scss', 
-  '../global-pages-styles/ball-atom.scss',
-  '../global-pages-styles/global.styles.scss']
+  styleUrls: ['./recent-kanban-page.component.scss',
+    '../global-pages-styles/top-bar-styles.scss',
+    '../global-pages-styles/ball-atom.scss',
+    '../global-pages-styles/global.styles.scss']
 })
 export class RecentKanbanPageComponent implements OnInit {
 
+  public showOrderMenu: Boolean = false;
+  public actualOrder: String = 'Ordenar por';
   public isLoading = true;
+  public searchValue: any;
+  public recentKanbanBoards: KanbanModel[] = [];
+  public recentKanbanBoardsOriginal: KanbanModel[] = [];
+
   userData = JSON.parse(localStorage.getItem('user')!);
 
   constructor(public router: Router, private http: HttpClient) { }
@@ -29,7 +35,6 @@ export class RecentKanbanPageComponent implements OnInit {
 
   }
 
-  public recentKanbanBoards: KanbanModel[] = [];
 
 
   public nuevoTableroKanban() {
@@ -94,6 +99,7 @@ export class RecentKanbanPageComponent implements OnInit {
         editTituloKanban: true //Se inicia en true siempre
       };
       this.recentKanbanBoards.push(kanbanBoard);
+      this.recentKanbanBoardsOriginal.push(kanbanBoard);
     }
   }
 
@@ -132,35 +138,35 @@ export class RecentKanbanPageComponent implements OnInit {
   formatDate(date: any) {
     let tDate = new Date(date);
     let year = tDate.getUTCFullYear();
-    let month:any = parseInt(tDate.getUTCMonth().toString()) + 1;
-    let day:any = tDate.getUTCDate();
+    let month: any = parseInt(tDate.getUTCMonth().toString()) + 1;
+    let day: any = tDate.getUTCDate();
     let hours: any = tDate.getHours();
     let minutes: any = tDate.getMinutes();
-    if(hours < 9) {
-        hours = '0' + hours;
+    if (hours < 9) {
+      hours = '0' + hours;
     }
-    if(minutes < 9) {
-        minutes = '0' + minutes;
+    if (minutes < 9) {
+      minutes = '0' + minutes;
     }
-    if(month < 10) {
-        month = '0' + month.toString();
+    if (month < 10) {
+      month = '0' + month.toString();
     }
-    if(day < 10) {
-        day = '0' + day;
+    if (day < 10) {
+      day = '0' + day;
     }
-    let time =  hours + ':' + minutes;
+    let time = hours + ':' + minutes;
     let newDate = year + '/' + month + '/' + day + ' ' + time;
     return newDate;
-}
+  }
 
-//  // Eliminar proyecto desde tarjeta
- public delKanban = (index: any) => {
-  this.recentKanbanBoards = this.recentKanbanBoards.filter((_: any, index_: any) => index_ != index)
-  console.log(this.recentKanbanBoards);
-}
+  //  // Eliminar proyecto desde tarjeta
+  public delKanban = (index: any) => {
+    this.recentKanbanBoards = this.recentKanbanBoards.filter((_: any, index_: any) => index_ != index)
+    console.log(this.recentKanbanBoards);
+  }
 
-public deleteKanban = (projectId: any, index: any) => {
-  Swal.fire({
+  public deleteKanban = (projectId: any, index: any) => {
+    Swal.fire({
       title: '¿Estas seguro?',
       text: "No podras revertir esta acción",
       icon: 'warning',
@@ -171,19 +177,79 @@ public deleteKanban = (projectId: any, index: any) => {
       cancelButtonText: 'Cancelar'
     }).then(async (result) => {
       if (result.isConfirmed) {
-          // Eliminar en firebase
-          this.http.delete(`https://schkedule-default-rtdb.firebaseio.com/Tablero-Kanban/${this.userData['id_usuario']}/${projectId}.json`).subscribe(result => {
-            console.log(result);
-          });
+        // Eliminar en firebase
+        this.http.delete(`https://schkedule-default-rtdb.firebaseio.com/Tablero-Kanban/${this.userData['id_usuario']}/${projectId}.json`).subscribe(result => {
+          console.log(result);
+        });
         Swal.fire(
           'Eliminado!',
           '',
           'success'
         ).then(() => {
-            this.delKanban(index);
+          this.delKanban(index);
         })
       }
     })
+  }
+
+  public orderProjects(mode: String) {
+    if (mode == 'nombre-ascendente') {
+      this.actualOrder = 'Nombre descendente ↑';
+      this.recentKanbanBoards.sort((a: any, b: any) => {
+        let fa = a['kanbanName'].toLowerCase(),
+          fb = b['kanbanName'].toLowerCase();
+
+        if (fa < fb) {
+          return -1;
+        }
+        if (fa > fb) {
+          return 1;
+        }
+        return 0;
+      });
+
+    }
+    else if (mode == 'nombre-descendente') {
+      this.actualOrder = 'Nombre descendente ↓';
+      this.recentKanbanBoards.sort((a: any, b: any) => {
+        let fa = a['kanbanName'].toLowerCase(),
+          fb = b['kanbanName'].toLowerCase();
+
+        if (fb < fa) {
+          return -1;
+        }
+        if (fb > fa) {
+          return 1;
+        }
+        return 0;
+      });
+    }
+    else if (mode == 'fecha-ascendente') {
+      this.actualOrder = 'Fecha ascendente ↑';
+      this.recentKanbanBoards.sort((a: any, b: any) => {
+        let da: any = new Date(a['modifiedAt']),
+          db: any = new Date(b['modifiedAt']);
+        return da - db;
+      });
+    }
+    else if (mode == 'fecha-descendente') {
+      this.actualOrder = 'Fecha descendente ↓';
+      this.recentKanbanBoards.sort((a: any, b: any) => {
+        let da: any = new Date(a['modifiedAt']),
+          db: any = new Date(b['modifiedAt']);
+        return db - da;
+      });
+    }
+    this.showOrderMenu = false;
+  }
+
+  public searchProject() {
+    if (this.recentKanbanBoards.length != 0) {
+      this.recentKanbanBoards = this.recentKanbanBoardsOriginal.filter((element: any) => element['kanbanName'].includes(this.searchValue));
+    } else {
+      this.recentKanbanBoards = [...this.recentKanbanBoardsOriginal];
+    }
+
   }
 
 }
