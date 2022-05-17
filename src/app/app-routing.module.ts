@@ -21,15 +21,12 @@ import { RecentSchedulePageComponent } from './pages/recent-schedule/recent-sche
 import { ConfigPageComponent } from './pages/config-page/config-page.component';
 import { SearchComponent } from './pages/search-component/search.component';
 
-// Guards
-import { UserGuard } from './services/user-guard.service';
-
 const routes: Routes = [
     { path: '', component: LandingComponent},
     { path: 'register', component: RegisterComponent},
     { path: 'login', component: LoginComponent},
     { path: 'forgot-password', component: ForgotPasswordComponent},
-    { path: 'mainpage', canActivate: [UserGuard],component: MainPageComponent, children: [
+    { path: 'mainpage',component: MainPageComponent, children: [
         { path: '', redirectTo: 'home', pathMatch: 'full'},
         { path: 'home', component: HomePageComponent },
         { path: 'project', component: ProjectPageComponent, children: [
