@@ -25,3 +25,29 @@
   align-items: center;
   justify-content: center;
 }
+
+.invisible-background {
+  // background-color: red;
+  top: 0;
+  left: 0;
+  position: absolute;
+  height: 100vh;
+  width: 100vw;
+}
+
+.button-width {
+  ::ng-deep {
+      div {
+          width: 300px;
+      }
+  }
+}
+
+.order-menu__option {
+  position: relative;
+  padding: 15px;
+  &:hover {
+      background-color: rgb(238, 238, 238);
+      cursor: pointer;
+  }
+}
