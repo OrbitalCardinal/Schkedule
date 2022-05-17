@@ -13,8 +13,17 @@ export class HomePageService {
 
     async getUserProyects() {
         this.projectResults = await firstValueFrom(this.http.get(`https://schkedule-default-rtdb.firebaseio.com/proyecto.json?orderBy="id_usuario"&equalTo="${this.userData['id_usuario']}"`));
+        if(this.projectResults == null) {
+            this.projectResults = {};
+        }
         this.kanbanResults = await firstValueFrom(this.http.get(`https://schkedule-default-rtdb.firebaseio.com/Tablero-Kanban/${this.userData['id_usuario']}.json`));
+        if(this.kanbanResults == null) {
+            this.kanbanResults = {};
+        }
         this.ganttResults = await firstValueFrom(this.http.get(`https://schkedule-default-rtdb.firebaseio.com/Diagrama-Gantt.json?orderBy="id_usuario"&equalTo="${this.userData['id_usuario']}"`));   
+        if(this.ganttResults == null) {
+            this.ganttResults = {};
+        }
     }
 
     async getProjectCount() {
