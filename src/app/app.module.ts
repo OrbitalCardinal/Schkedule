@@ -24,7 +24,7 @@ import { ActivityCardComponent } from './components/activity-card/activity-card.
 import { NewProjectPageComponent } from './pages/new-project-page/new-project-page.component';
 import { RecentProjectsPageComponent } from './pages/recent-projects-page/recent-projects-page.component';
 import { AngularFireModule } from "@angular/fire/compat";
-import { environment } from 'src/environments/environment';
+import { environment } from '../environments/environment';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { KanbanTaskCardComponent } from './components/kanban-task-card/kanban-task-card.component';
@@ -42,6 +42,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { ConfigPageComponent } from './pages/config-page/config-page.component';
 import { SearchComponent } from './pages/search-component/search.component';
+import { HomePageService } from './services/home-page.service';
+import { NgxChartsModule }from '@swimlane/ngx-charts';
 
 @NgModule({
   declarations: [
@@ -87,12 +89,13 @@ import { SearchComponent } from './pages/search-component/search.component';
     HttpClientModule,
     DragDropModule,
     NgxSpinnerModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    NgxChartsModule
   ],
   exports: [
     NgxSpinnerModule,
   ],
-  providers: [],
+  providers: [HomePageService],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

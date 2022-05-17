@@ -1,1 +1,69 @@
-<h1>Home page</h1>
+<div *ngIf="isLoading" class="loading-spinner">
+    <div style="color: #1081b1b0" class="la-ball-atom la-3x">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</div>
+<div class="projects-container fadeIn" *ngIf="!isLoading">
+    <blue-title>Actividad reciente</blue-title>
+    <div class="recent">
+        <activity-card class="fadeIn" [title]="project.nombre" 
+                       [last_modified]="formatDate(project.ultima_modificacion)"
+                       icon="fas fa-{{project['tipo']}}"
+                       [isKanban]="project.tipo == 'kanban'"
+                       [canDelete]="false"
+                       [cardFunction] = "[project.redirectFunction, projectListIds[i]]"
+                       [deleteFunction]="[project.deleteFunction, projectListIds[i], i]"
+                       *ngFor="let project of projectList; let i = index"></activity-card>
+    </div>    
+
+    <blue-title class="estadisticas-title" >Estadisticas personales</blue-title>
+
+    <div class="charts-container">
+        <div class="left-area">
+            <blue-title class="subtitle">Cantidad de proyectos creados</blue-title>
+            <ngx-charts-bar-vertical
+            [view]="[700,600]"
+            [results]="monthlyCount"
+            [xAxis]="showXAxis"
+            [yAxis]="showYAxis"
+            [showXAxisLabel]="showXAxisLabel"
+            [showYAxisLabel]="showYAxisLabel"
+            [xAxisLabel]="xAxisLabel"
+            [yAxisLabel]="yAxisLabel">
+            </ngx-charts-bar-vertical>
+        </div>
+        <div class="right-area">
+            <blue-title class="subtitle">Número de proyectos activos</blue-title>
+            <div class="squares-container">
+                <div class="square">
+                    <div class="square__title">Proyectos</div>
+                    <div class="square__number">{{counts[0]["value"]}}</div>
+                </div>
+                <div class="square">
+                    <div class="square__title">Kanban</div>
+                    <div class="square__number">{{counts[1]["value"]}}</div>
+                </div>
+                <div class="square">
+                    <div class="square__title">Gantt</div>
+                    <div class="square__number">{{counts[2]["value"]}}</div>
+                </div>
+            </div>
+
+            <blue-title class="subtitle">Proporcion de proyectos creados</blue-title>
+            <ngx-charts-pie-chart
+            [view]="[700,400]"
+            [results]="counts"
+            [gradient]="gradient"
+            [legend]="showLegend"
+            [labels]="true"
+            [doughnut]="true"
+            >
+            </ngx-charts-pie-chart>
+        </div>
+    </div>
+</div>
+
+
