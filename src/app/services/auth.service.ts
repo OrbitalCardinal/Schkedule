@@ -35,8 +35,10 @@ export class AuthService {
   async logout () {
     try{
       await this.auth.signOut();
-  }catch(error){console.log(error)}
-  }
+      localStorage.removeItem('user');
+    } catch(error){
+      console.log(error)}
+    }
 
   async resetPassword(email:string): Promise<void>{
     try{
