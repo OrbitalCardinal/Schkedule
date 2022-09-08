@@ -1,2 +1,2 @@
-# Ungistor UI
-Rama exclusiva para el desarrollo de interfaces individuales
+# Ungistor BD
+Rama exclusiva para la creación de la base de datos con SQLite
