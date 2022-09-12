@@ -1,6 +1,6 @@
 @media screen and (max-width: 1920px){*{
     font-family: 'Roboto', sans-serif;
-    font-size:larger;
+    font-size:  25px;
     font-weight: 450;
 }}
 @media screen and (max-width: 1366px){*{
@@ -92,7 +92,7 @@ input[type=email]:focus{
     border: none;
     width: 600px;
     height: 50px;
-    background-image: url(/assets/envelope-solid-grey.svg);
+    background-image: url(/assets/lock-solid-grey.svg);
     background-position: 35px 4px;
     background-repeat: no-repeat;
     padding-left: 120px;
