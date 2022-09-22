@@ -77,6 +77,42 @@ input[type=email]:focus{
 }
 }
 
+@media screen and (max-width: 1920px) {input[type=text]{
+    border: 0;
+    width:1000px;
+    height: 80px;
+    background-image: url(/assets/envelope-solid-grey.svg);
+    background-position: 35px 15px;
+    background-repeat: no-repeat;
+    padding-left: 120px;
+  background-color: #EEEDED;
+  border-radius: 5px;
+  background-size: 45px;
+  
+}
+}
+input[type=text]:focus{
+    outline:none;
+    background-color: white;
+    border: 2px solid #0B7EAF;
+    background-image: url(/assets/user-solid.svg);
+    
+}
+@media screen and (max-width: 1366px) {input[type=text]{
+    border: 0;
+    width:600px;
+    height: 50px;
+    background-image: url(/assets/user-solid.svg);
+    background-position: 35px 5px;
+    background-repeat: no-repeat;
+    padding-left: 120px;
+  background-color: #EEEDED;
+  border-radius: 5px;
+  background-size: 40px;
+  
+}
+}
+
 @media screen and (max-width:1920px){input[type=password]{
     border: none;
     width: 1000px;
