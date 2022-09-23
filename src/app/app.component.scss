@@ -1,0 +1,37 @@
+table {
+    border: 2px solid rgb(230, 230, 230);
+    border-radius: 10px;
+    border-spacing: 0;
+    overflow: hidden;
+    color: rgb(106, 106, 106);
+}
+
+th {
+    padding: 15px 30px;
+    text-align: left;
+    font-size: 11pt;
+}
+
+td {
+    padding: 15px 30px;
+    user-select: none;
+    font-weight: 500;
+}
+
+thead > tr {
+    background-color: rgb(234, 234, 234);
+    border-radius: 10px;
+}
+
+tbody tr td {
+    border-bottom: 2px solid rgb(230, 230, 230);
+}
+
+.task {
+    font-weight: 600;
+
+    &:hover {
+        cursor: pointer;
+        color: #0B7EAF;
+    }
+}
