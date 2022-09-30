@@ -1,0 +1,67 @@
+<div class="main-container">
+    <div class="navbar">
+        <div class="navbar__upper">
+            <div class="navbar__logo">
+                <img src="assets/img/new-logo.png" alt="">
+            </div>
+            <div class="navbar__item" routerLink="home-page" [routerLinkActive]="['route-active']">
+                <div class="navbar__item-icon">
+                    <i class="fas fa-house"></i>
+                </div>
+                <p>Inicio</p>
+            </div>
+            <div class="navbar__section">Herramientas</div>
+            <div class="navbar__item" routerLink="table-page" [routerLinkActive]="['route-active']">
+                <div class="navbar__item-icon">
+                    <i class="fas fa-clipboard"></i>
+                </div>
+                <p>Tabla</p>
+            </div>
+            <div class="navbar__item" routerLink="kanban-page" [routerLinkActive]="['route-active']">
+                <div class="navbar__item-icon">
+                    <img src="assets/img/kanban-icon.svg" id="kanban">
+                </div>
+                <p>Kanban</p>
+            </div>
+            <div class="navbar__item" routerLink="gantt-page" [routerLinkActive]="['route-active']">
+                <div class="navbar__item-icon">
+                    <i class="fas fa-chart-gantt"></i>
+                </div>
+                <p>Gantt</p>
+            </div>
+            <div class="navbar__item" routerLink="schedule-page" [routerLinkActive]="['route-active']">
+                <div class="navbar__item-icon">
+                    <i class="fas fa-calendar-days"></i>
+                </div>
+                <p>Horario</p>
+            </div>
+            <div class="navbar__section">Personal</div>
+            <!-- <div class="navbar__item" [routerLinkActive]="['route-active']">
+                <div class="navbar__item-icon">
+                    <i class="fas fa-money-bill"></i>
+                </div>
+                <p>Suscripción</p>
+            </div> -->
+            <div class="navbar__item" routerLink="config-page" [routerLinkActive]="['route-active']">
+                <div class="navbar__item-icon">
+                    <i class="fas fa-gear"></i>
+                </div>
+                <p>Configuración</p>
+            </div>
+        </div>
+        <div class="navbar__lower">
+            <div class="navbar__user">
+                <div class="navbar__item-icon">
+                    <i class="fa-solid fa-arrow-right-from-bracket" id="logout" routerLink=""></i>
+                </div>
+                <div class="username">Edson Raul Cepeda Marquez</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="content">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</div>

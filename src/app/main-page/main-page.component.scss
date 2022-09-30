@@ -1,0 +1,134 @@
+* {
+    user-select: none;
+}
+
+// Nuevo
+.main-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.navbar {
+    display: grid;
+    grid-template-rows: 1fr 0.1fr;
+    grid-template-columns: 1fr;
+    height: 100vh;
+    width: 300px;
+    border-right: 1px solid #D3D3D3;
+}
+
+.navbar__upper {
+    // padding: 30px 30px 30px 25px;
+    padding-left: 30px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.navbar__lower {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: center;
+}
+
+.navbar__user {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+    color: #585858;
+    font-weight: 500;
+    font-size: 20px;
+    i {
+        font-size: 25px;
+    }
+
+    #logout {
+        color: red;
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
+
+    .username {
+        // display: flex;
+        // flex: 1;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        width: 60%;
+    }
+}
+
+.navbar__logo {
+    img {
+        width: 200px;
+    }
+}
+
+.navbar__item {
+    display: flex;
+    align-items: baseline;
+    color: #585858;
+    font-weight: 500;
+    font-size: 20px;
+    margin-left: 20px;
+    // margin-bottom: 20px;
+    margin-top: 20px;
+
+    #kanban {
+        width: 20px;
+    }
+
+    i {
+        width: 30px;
+        font-size: 25px;
+    }
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.navbar__section {
+    font-size: 20px;
+    font-weight: 500;
+    color: #8B8B8B;
+    margin-top: 35px;
+}
+
+.navbar__item-icon {
+    display: flex;
+    width: 40px;
+}
+
+.route-active {
+    color: #CF9400;
+
+    #kanban {
+        filter: invert(60%) sepia(29%) saturate(4737%) hue-rotate(15deg) brightness(98%) contrast(101%);
+    }
+}
+
+.main-content {
+    width: 100%;
+}
+
+.content {
+    height: 80vh;
+    margin: 1.5em;
+    padding-top: 2em;
+    padding-left: 3em;
+    padding-right: 3em;
+}
+
+.loading-spinner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
