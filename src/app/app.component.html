@@ -1,3 +1,21 @@
+<button
+  (click)="
+    toggleModal(
+      {
+        id: 5,
+        tarea: '',
+        estado: '',
+        categoria: '',
+        fechaInicia: '',
+        fechaFinal: ''
+      },
+      true
+    )
+  "
+>
+  Nueva tarea
+</button>
+
 <table>
   <thead>
     <tr>
@@ -10,11 +28,35 @@
   </thead>
   <tbody>
     <tr *ngFor="let tarea of data">
-      <td class="task">{{tarea['tarea']}}</td>
-      <td> <badge badgeType="{{tarea['estado']}}"></badge> </td>
-      <td>{{tarea['categoria']}}</td>
-      <td>{{tarea['fechaInicial']}}</td>
-      <td>{{tarea['fechaFinal']}}</td>
+      <td
+        class="task"
+        (click)="
+          toggleModal(
+            {
+              tarea: tarea['tarea'],
+              estado: tarea['estado'],
+              categoria: tarea['categoria'],
+              fechaInicia: '12/12/12',
+              fechaFinal: '12/12/12'
+            },
+            false
+          )
+        "
+      >
+        {{ tarea["tarea"] }}
+      </td>
+      <td><badge badgeType="{{ tarea['estado'] }}"></badge></td>
+      <td>{{ tarea["categoria"] }}</td>
+      <td>{{ tarea["fechaInicial"] }}</td>
+      <td>{{ tarea["fechaFinal"] }}</td>
     </tr>
   </tbody>
 </table>
+
+<task-modal
+  *ngIf="modalActive"
+  [toggleModalFunction]="toggleModal"
+  [taskData]="actualTaskData"
+  [isNewTask]="isNewTask"
+  [addNewTaskFunction]="addNewTask"
+></task-modal>

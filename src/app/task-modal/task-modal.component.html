@@ -1,0 +1,36 @@
+<div class="task-modal-background">
+    <div class="task-modal">
+        <div class="task-modal-header">
+            <div class="task-modal-header__title" *ngIf="!isNewTask">Modificación de tarea</div>
+            <div class="task-modal-header__title" *ngIf="isNewTask">Nueva de tarea</div>
+            <div class="task-modal-header__quit" (click)="executeToggleModal()">X</div>
+        </div>
+        <hr>
+        <div class="form-input">
+            <div>Nombre de la tarea: </div>
+            <input type="text" [(ngModel)]="taskData['tarea']">
+        </div>
+        <div class="form-input">
+            <div>Estado: </div>
+            <select name="" id="" [(ngModel)]="taskData['estado']">
+                <option value="Pendiente" [selected]="taskData['estado'] == 'Pendiente'">Pendiente</option>
+                <option value="En progreso" [selected]="taskData['estado'] == 'En progreso'">En progreso</option>
+                <option value="Hecho" [selected]="taskData['estado'] == 'Hecho'">Hecho</option>
+            </select>
+        </div>
+        <div class="form-input">
+            <div>Categoria: </div>
+            <input type="text" [(ngModel)]="taskData['categoria']">
+        </div>
+        <div class="form-input" >
+            <div>Fecha inicial: </div>
+            <input type="date" [(ngModel)]="taskData['fechaInicial']">
+        </div>
+        <div class="form-input">
+            <div>Fecha final: </div>
+            <input type="date" [(ngModel)]="taskData['fechaFinal']">
+        </div>
+        <button *ngIf="!isNewTask">Modificar</button>
+        <button *ngIf="isNewTask" (click)="executeAddNewTask()">Agregar</button>
+    </div>
+</div>
