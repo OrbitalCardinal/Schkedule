@@ -16,6 +16,7 @@ import { DetailModule } from './detail/detail.module';
 import { AppComponent } from './app.component';
 import { AccesoModule } from './acceso/acceso.module';
 import { MainPageModule } from './main-page/main-page.module';
+import { NuevoUsuarioModule } from './nuevo-usuario/nuevo-usuario.module';
 
 // AoT requires an exported function for factories
 const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader =>  new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -31,6 +32,7 @@ const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader =>  new Transl
     DetailModule,
     AppRoutingModule,
     MainPageModule,
+    NuevoUsuarioModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
