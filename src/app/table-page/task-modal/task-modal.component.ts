@@ -1,4 +1,5 @@
-import { Component, Input } from "@angular/core";
+import { Component, EventEmitter, Output } from "@angular/core";
+import { NgForm } from "@angular/forms";
 
 @Component({
     selector: 'task-modal',
@@ -7,28 +8,14 @@ import { Component, Input } from "@angular/core";
 })
 
 export class TaskModalComponent {
-    @Input() toggleModalFunction = (taskData: any, newTask: any) => {};
-    @Input() taskData: any = {};
-    @Input() isNewTask = false;
-    @Input() addNewTaskFunction = (taskData: any) => {}
-    newTaskData = {
-        'tarea': '',
-        'estado': '',
-        'categoria': '',
-        'fechaInicial': '',
-        'fechaFinal': ''
+    @Output() closeModalEvent = new EventEmitter<boolean>();
+    @Output() addNewTaskEvent = new EventEmitter();
+
+    closeModal() {
+        this.closeModalEvent.emit(false);
     }
 
-    executeToggleModal() {
-        this.toggleModalFunction(this.taskData, this.isNewTask);
-    }
-
-    test() {
-        console.log(this.taskData);
-    }
-
-    executeAddNewTask() {
-        this.addNewTaskFunction(this.taskData);
-        this.toggleModalFunction(this.taskData, this.isNewTask);
+    onSubmit(formData: NgForm) {
+        this.addNewTaskEvent.emit(formData.value);
     }
 }

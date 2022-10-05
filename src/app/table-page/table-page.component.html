@@ -1,68 +1,40 @@
 <loading-spinner *ngIf="isLoading"></loading-spinner>
 
 <div *ngIf="!isLoading" class="fadeIn">
-    <h1>Tabla de actividades</h1>
-    <blue-button
-    (click)="
-        toggleModal(
-        {
-            id: 5,
-            tarea: '',
-            estado: '',
-            categoria: '',
-            fechaInicia: '',
-            fechaFinal: ''
-        },
-        true
-        )
-    "
-    >
-    Nueva tarea
-    </blue-button>
+  <h1>Tabla de actividades</h1>
+  <blue-button (click)="modalActive = true"> Nueva tarea</blue-button>
 
+  <div class="table-container">
     <table>
-    <thead>
+      <thead>
         <tr>
-        <th>Tarea</th>
-        <th>Estado</th>
-        <th>Categoría</th>
-        <th>Fecha inicial</th>
-        <th>Fecha final</th>
+          <th>Tarea</th>
+          <th>Estado</th>
+          <th>Categoría</th>
+          <th>Fecha inicial</th>
+          <th>Fecha final</th>
+          <th></th>
         </tr>
-    </thead>
-    <tbody>
+      </thead>
+      <tbody>
         <tr *ngFor="let tarea of data">
-        <td
-            class="task"
-            (click)="
-            toggleModal(
-                {
-                tarea: tarea['tarea'],
-                estado: tarea['estado'],
-                categoria: tarea['categoria'],
-                fechaInicia: tarea['fechaInicial'],
-                fechaFinal: tarea['fechaFinal']
-                },
-                false
-            )
-            "
-        >
+          <td (click)="modalActive = true" class="task">
             {{ tarea["tarea"] }}
-        </td>
-        <td><badge badgeType="{{ tarea['estado'] }}"></badge></td>
-        <td>{{ tarea["categoria"] }}</td>
-        <td>{{ tarea["fechaInicial"] }}</td>
-        <td>{{ tarea["fechaFinal"] }}</td>
+          </td>
+          <td><badge badgeType="{{ tarea['estado'] }}"></badge></td>
+          <td>{{ tarea["categoria"] }}</td>
+          <td>{{ tarea["fechaInicial"] }}</td>
+          <td>{{ tarea["fechaFinal"] }}</td>
+          <td class="options"><i class="fas fa-ellipsis-v"></i></td>
         </tr>
-    </tbody>
+      </tbody>
     </table>
+  </div>
 
-    <task-modal
+  <task-modal
     class="fadeIn"
     *ngIf="modalActive"
-    [toggleModalFunction]="toggleModal"
-    [taskData]="actualTaskData"
-    [isNewTask]="isNewTask"
-    [addNewTaskFunction]="addNewTask"
-    ></task-modal>
+    (closeModalEvent)="modalActive = false"
+    (addNewTaskEvent)="addNewTask($event)"
+  ></task-modal>
 </div>

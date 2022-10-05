@@ -5,12 +5,27 @@
     100% { opacity: 1; }
   }
 
-  table {
+.table-container {
+    height: 80vh;
+    overflow-y: auto;
+    margin-top: 10px;
+}
+
+blue-button {
+    margin: 30px 0px;
+}
+
+table {
     border: 2px solid rgb(230, 230, 230);
     border-radius: 10px;
     border-spacing: 0;
-    overflow: hidden;
     color: rgb(106, 106, 106);
+    width: 100%;
+}
+
+thead {
+    position: sticky;
+    top: 0;
 }
 
 th {
@@ -40,5 +55,12 @@ tbody tr td {
     &:hover {
         cursor: pointer;
         color: #0B7EAF;
+    }
+}
+
+.options {
+
+    &:hover {
+        cursor: pointer;
     }
 }

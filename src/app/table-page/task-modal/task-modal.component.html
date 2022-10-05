@@ -1,36 +1,34 @@
 <div class="task-modal-background">
-    <div class="task-modal">
+    <form class="task-modal" (ngSubmit)="onSubmit(formData)" #formData="ngForm">
         <div class="task-modal-header">
-            <div class="task-modal-header__title" *ngIf="!isNewTask">Modificación de tarea</div>
-            <div class="task-modal-header__title" *ngIf="isNewTask">Nueva de tarea</div>
-            <div class="task-modal-header__quit" (click)="executeToggleModal()">X</div>
+            <div class="task-modal-header__title">Nueva de tarea</div>
+            <div class="task-modal-header__quit" (click)="closeModal()">X</div>
         </div>
         <hr>
         <div class="form-input">
             <div>Nombre de la tarea: </div>
-            <input type="text" [(ngModel)]="taskData['tarea']">
+            <input type="text" ngModel name="tarea">
         </div>
         <div class="form-input">
             <div>Estado: </div>
-            <select name="" id="" [(ngModel)]="taskData['estado']">
-                <option value="Pendiente" [selected]="taskData['estado'] == 'Pendiente'">Pendiente</option>
-                <option value="En progreso" [selected]="taskData['estado'] == 'En progreso'">En progreso</option>
-                <option value="Hecho" [selected]="taskData['estado'] == 'Hecho'">Hecho</option>
+            <select ngModel name="estado" id="">
+                <option value="Pendiente">Pendiente</option>
+                <option value="En progreso">En progreso</option>
+                <option value="Hecho">Hecho</option>
             </select>
         </div>
         <div class="form-input">
             <div>Categoria: </div>
-            <input type="text" [(ngModel)]="taskData['categoria']">
+            <input type="text" ngModel name="categoria">
         </div>
         <div class="form-input" >
             <div>Fecha inicial: </div>
-            <input type="date" [(ngModel)]="taskData['fechaInicial']">
+            <input type="date" ngModel name="fechaInicial">
         </div>
         <div class="form-input">
             <div>Fecha final: </div>
-            <input type="date" [(ngModel)]="taskData['fechaFinal']">
+            <input type="date" ngModel name="fechaFinal">
         </div>
-        <blue-button *ngIf="!isNewTask">Modificar</blue-button>
-        <blue-button *ngIf="isNewTask" (click)="executeAddNewTask()">Agregar</blue-button>
-    </div>
+        <blue-button type="submit">Agregar</blue-button>
+    </form>
 </div>
