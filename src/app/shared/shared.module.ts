@@ -8,10 +8,22 @@ import { LoadingSpinnerComponent } from './components/loading-spinner/loading-sp
 import { BlueButtonComponent } from './components/blue-button/blue-button.component';
 import { UngistorInputComponent } from './components/ungistor-input/ungistor-input.component';
 import { UngistorInputModule } from './components/ungistor-input/ungistor-input.module';
+import { ConfirmModalComponent } from './components/confirm-modal/confirm-modal.component';
 
 @NgModule({
-  declarations: [LoadingSpinnerComponent, BlueButtonComponent],
+  declarations: [
+    LoadingSpinnerComponent, 
+    BlueButtonComponent, 
+    ConfirmModalComponent
+  ],
   imports: [CommonModule, TranslateModule, FormsModule],
-  exports: [TranslateModule, FormsModule, LoadingSpinnerComponent, BlueButtonComponent, UngistorInputModule]
+  exports: [
+    TranslateModule, 
+    FormsModule, 
+    LoadingSpinnerComponent, 
+    BlueButtonComponent, 
+    UngistorInputModule,
+    ConfirmModalComponent
+  ]
 })
 export class SharedModule {}

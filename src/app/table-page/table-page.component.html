@@ -1,8 +1,14 @@
 <loading-spinner *ngIf="isLoading"></loading-spinner>
 
 <div *ngIf="!isLoading" class="fadeIn">
-  <h1>Tabla de actividades</h1>
-  <blue-button (click)="modalActive = true"> Nueva tarea</blue-button>
+  <div class="header">
+    <div class="header__sup">
+      <div class="header__title">Proyecto: Final de curso</div>
+      <div class="header__subtitle">Tabla de tareas</div>
+    </div>
+    <blue-button (click)="openModal(null, null)">+ Añadir tarea</blue-button>
+  </div>
+  
 
   <div class="table-container">
     <table>
@@ -17,15 +23,17 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let tarea of data">
-          <td (click)="modalActive = true" class="task">
+        <tr *ngFor="let tarea of data; let i = index">
+          <td (click)="openModal(tarea, i)" class="task">
             {{ tarea["tarea"] }}
           </td>
           <td><badge badgeType="{{ tarea['estado'] }}"></badge></td>
           <td>{{ tarea["categoria"] }}</td>
           <td>{{ tarea["fechaInicial"] }}</td>
           <td>{{ tarea["fechaFinal"] }}</td>
-          <td class="options"><i class="fas fa-ellipsis-v"></i></td>
+          <td class="options" (click)="openConfirmModal(i)">
+            <i class="fas fa-trash-alt"></i>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -35,6 +43,10 @@
     class="fadeIn"
     *ngIf="modalActive"
     (closeModalEvent)="modalActive = false"
-    (addNewTaskEvent)="addNewTask($event)"
+    (addNewTaskEvent)="addTask($event)"
+    [taskData]="actualTaskData"
+    [taskIndex]="actualTaskIndex"
   ></task-modal>
+
+  <confirm-modal class="fadeIn" *ngIf="confirmModalActive" (closeModalEvent)="closeConfirmModal($event, actualDeleteIndex)"></confirm-modal>
 </div>

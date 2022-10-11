@@ -1,17 +1,18 @@
 <div class="task-modal-background">
     <form class="task-modal" (ngSubmit)="onSubmit(formData)" #formData="ngForm">
         <div class="task-modal-header">
-            <div class="task-modal-header__title">Nueva de tarea</div>
+            <div class="task-modal-header__title" *ngIf="taskIndex == null">Nueva de tarea</div>
+            <div class="task-modal-header__title" *ngIf="taskIndex != null">Modificar tarea</div>
             <div class="task-modal-header__quit" (click)="closeModal()">X</div>
         </div>
         <hr>
         <div class="form-input">
             <div>Nombre de la tarea: </div>
-            <input type="text" ngModel name="tarea">
+            <input type="text" [ngModel]="taskData['tarea']" name="tarea">
         </div>
         <div class="form-input">
             <div>Estado: </div>
-            <select ngModel name="estado" id="">
+            <select [ngModel]="taskData['estado']" name="estado" id="">
                 <option value="Pendiente">Pendiente</option>
                 <option value="En progreso">En progreso</option>
                 <option value="Hecho">Hecho</option>
@@ -19,16 +20,17 @@
         </div>
         <div class="form-input">
             <div>Categoria: </div>
-            <input type="text" ngModel name="categoria">
+            <input type="text" [ngModel]="taskData['categoria']" name="categoria">
         </div>
         <div class="form-input" >
             <div>Fecha inicial: </div>
-            <input type="date" ngModel name="fechaInicial">
+            <input type="date" [ngModel]="taskData['fechaInicial']" name="fechaInicial">
         </div>
         <div class="form-input">
             <div>Fecha final: </div>
-            <input type="date" ngModel name="fechaFinal">
+            <input type="date" [ngModel]="taskData['fechaFinal']" name="fechaFinal">
         </div>
-        <blue-button type="submit">Agregar</blue-button>
+        <blue-button type="submit" *ngIf="taskIndex == null">Agregar</blue-button>
+        <blue-button type="submit" *ngIf="taskIndex != null">Modificar</blue-button>
     </form>
 </div>

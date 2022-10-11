@@ -17,7 +17,7 @@ blue-button {
 
 table {
     border: 2px solid rgb(230, 230, 230);
-    border-radius: 10px;
+    // border-radius: 10px;
     border-spacing: 0;
     color: rgb(106, 106, 106);
     width: 100%;
@@ -29,15 +29,16 @@ thead {
 }
 
 th {
+    font-weight: 400;
     padding: 15px 30px;
     text-align: left;
-    font-size: 11pt;
+    font-size: 16px;
 }
 
 td {
     padding: 15px 30px;
     user-select: none;
-    font-weight: 500;
+    font-weight: 400;
 }
 
 thead > tr {
@@ -50,7 +51,7 @@ tbody tr td {
 }
 
 .task {
-    font-weight: 600;
+    font-weight: 500;
 
     &:hover {
         cursor: pointer;
@@ -62,5 +63,24 @@ tbody tr td {
 
     &:hover {
         cursor: pointer;
+        color: red;
     }
+}
+
+// Page header
+.header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header__title {
+    font-size: 28px;
+    color: #616161;
+}
+
+.header__subtitle {
+    font-size: 20px;
+    color: #707070;
 }
