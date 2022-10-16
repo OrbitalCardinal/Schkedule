@@ -9,6 +9,6 @@ public class Tableros_Kanban
     public DateTime? fecha_creacion { get; set; }
     
     //Navigation
-    public Usuarios UsuarioN { get; set; }
-    public List<Tarjetas_Kanban> TarjetasN { get; set; }
+    public Usuarios? UsuarioN { get; set; }
+    public List<Tarjetas_Kanban>? TarjetasN { get; set; }
 }
