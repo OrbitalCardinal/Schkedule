@@ -9,5 +9,5 @@ public class Actividades_Horario
     public int? frecuencia { get; set; }
     
     //Navigation
-    public Horarios HorarioN { get; set; }
+    public Horarios? HorarioN { get; set; }
 }

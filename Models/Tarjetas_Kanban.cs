@@ -7,6 +7,6 @@ public class Tarjetas_Kanban
     public string titulo { get; set; }
     
     //Navigation
-    public Tableros_Kanban TableroN { get; set; }
-    public List<Actividades_Kanban> ActividadesKN { get; set; }
+    public Tableros_Kanban? TableroN { get; set; }
+    public List<Actividades_Kanban>? ActividadesKN { get; set; }
 }

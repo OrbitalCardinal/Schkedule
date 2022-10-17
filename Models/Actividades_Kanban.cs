@@ -9,5 +9,5 @@ public class Actividades_Kanban
     public string categoria { get; set; }
     
     //Navigation
-    public Tarjetas_Kanban TarjetaN { get; set; }
+    public Tarjetas_Kanban? TarjetaN { get; set; }
 }

@@ -19,6 +19,12 @@ public class ProyectosController
     public ActionResult<List<Proyectos>> GetAll() {
         return _proyectosService.GetAll();
     }
+    
+    [HttpGet("usuario/{usu}")]
+    //Get api/gantt
+    public ActionResult<List<Proyectos>> GetByUsuario(int usu) {
+        return _proyectosService.GetByUsuario(usu);
+    }
 
     [HttpGet("{id}")]
     //Get api/usuarios/{id}

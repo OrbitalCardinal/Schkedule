@@ -16,7 +16,7 @@ public class ActividadesProyectoService
     {
         return _db.Actividades_Proyecto
             .Where(a => a.id_proyecto.Equals(proy))
-            .OrderBy(u => u.id_proyecto).ToList();
+            .OrderBy(u => u.id_actividad_proyecto).ToList();
     }
         
     public Actividades_Proyecto GetById(int id)

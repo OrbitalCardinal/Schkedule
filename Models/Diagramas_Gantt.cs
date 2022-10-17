@@ -9,6 +9,6 @@ public class Diagramas_Gantt
     public DateTime? ultima_modificacion { get; set; }
     
     //Navigation
-    public Usuarios UsuarioN { get; set; }
-    public List<Actividades_Gantt> ActividadesGN { get; set; }
+    public Usuarios? UsuarioN { get; set; }
+    public List<Actividades_Gantt>? ActividadesGN { get; set; }
 }

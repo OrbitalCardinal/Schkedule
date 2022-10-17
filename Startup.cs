@@ -42,6 +42,14 @@ public class Startup
             //AQUI SE COLOCAN LOS SERVICES QUE SE USARAN
             services.TryAddScoped<UsuariosService>();
             services.TryAddScoped<ProyectosService>();
+            services.TryAddScoped<ActividadesProyectoService>();
+            services.TryAddScoped<DiagramasGanttService>();
+            services.TryAddScoped<ActividadesGanttService>();
+            services.TryAddScoped<HorariosService>();
+            services.TryAddScoped<ActividadesHorarioService>();
+            services.TryAddScoped<TablerosKanbanService>();
+            services.TryAddScoped<TarjetasKanbanService>();
+            services.TryAddScoped<ActividadesKanbanService>();
             
             
             services.AddControllers().AddNewtonsoftJson(opt => {

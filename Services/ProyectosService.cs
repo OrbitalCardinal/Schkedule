@@ -16,6 +16,13 @@ public class ProyectosService
     {
         return _db.Proyectos.OrderBy(u => u.id_proyecto).ToList();
     }
+    
+    public List<Proyectos> GetByUsuario(int usu)
+    {
+        return _db.Proyectos
+            .Where(a => a.id_usuario.Equals(usu))
+            .OrderBy(u => u.id_proyecto).ToList();
+    }
         
     public Proyectos GetById(int id)
     {

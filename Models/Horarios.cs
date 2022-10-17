@@ -9,6 +9,6 @@ public class Horarios
     public DateTime? ultima_modificacion { get; set; }
     
     //Navigation
-    public Usuarios UsuarioN { get; set; }
-    public List<Actividades_Horario> ActividadesHN { get; set; }
+    public Usuarios? UsuarioN { get; set; }
+    public List<Actividades_Horario>? ActividadesHN { get; set; }
 }

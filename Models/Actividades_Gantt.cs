@@ -9,5 +9,5 @@ public class Actividades_Gantt
     public DateTime? fecha_final { get; set; }
     
     //Navigation
-    public Diagramas_Gantt DiagramaN { get; set; }
+    public Diagramas_Gantt? DiagramaN { get; set; }
 }
