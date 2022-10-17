@@ -1,57 +1,86 @@
-import { Component } from '@angular/core';
+import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
-  modalActive = false;
-  actualTaskData = {};
-  isNewTask = false;
-  title = 'SA-Angular-Dev';
+export class AppComponent implements OnInit {
   data = [
     {
-      "id": 1,
-      "tarea": "Creación de dashboard de clientes",
-      "estado": "Pendiente",
-      "categoria": "Business Intelligence",
-      "fechaInicial": "12-12-12",
-      "fechaFinal": "12-12-12"
+      'id': 1,
+      'categoria': 'Development',
+      'titulo': 'Pantalla de inicio',
+      'descripcion': 'Desarrollar pantalla de inicio de sesión basado en diseño de figma',
+      'prioridad': 'Baja',
+      'estado': 'Pendiente'
     },
     {
-      "id": 2,
-      "tarea": "Transformación de datos",
-      "estado": "En progreso",
-      "categoria": "Business Intelligence",
-      "fechaInicial": "12-12-12",
-      "fechaFinal": "12-12-12"
+      'id': 2,
+      'categoria': 'Development',
+      'titulo': 'Pantalla de inicio',
+      'descripcion': 'Desarrollar pantalla de inicio de sesión basado en diseño de figma',
+      'prioridad': 'Media',
+      'estado': 'En progreso'
     },
     {
-      "id": 3,
-      "tarea": "Creación de dashboard de clientes",
-      "estado": "Hecho",
-      "categoria": "Business Intelligence",
-      "fechaInicial": "12-12-12",
-      "fechaFinal": "12-12-12"
+      'id': 3,
+      'categoria': 'Data Engineering',
+      'titulo': 'Pantalla de inicio',
+      'descripcion': 'Desarrollar pantalla de inicio de sesión basado en diseño de figma',
+      'prioridad': 'Baja',
+      'estado': 'Pendiente'
     },
     {
-      "id": 4,
-      "tarea": "Creación de dashboard de clientes",
-      "estado": "Pendiente",
-      "categoria": "Business Intelligence",
-      "fechaInicial": "12-12-12",
-      "fechaFinal": "12-12-12"
+      'id': 4,
+      'categoria': 'Development',
+      'titulo': 'Pantalla de inicio',
+      'descripcion': 'Desarrollar pantalla de inicio de sesión basado en diseño de figma',
+      'prioridad': 'Media',
+      'estado': 'Hecho'
+    },
+    {
+      'id': 5,
+      'categoria': 'UI',
+      'titulo': 'Pantalla de inicio',
+      'descripcion': 'Desarrollar pantalla de inicio de sesión basado en diseño de figma',
+      'prioridad': 'Alta',
+      'estado': 'En progreso'
     }
   ];
 
-  toggleModal = (taskData: any, isNewTask: any) => {
-    this.isNewTask = isNewTask;
-    this.actualTaskData = {...taskData};
-    this.modalActive = !this.modalActive;
+  data_pendiente: any = [];
+  data_progreso: any = [];
+  data_hecho: any = [];
+
+  ngOnInit(): void {
+    this.data.forEach((task) => {
+      if(task.estado == 'Pendiente') {
+        this.data_pendiente.push(task);
+      }
+      else if(task.estado == 'En progreso') {
+        this.data_progreso.push(task);
+      }
+      else if(task.estado == 'Hecho') {
+        this.data_hecho.push(task);
+      }
+    });
   }
 
-  addNewTask = (taskData: any) => {
-    this.data = [...this.data, taskData]
+  trackById(index: any, element: any) {
+    return element.id;
+  }
+
+  moveTask(dropEvent: CdkDragDrop<any>) {
+    const { previousContainer, container, previousIndex, currentIndex} = dropEvent;
+    const isSameContainer = previousContainer === container;
+    if(isSameContainer && previousIndex == currentIndex) {
+      return;
+    }
+
+    isSameContainer
+    ? moveItemInArray(container.data, previousIndex, currentIndex)
+    : transferArrayItem(previousContainer.data, container.data, previousIndex, currentIndex);
   }
 }
