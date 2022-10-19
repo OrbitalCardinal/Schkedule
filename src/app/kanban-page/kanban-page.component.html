@@ -1,5 +1,75 @@
 <loading-spinner *ngIf="isLoading"></loading-spinner>
 
 <div *ngIf="!isLoading" class="fadeIn">
-    <h1>Tablero de Kanban</h1>
+  <div class="header">
+    <div class="header__sup">
+      <div class="header__title">Proyecto: Final de curso</div>
+      <div class="header__subtitle">Tablero de Kanban</div>
+    </div>
+    <blue-button>+ Añadir tarea</blue-button>
+  </div>
 </div>
+
+<div class="main-container fadeIn" *ngIf="!isLoading">
+    <div class="section" id="pendiente">
+      <div class="section__header">Pendiente</div>
+      <div
+        class="section__tasks"
+        cdkDropList
+        [cdkDropListData]="data_pendiente"
+        (cdkDropListDropped)="moveTask($event)"
+        #pendiente="cdkDropList"
+        [cdkDropListConnectedTo]="[progreso, hecho]"
+      >
+        <task-card
+          *ngFor="
+            let task of data_pendiente;
+            index as taskIndex;
+            trackBy: trackById
+          "
+          [taskData]="task"
+          cdkDrag
+        ></task-card>
+      </div>
+    </div>
+  
+    <div class="section" id="en_progreso">
+      <div class="section__header">En progreso</div>
+      <div
+        class="section__tasks"
+        cdkDropList
+        [cdkDropListData]="data_progreso"
+        (cdkDropListDropped)="moveTask($event)"
+        #progreso="cdkDropList"
+        [cdkDropListConnectedTo]="[pendiente, hecho]"
+      >
+        <task-card
+          *ngFor="
+            let task of data_progreso;
+            index as taskIndex;
+            trackBy: trackById
+          "
+          [taskData]="task"
+          cdkDrag
+        ></task-card>
+      </div>
+    </div>
+  
+    <div class="section" id="hecho">
+      <div class="section__header">Hecho</div>
+      <div
+        class="section__tasks"
+        cdkDropList
+        [cdkDropListData]="data_hecho"
+        (cdkDropListDropped)="moveTask($event)"
+        #hecho="cdkDropList"
+        [cdkDropListConnectedTo]="[pendiente, progreso]"
+      >
+        <task-card
+          *ngFor="let task of data_hecho; index as taskIndex; trackBy: trackById"
+          [taskData]="task"
+          cdkDrag
+        ></task-card>
+      </div>
+    </div>
+  </div>

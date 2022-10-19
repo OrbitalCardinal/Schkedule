@@ -45,6 +45,7 @@
     "lint": "ng lint"
   },
   "dependencies": {
+    "@angular/cdk": "^14.2.5",
     "@angular/common": "14.0.6",
     "@angular/compiler": "14.0.6",
     "@angular/core": "14.0.6",

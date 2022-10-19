@@ -14,14 +14,21 @@ function createWindow(): BrowserWindow {
   win = new BrowserWindow({
     x: 0,
     y: 0,
+    icon: __dirname + '/Icon.png',
     width: size.width,
+    minHeight: 768,
+    minWidth: 1366,
     height: size.height,
+    titleBarOverlay: {
+      color: "#FFFFFF"
+    },
     webPreferences: {
       nodeIntegration: true,
       allowRunningInsecureContent: (serve),
       contextIsolation: false,  // false if you want to run e2e test with Spectron
     },
   });
+  win.setMenu(null);
 
   if (serve) {
     const debug = require('electron-debug');

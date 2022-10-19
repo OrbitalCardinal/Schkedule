@@ -1,6 +1,98 @@
-.fadeIn { animation: fadeIn 0.4s; }
+.fadeIn {
+  animation: fadeIn 0.4s;
+}
 
 @keyframes fadeIn {
-    0% { opacity: 0; }
-    100% { opacity: 1; }
+  0% {
+    opacity: 0;
   }
+  100% {
+    opacity: 1;
+  }
+}
+
+// Page header
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header__title {
+  font-size: 28px;
+  color: #616161;
+}
+
+.header__subtitle {
+  font-size: 20px;
+  color: #707070;
+}
+
+// Kanban
+.main-container {
+  margin-top: 20px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.section {
+  width: 400px;
+  margin-right: 20px;
+  background-color: #F2F2F2;
+}
+
+.section__header {
+  height: 45px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0px 15px;
+  color: white;
+}
+
+.section__tasks {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  height: 90%;
+  padding: 14px 18px;
+  overflow-y: auto;
+}
+
+#pendiente .section__header {
+  background-color: #FF6439;
+}
+
+#en_progreso .section__header {
+  background-color: #8130E4;
+}
+
+#hecho .section__header {
+  background-color: #009F42;
+}
+
+
+.cdk-drag-placeholder {
+  opacity: 0.5;
+}
+
+.cdk-drag-preview {
+  border: 2px solid #0B7EAF;
+}
+
+.cdk-drag {
+  &:hover {
+      cursor: grab;
+  }
+}
+
+.cdk-drop-list-dragging .cdk-drag {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.cdk-drag-animating {
+  transition: transform 300ms cubic-bezier(0, 0, 0.2, 1);
+}
