@@ -6,13 +6,14 @@
 .main-container {
     display: flex;
     flex-direction: row;
+    height: calc(100vh - 30px);
 }
 
 .navbar {
     display: grid;
     grid-template-rows: 1fr 0.1fr;
     grid-template-columns: 1fr;
-    height: 100vh;
+    height: 100%;
     width: 300px;
     border-right: 1px solid #D3D3D3;
 }

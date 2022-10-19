@@ -1,6 +1,9 @@
 import {app, BrowserWindow, screen} from 'electron';
+import { ipcMain } from 'electron';
+
 import * as path from 'path';
 import * as fs from 'fs';
+import { EventEmitter } from 'stream';
 
 let win: BrowserWindow = null;
 const args = process.argv.slice(1),
@@ -15,20 +18,18 @@ function createWindow(): BrowserWindow {
     x: 0,
     y: 0,
     icon: __dirname + '/Icon.png',
-    width: size.width,
-    minHeight: 768,
+    width: 1366,
+    height: 768,
     minWidth: 1366,
-    height: size.height,
-    titleBarOverlay: {
-      color: "#FFFFFF"
-    },
+    minHeight: 768,
+    titleBarStyle: 'hidden',
+    autoHideMenuBar: true,
     webPreferences: {
       nodeIntegration: true,
       allowRunningInsecureContent: (serve),
       contextIsolation: false,  // false if you want to run e2e test with Spectron
     },
   });
-  win.setMenu(null);
 
   if (serve) {
     const debug = require('electron-debug');
@@ -48,6 +49,37 @@ function createWindow(): BrowserWindow {
     const url = new URL(path.join('file:', __dirname, pathIndex));
     win.loadURL(url.href);
   }
+
+  win.maximize();
+
+
+  ipcMain.on('minimize', () => {
+    win.minimize();
+  });
+
+  ipcMain.on('maximize', () => {
+    win.maximize()
+  });
+
+  ipcMain.on('restore', () => {
+    win.restore();
+  });
+
+  ipcMain.handle('isMaximized', () => {
+    console.log(win.isMaximized);
+    return win.isMaximized;
+  });
+
+  ipcMain.on('close', () => {
+    win.close();
+  });
+
+  // ipcMain.handle('drag', () => {
+  //   return win.on('moved', () => {
+
+  //   });
+  // });
+
 
   // Emitted when the window is closed.
   win.on('closed', () => {

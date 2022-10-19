@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const electron_1 = require("electron");
+const electron_2 = require("electron");
 const path = require("path");
 const fs = require("fs");
 let win = null;
@@ -12,20 +13,18 @@ function createWindow() {
         x: 0,
         y: 0,
         icon: __dirname + '/Icon.png',
-        width: size.width,
-        minHeight: 768,
+        width: 1366,
+        height: 768,
         minWidth: 1366,
-        height: size.height,
-        titleBarOverlay: {
-            color: "#FFFFFF"
-        },
+        minHeight: 768,
+        titleBarStyle: 'hidden',
+        autoHideMenuBar: true,
         webPreferences: {
             nodeIntegration: true,
             allowRunningInsecureContent: (serve),
             contextIsolation: false, // false if you want to run e2e test with Spectron
         },
     });
-    win.setMenu(null);
     if (serve) {
         const debug = require('electron-debug');
         debug();
@@ -42,6 +41,27 @@ function createWindow() {
         const url = new URL(path.join('file:', __dirname, pathIndex));
         win.loadURL(url.href);
     }
+    win.maximize();
+    electron_2.ipcMain.on('minimize', () => {
+        win.minimize();
+    });
+    electron_2.ipcMain.on('maximize', () => {
+        win.maximize();
+    });
+    electron_2.ipcMain.on('restore', () => {
+        win.restore();
+    });
+    electron_2.ipcMain.handle('isMaximized', () => {
+        console.log(win.isMaximized);
+        return win.isMaximized;
+    });
+    electron_2.ipcMain.on('close', () => {
+        win.close();
+    });
+    // ipcMain.handle('drag', () => {
+    //   return win.on('moved', () => {
+    //   });
+    // });
     // Emitted when the window is closed.
     win.on('closed', () => {
         // Dereference the window object, usually you would store window

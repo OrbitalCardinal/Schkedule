@@ -1,0 +1,25 @@
+.title_bar {
+  height: 30px;
+  display: flex;
+  justify-content: end;
+  gap: 10px;
+  // -webkit-user-select: none;
+  -webkit-app-region: drag;
+
+  div {
+    -webkit-app-region: no-drag;
+    display: flex;
+    padding: 20px 20px;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+      background-color: #0b7eaf;
+      color: white;
+    }
+
+    i {
+      font-size: 16px;
+    }
+  }
+}

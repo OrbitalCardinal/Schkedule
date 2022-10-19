@@ -1,6 +1,73 @@
-.fadeIn { animation: fadeIn 0.4s; }
+.fadeIn {
+  animation: fadeIn 0.4s;
+}
 
 @keyframes fadeIn {
-    0% { opacity: 0; }
-    100% { opacity: 1; }
+  0% {
+    opacity: 0;
   }
+  100% {
+    opacity: 1;
+  }
+}
+
+// Page header
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header__title {
+  font-size: 28px;
+  color: #616161;
+}
+
+.header__subtitle {
+  font-size: 20px;
+  color: #707070;
+}
+
+// Schedule
+.envoltorio {
+  margin-top: 20px;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 0.1fr 2fr;
+}
+.izquierda {
+  display: grid;
+  text-align: center;
+  color: #525252;
+  margin-top: 15px;
+  gap: 10px;
+}
+.izquierda div {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+}
+.derecha {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  border: 2px solid #d9d9dd;
+  grid-template-rows: 0.5fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  border-radius: 10px;
+  border-top: none;
+  overflow: hidden;
+  border-right: none;
+}
+.derecha div {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  border-right: 2px solid #d9d9dd;
+  border-top: 2px solid #d9d9dd;
+}
+
+.sin {
+  background-color: #d9d9dd;
+  color: #525252;
+  align-items: center;
+}

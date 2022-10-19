@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, HostListener } from '@angular/core';
 import { ElectronService } from './core/services';
 import { TranslateService } from '@ngx-translate/core';
 import { APP_CONFIG } from '../environments/environment';
@@ -9,6 +9,11 @@ import { APP_CONFIG } from '../environments/environment';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+
+  isMaximized: boolean = true;
+  resized: boolean = false;
+  
+
   constructor(
     private electronService: ElectronService,
     private translate: TranslateService
@@ -24,5 +29,17 @@ export class AppComponent {
     } else {
       console.log('Run in browser');
     }
+  }
+
+  minimize() {
+    this.electronService.ipcRenderer.send('minimize', true);
+  }
+
+  maximize() {
+    this.electronService.ipcRenderer.send('maximize');
+  }
+  
+  close() {
+    this.electronService.ipcRenderer.send('close', true);
   }
 }
