@@ -1,5 +1,86 @@
 <loading-spinner *ngIf="isLoading"></loading-spinner>
 
 <div *ngIf="!isLoading" class="fadeIn">
-    <h1>Diagramas de Gantt</h1>
+    <div class="header">
+      <div class="header__sup">
+        <div class="header__title">Proyecto: Final de curso</div>
+        <div class="header__subtitle">Diagrama de gantt</div>
+      </div>
+      <blue-button>+ Añadir tarea</blue-button>
+    </div>
+  </div>
+
+
+<form (ngSubmit)="addTask(formData)" #formData="ngForm" *ngIf="!isLoading" style="display: none;">
+    <label for="titulo">Titulo</label>
+    <input type="text" name="titulo" ngModel>
+    <label for="initialDate">Fecha inicial</label>
+    <input type="date" name="fechaInicial" min="{{formatDate(fechas[0][0], '-')}}" max="{{formatDate(fechas[fechas.length - 1][1], '-')}}" ngModel>
+
+    <label for="finalDate">Fecha final</label>
+    <input type="date" name="fechaFinal" min="{{formatDate(fechas[0][0], '-')}}" max="{{formatDate(fechas[fechas.length - 1][1], '-')}}" ngModel>
+
+    <button type="submit">Agregar tarea</button>
+</form>
+
+<div class="container fadeIn" *ngIf="!isLoading">
+    <div class="task-area">
+        <div class="title-bar">
+            Actividades
+        </div>
+
+        <div class="task fadeIn" *ngFor="let task of data_tasks">
+            <div class="task__name">{{task['titulo']}}</div>
+        </div>
+    </div>
+
+    <div class="date-area">
+        <div class="title-bar">
+            Fecha inicial
+        </div>
+
+        <div class="date fadeIn" *ngFor="let task of data_tasks">
+            {{task['fechaInicial']}}
+        </div>
+    </div>
+
+    
+    <div class="date-area">
+        <div class="title-bar">
+            Fecha final
+        </div>
+        
+        <div class="date fadeIn" *ngFor="let task of data_tasks">
+            {{task['fechaFinal']}}
+        </div>
+    </div>
+
+    <div class="action-area">
+        <div class="title-bar">
+            Acciones
+        </div>
+        <div class="task__action-group fadeIn" *ngFor="let task of data_tasks">
+            <i class="fas fa-edit task__action edit"></i>
+            <i class="fas fa-trash-alt task__action delete" (click)="confirmModalActive = !confirmModalActive; actualDeleteId = task['id']"></i>
+        </div>
+    </div>
+    
+    <div class="timeline-area">
+        <div class="period" *ngFor="let item of [].constructor(data_gantt['semanas']); let i = index">
+                <div class="title-bar">
+                    {{formatDate(fechas[i][0], '/')}} - {{formatDate(fechas[i][1], '/')}}
+                </div>
+
+                <div class="bar-container fadeIn" *ngFor="let task of data_tasks">
+                    <div class="bar" [ngClass]="[calcPeriod(fechas[i][0], fechas[i][1], task['fechaInicial'], task['fechaFinal'])]">
+
+                    </div>
+                </div>
+        </div>
+
+    </div>
+
 </div>
+
+<confirm-modal class="fadeIn" *ngIf="confirmModalActive" (closeModalEvent)="deleteTask($event, actualDeleteId)"></confirm-modal>
+
