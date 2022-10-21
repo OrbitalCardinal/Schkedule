@@ -1,86 +1,104 @@
-import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
+import { NgForm } from "@angular/forms";
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  selector: "app-root",
+  templateUrl: "./app.component.html",
+  styleUrls: ["./app.component.scss"],
 })
 export class AppComponent implements OnInit {
-  data = [
+  fechas: Date[] = [];
+  data_gantt = {
+    nombre: "Proyecto Final",
+    fechaInicial: "2022-10-01",
+    semanas: 5,
+  };
+
+  data_tasks = [
     {
-      'id': 1,
-      'categoria': 'Development',
-      'titulo': 'Pantalla de inicio',
-      'descripcion': 'Desarrollar pantalla de inicio de sesión basado en diseño de figma',
-      'prioridad': 'Baja',
-      'estado': 'Pendiente'
+      id: 1,
+      titulo: "Actividad 1",
+      fechaInicial: "2022-10-01",
+      fechaFinal: "2022-10-12",
     },
     {
-      'id': 2,
-      'categoria': 'Development',
-      'titulo': 'Pantalla de inicio',
-      'descripcion': 'Desarrollar pantalla de inicio de sesión basado en diseño de figma',
-      'prioridad': 'Media',
-      'estado': 'En progreso'
+      id: 2,
+      titulo: "Actividad 2",
+      fechaInicial: "2022-10-16",
+      fechaFinal: "2022-10-19",
     },
     {
-      'id': 3,
-      'categoria': 'Data Engineering',
-      'titulo': 'Pantalla de inicio',
-      'descripcion': 'Desarrollar pantalla de inicio de sesión basado en diseño de figma',
-      'prioridad': 'Baja',
-      'estado': 'Pendiente'
+      id: 3,
+      titulo: "Actividad 3",
+      fechaInicial: "2022-10-09",
+      fechaFinal: "2022-10-23",
     },
-    {
-      'id': 4,
-      'categoria': 'Development',
-      'titulo': 'Pantalla de inicio',
-      'descripcion': 'Desarrollar pantalla de inicio de sesión basado en diseño de figma',
-      'prioridad': 'Media',
-      'estado': 'Hecho'
-    },
-    {
-      'id': 5,
-      'categoria': 'UI',
-      'titulo': 'Pantalla de inicio',
-      'descripcion': 'Desarrollar pantalla de inicio de sesión basado en diseño de figma',
-      'prioridad': 'Alta',
-      'estado': 'En progreso'
-    }
   ];
 
-  data_pendiente: any = [];
-  data_progreso: any = [];
-  data_hecho: any = [];
-
   ngOnInit(): void {
-    this.data.forEach((task) => {
-      if(task.estado == 'Pendiente') {
-        this.data_pendiente.push(task);
-      }
-      else if(task.estado == 'En progreso') {
-        this.data_progreso.push(task);
-      }
-      else if(task.estado == 'Hecho') {
-        this.data_hecho.push(task);
-      }
-    });
+    // Calcular fechas por periodos
+    let fechaInicialGantt = new Date(this.data_gantt["fechaInicial"]);
+    fechaInicialGantt = new Date(fechaInicialGantt.setDate(fechaInicialGantt.getDate() + 1));
+    let semanas = this.data_gantt["semanas"];
+    this.fechas.push(fechaInicialGantt);
+    let tempFecha = null;
+    let newFecha = null;
+    for (var i = 0; i < semanas; i++) {
+      tempFecha = this.fechas[i];
+      newFecha = new Date()
+      newFecha.setDate(tempFecha.getDate() + 7);
+      this.fechas.push(newFecha);
+    }
+
+    console.log(this.fechas[0]);
   }
 
-  trackById(index: any, element: any) {
-    return element.id;
+  formatDate(date: Date, sep: string) {
+    let year = date.getFullYear();
+    let month: any = date.getMonth() + 1;
+    if(month < 10) {
+      month = month.toString();
+      month = '0' + month;
+    }
+    let day: any = date.getDate();
+    if(day < 10) {
+      day = day.toString()
+      day = '0' + day;
+    }
+    let stringDate = `${year}${sep}${month}${sep}${day}`
+    return stringDate;
   }
 
-  moveTask(dropEvent: CdkDragDrop<any>) {
-    const { previousContainer, container, previousIndex, currentIndex} = dropEvent;
-    const isSameContainer = previousContainer === container;
-    if(isSameContainer && previousIndex == currentIndex) {
+
+  calcPeriod(semanaDate: Date, initialDate: any, finalDate: any) {
+    initialDate = new Date(initialDate);
+    finalDate = new Date(finalDate);
+    initialDate.setDate(initialDate.getDate());
+    finalDate.setDate(finalDate.getDate());
+    if(semanaDate.getTime() >= initialDate.getTime() && semanaDate.getTime() <= finalDate.getTime()) {
+      return 'active';
+    } 
+
+    return 'inactive';
+  }
+
+  addTask(taskData: NgForm) {
+    let fechaInicial = new Date(taskData.value['fechaInicial']);
+    let fechaFinal = new Date(taskData.value['fechaFinal']);
+    if(fechaInicial.getTime() >= fechaFinal.getTime()) {
       return;
     }
 
-    isSameContainer
-    ? moveItemInArray(container.data, previousIndex, currentIndex)
-    : transferArrayItem(previousContainer.data, container.data, previousIndex, currentIndex);
+    let newTask = {
+      id: this.data_tasks[this.data_tasks.length - 1]['id'] + 1,
+      titulo: taskData.value['titulo'],
+      fechaInicial: taskData.value['fechaInicial'],
+      fechaFinal: taskData.value['fechaFinal']
+    }
+    this.data_tasks.push(newTask);
+  }
+
+  deleteTask(id: number) {
+    this.data_tasks = this.data_tasks.filter((element) => element['id'] != id);
   }
 }

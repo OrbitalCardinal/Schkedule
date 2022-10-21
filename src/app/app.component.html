@@ -1,63 +1,42 @@
-<div class="main-container">
-  <div class="section" id="pendiente">
-    <div class="section__header">Pendiente</div>
-    <div
-      class="section__tasks"
-      cdkDropList
-      [cdkDropListData]="data_pendiente"
-      (cdkDropListDropped)="moveTask($event)"
-      #pendiente="cdkDropList"
-      [cdkDropListConnectedTo]="[progreso, hecho]"
-    >
-      <task-card
-        *ngFor="
-          let task of data_pendiente;
-          index as taskIndex;
-          trackBy: trackById
-        "
-        [taskData]="task"
-        cdkDrag
-      ></task-card>
-    </div>
-  </div>
+<div class="main">
+    <form (ngSubmit)="addTask(formData)" #formData="ngForm">
+        <label for="titulo">Titulo</label>
+        <input type="text" name="titulo" ngModel>
+        <label for="initialDate">Fecha inicial</label>
+        <input type="date" name="fechaInicial" min="{{formatDate(fechas[0], '-')}}" max="{{formatDate(fechas[fechas.length - 1], '-')}}" ngModel>
+    
+        <label for="finalDate">Fecha final</label>
+        <input type="date" name="fechaFinal" min="{{formatDate(fechas[0], '-')}}" max="{{formatDate(fechas[fechas.length - 1], '-')}}" ngModel>
 
-  <div class="section" id="en_progreso">
-    <div class="section__header">En progreso</div>
-    <div
-      class="section__tasks"
-      cdkDropList
-      [cdkDropListData]="data_progreso"
-      (cdkDropListDropped)="moveTask($event)"
-      #progreso="cdkDropList"
-      [cdkDropListConnectedTo]="[pendiente, hecho]"
-    >
-      <task-card
-        *ngFor="
-          let task of data_progreso;
-          index as taskIndex;
-          trackBy: trackById
-        "
-        [taskData]="task"
-        cdkDrag
-      ></task-card>
-    </div>
-  </div>
+        <button type="submit">Agregar tarea</button>
+    </form>
+    
+    <div class="container">
+        <div class="task-area">
+            <div class="title-bar">
+                Actividades
+            </div>
 
-  <div class="section" id="hecho">
-    <div class="section__header">Hecho</div>
-    <div
-      class="section__tasks"
-      cdkDropList
-      [cdkDropListData]="data_hecho"
-      (cdkDropListDropped)="moveTask($event)"
-      #hecho="cdkDropList"
-      [cdkDropListConnectedTo]="[pendiente, progreso]"
-    >
-      <task-card
-        *ngFor="let task of data_hecho; index as taskIndex; trackBy: trackById"
-        [taskData]="task"
-        cdkDrag
-      ></task-card>
+            <div class="task" *ngFor="let task of data_tasks">
+                <div class="task__name">{{task['titulo']}}</div>
+                <div class="task__action-group">
+                    <i class="fas fa-edit task__action edit"></i>
+                    <i class="fas fa-trash-alt task__action delete" (click)="deleteTask(task['id'])"></i>
+                </div>
+                
+            </div>
+        </div>
+
+        <div class="timeline-area">
+            <div class="period" *ngFor="let item of [].constructor(data_gantt['semanas']); let i = index">
+                    <div class="title-bar">
+                        {{formatDate(fechas[i], '/')}} - {{formatDate(fechas[i+1], '/')}}
+                    </div>
+
+                    <div class="bar-container" *ngFor="let task of data_tasks">
+                        <div class="bar" [ngClass]="[calcPeriod(fechas[i], task['fechaInicial'], task['fechaFinal'])]"></div>
+                    </div>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
