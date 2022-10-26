@@ -1,42 +1,43 @@
-<div class="main">
-    <form (ngSubmit)="addTask(formData)" #formData="ngForm">
-        <label for="titulo">Titulo</label>
-        <input type="text" name="titulo" ngModel>
-        <label for="initialDate">Fecha inicial</label>
-        <input type="date" name="fechaInicial" min="{{formatDate(fechas[0], '-')}}" max="{{formatDate(fechas[fechas.length - 1], '-')}}" ngModel>
-    
-        <label for="finalDate">Fecha final</label>
-        <input type="date" name="fechaFinal" min="{{formatDate(fechas[0], '-')}}" max="{{formatDate(fechas[fechas.length - 1], '-')}}" ngModel>
-
-        <button type="submit">Agregar tarea</button>
-    </form>
-    
-    <div class="container">
-        <div class="task-area">
-            <div class="title-bar">
-                Actividades
-            </div>
-
-            <div class="task" *ngFor="let task of data_tasks">
-                <div class="task__name">{{task['titulo']}}</div>
-                <div class="task__action-group">
-                    <i class="fas fa-edit task__action edit"></i>
-                    <i class="fas fa-trash-alt task__action delete" (click)="deleteTask(task['id'])"></i>
-                </div>
-                
-            </div>
-        </div>
-
-        <div class="timeline-area">
-            <div class="period" *ngFor="let item of [].constructor(data_gantt['semanas']); let i = index">
-                    <div class="title-bar">
-                        {{formatDate(fechas[i], '/')}} - {{formatDate(fechas[i+1], '/')}}
-                    </div>
-
-                    <div class="bar-container" *ngFor="let task of data_tasks">
-                        <div class="bar" [ngClass]="[calcPeriod(fechas[i], task['fechaInicial'], task['fechaFinal'])]"></div>
-                    </div>
-            </div>
-        </div>
+<form class="main-container" (ngSubmit)="onSubmit(f)" #f="ngForm">
+  <div class="modal">
+    <div class="header">
+      <span class="title">Nueva tarea</span>
+      <i class="fas fa-times"></i>
     </div>
-</div>
+    <ung-text-input label="Nombre de la tarea:" ngModel name="tarea" ngDefaultControl></ung-text-input>
+    <ung-select-input
+      label="Estado de la tarea:"
+      [options]="['Pendiente', 'En progreso', 'Hecho']"
+      ngModel
+      ngDefaultControl
+      name="estado"
+    ></ung-select-input>
+    <ung-date-input label="Fecha inicial:" ngModel name="fechaInicial" ngDefaultControl></ung-date-input>
+    <ung-date-input label="Fecha final:" ngModel name="fechaFinal" ngDefaultControl></ung-date-input>
+    <ung-button variant="filled">Agregar nueva tarea</ung-button>
+  </div>
+</form>
+
+<!-- <div class="main-container">
+  <ung-button variant="filled" type="submit">Agregar</ung-button>
+  <ung-button variant="outlined" type="submit">Modificar</ung-button>
+  <ung-text-input
+    label="Nueva tarea"
+    leadingIcon="fas fa-user"
+    placeholder="Nueva tarea"
+  ></ung-text-input>
+  <ung-text-input
+    label="Nueva actividad"
+    variant="focused"
+    trailingIcon="fas fa-eye"
+    placeholder="Nueva actividad"
+  ></ung-text-input>
+  <ung-password-input placeholder="Contraseña"></ung-password-input>
+  <ung-select-input
+    label="Estado:"
+    [options]="['Pendiente', 'En progreso', 'Hecho']"
+  ></ung-select-input>
+  <ung-date-input label="Fecha inicial:" min="2022-10-01" max="2022-10-26"></ung-date-input>
+  <ung-date-input label="Fecha final:" min="2022-10-01" max="2022-10-26"></ung-date-input>
+  <ung-user-avatar name="Sonia"></ung-user-avatar>
+</div> -->

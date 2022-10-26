@@ -1,0 +1,61 @@
+$primary: #0B7EAF;
+$gray-1: #525252;
+$gray-2: #F6F6F6;
+
+.input-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-width: 500px;
+
+    label {
+        color: $gray-1;
+        font-size: 20px;
+    }
+
+    .input-content {
+        box-sizing: border-box;
+        width: 100%;
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        border: 2px solid transparent;
+        padding: 10px;
+        background-color: $gray-2;
+
+        &:focus-within {
+            border: 2px solid $primary;
+            background-color: white;
+
+            input {
+                color: $primary;
+                background-color: white;
+            }
+
+            i {
+                color: $primary;
+            }
+        }
+
+        input {
+            background-color: $gray-2;
+            width: 100%;
+            height: 35px;
+            border: none;
+            outline: none;
+            color: $gray-1;
+            font-size: 18px;
+        }
+
+        i {
+            color: $gray-1;
+        }
+
+        .password-icon {
+            &:hover {
+                cursor: pointer;
+            }
+        }
+    }
+}
+
