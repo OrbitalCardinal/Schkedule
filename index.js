@@ -5,6 +5,8 @@ const db = require('./utils/db');
 
 // Routes imports
 const usuariosRoute = require('./routes/usuarios');
+const tablasRoute = require('./routes/tablas');
+const tareasTablaRoute = require('./routes/tareas_tabla');
 
 // Init app
 const app = express();
@@ -19,6 +21,8 @@ app.use((req, res, next) => {
 });
 // Routes declaration
 app.use(usuariosRoute);
+app.use(tablasRoute);
+app.use(tareasTablaRoute);
 
 const server = app.listen(3000);
 
