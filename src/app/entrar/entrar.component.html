@@ -1,0 +1,26 @@
+<main>
+  <div class="logo-container">
+    <img src="assets/logo.png" />
+  </div>
+  <form (ngSubmit)="entrar(f)" #f="ngForm">
+    <div class="form-container">
+      <ung-user-avatar
+        [name]="user['nombres'].split(' ')[0]"
+        [deleteActive]="false"
+      ></ung-user-avatar>
+      <ung-password-input
+        [name]="'contrasena'"
+        class="input"
+        leadingIcon="fas fa-lock"
+        placeholder="Contraseña"
+        ngModel
+        ngDefaultControl
+      ></ung-password-input>
+      <span class="forgot-password">Olvide mi contraseña</span>
+      <ung-button class="input" variant="filled" type="submit">Acceder</ung-button>
+    </div>
+    <span class="select-another" routerLink="/seleccion-usuario"
+      >Seleccionar otra cuenta</span
+    >
+  </form>
+</main>

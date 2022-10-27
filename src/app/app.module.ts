@@ -1,9 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { CoreModule } from './core/core.module';
-import { SharedModule } from './shared/shared.module';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -17,6 +16,8 @@ import { AppComponent } from './app.component';
 import { AccesoModule } from './acceso/acceso.module';
 import { MainPageModule } from './main-page/main-page.module';
 import { NuevoUsuarioModule } from './nuevo-usuario/nuevo-usuario.module';
+import { SeleccionUsuarioModule } from './seleccion-usuario/seleccion-usuario.module';
+import { EntrarModule } from './entrar/entrar.module';
 
 // AoT requires an exported function for factories
 const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader =>  new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -33,6 +34,8 @@ const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader =>  new Transl
     AppRoutingModule,
     MainPageModule,
     NuevoUsuarioModule,
+    SeleccionUsuarioModule,
+    EntrarModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

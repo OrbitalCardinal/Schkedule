@@ -30,7 +30,7 @@
             <div>Fecha final: </div>
             <input type="date" [ngModel]="taskData['fechaFinal']" name="fechaFinal">
         </div>
-        <blue-button type="submit" *ngIf="taskIndex == null">Agregar</blue-button>
-        <blue-button type="submit" *ngIf="taskIndex != null">Modificar</blue-button>
+        <ung-button variant="filled" type="submit" *ngIf="taskIndex == null">Agregar</ung-button>
+        <ung-button variant="filled" type="submit" *ngIf="taskIndex != null">Modificar</ung-button>
     </form>
 </div>

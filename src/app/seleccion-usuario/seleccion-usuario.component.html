@@ -1,0 +1,22 @@
+<main>
+  <div class="container">
+    <h1>Seleccione un usuario</h1>
+    <h2 *ngIf="users.length == 0">Aún no se crean cuentas</h2>
+    <div class="users-container" *ngIf="users.length > 0">
+      <ung-user-avatar
+        *ngFor="let user of users"
+        [name]="user['nombres'].split(' ')[0]"
+        (deleteEvent)="deleteUser(user)"
+        (selectEvent)="selectUser(user)"
+      ></ung-user-avatar>
+    </div>
+    <div class="no-user">
+      <span class="no-account" *ngIf="users.length > 0">¿No está tu cuenta?</span>
+      <span class="new-user" routerLink="/nuevo-usuario">
+        Crea un nuevo usuario local</span
+      >
+      o
+      <span class="back" routerLink="/acceso">Vuelve al menú</span>
+    </div>
+  </div>
+</main>

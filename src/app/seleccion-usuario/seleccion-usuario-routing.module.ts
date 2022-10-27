@@ -1,14 +1,14 @@
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
-import { NuevoUsuarioComponent } from "./nuevo-usuario.component";
+import { SeleccionUsuarioComponent } from "./seleccion-usuario.component";
 
 const routes: Routes = [
-    {
-        path: 'nuevo-usuario',
-        component: NuevoUsuarioComponent
-    }
-]
+      {
+        path: 'seleccion-usuario',
+        component: SeleccionUsuarioComponent
+      }
+];
 
 @NgModule({
     declarations: [],
@@ -16,4 +16,4 @@ const routes: Routes = [
     exports: [RouterModule]
 })
 
-export class NuevoUsuarioRoutingModule {}
+export class SeleccionUsuarioRoutingModule {}

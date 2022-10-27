@@ -1,19 +1,60 @@
-<div class="fadeIn">
-  <img class="icon" src="/assets/logo.png" />
-  <div class="centrado">
-      <img src="/assets/users-solid.svg" class="users">
-    <p>Introduzca sus credenciales para crear un nuevo usuario</p>
-    <br />
-    <div class="form">
-      <!-- <input type="text" placeholder="Nombre Completo"/> -->
-      <input type="text" placeholder="Nombre completo" />
-      <input type="email" placeholder="Correo Electronico" />
-      <input type="password" placeholder="Contraseña" />
-      <input type="password" placeholder="Confirmar Contraseña" />
-      <br />
-      <button routerLink="/main-page/home-page">Crear</button>
-      <a routerLink="">Ya tengo cuenta</a>
-    </div>
+<main>
+  <div class="logo-container">
+    <img src="assets/logo.png" />
   </div>
-
-</div>
+  <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+    <i class="fas fa-user"></i>
+    <h2>Introduzca sus datos para un nuevo usuario</h2>
+    <ung-text-input
+      class="input"
+      leadingIcon="fas fa-user"
+      placeholder="Nombre(s)"
+      name="nombres"
+      ngModel
+      ngDefaultControl
+      required
+    ></ung-text-input>
+    <ung-text-input
+      name="apellidos"
+      class="input"
+      leadingIcon="fas fa-user"
+      placeholder="Apellidos"
+      ngModel
+      ngDefaultControl
+      required
+    ></ung-text-input>
+    <ung-text-input
+      name="correo"
+      class="input"
+      leadingIcon="fas fa-envelope"
+      placeholder="Correo electrónico"
+      ngModel
+      ngDefaultControl
+      required
+      email
+    ></ung-text-input>
+    <ung-password-input
+      name="contrasena"
+      class="input"
+      leadingIcon="fas fa-lock"
+      placeholder="Contraseña"
+      ngModel
+      ngDefaultControl
+      required
+    ></ung-password-input>
+    <ung-password-input
+      name="confirmarContrasena"
+      class="input"
+      leadingIcon="fas fa-lock"
+      placeholder="Confirmar contraseña"
+      ngModel
+      ngDefaultControl
+      required
+    ></ung-password-input>
+    <ung-button class="input" variant="filled" type="submit" [disabled]="!f.valid">Crear</ung-button>
+    <span class="have-account" routerLink="/seleccion-usuario"
+      >Ya tengo una cuenta local</span
+    >
+    <span class="back" routerLink="/acceso">Volver al menú</span>
+  </form>
+</main>

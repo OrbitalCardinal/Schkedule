@@ -1,0 +1,60 @@
+$primary: #0B7EAF;
+$gray1: #525252;
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 90vh;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 500px;
+
+    h1, h2 {
+        color: $gray1;
+        font-weight: 400;
+        font-size: 30px;
+    }
+
+    .no-user {
+        font-size: 25px;
+    }
+
+    .no-account {
+        color: $gray1;
+    }
+
+    .new-user {
+        color: $primary;
+        font-weight: bold;
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
+    .back {
+        color: $gray1;
+        font-weight: bold;
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
+}
+
+.users-container {
+    display: flex;
+    width: auto;
+    max-width: 1200px;
+    gap: 50px;
+    padding: 20px;
+    overflow-x: auto;
+}

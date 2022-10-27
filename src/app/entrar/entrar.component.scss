@@ -20,37 +20,33 @@ main {
 }
 
 form {
+    width: 700px;
     height: 100%;
-    width: 800px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 80%;
     gap: 20px;
 
-    i {
-        font-size: 70px;
-        color: $primary;
-    }
-
-    h2 {
-        color: $primary;
-        font-size: 20px;
-        font-weight: 500;
-    }
-
-    .input {
+    ung-password-input {
         width: 100%;
     }
 
-    .back {
-        color: $gray1;
-        font-weight: bold;
+    ung-button {
+        width: 100%;
     }
 
-    span {
-        color: $primary;
+    .forgot-password {
         font-weight: bold;
+        color: $primary;
         font-size: 20px;
 
         &:hover {
@@ -59,10 +55,12 @@ form {
     }
 }
 
-// ung-text-input.ng-invalid.ng-dirty {
-//     ::ng-deep {
-//         .input-content {
-//             border: 2px solid red;
-//         }
-//     }
-// }
+.select-another {
+    font-weight: bold;
+    color: $gray1;
+    font-size: 20px;
+
+    &:hover {
+        cursor: pointer;
+    }
+}

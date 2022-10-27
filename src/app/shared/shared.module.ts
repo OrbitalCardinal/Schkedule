@@ -5,25 +5,37 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { FormsModule } from '@angular/forms';
 import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
-import { BlueButtonComponent } from './components/blue-button/blue-button.component';
-import { UngistorInputComponent } from './components/ungistor-input/ungistor-input.component';
-import { UngistorInputModule } from './components/ungistor-input/ungistor-input.module';
 import { ConfirmModalComponent } from './components/confirm-modal/confirm-modal.component';
+import { UngButtonComponent } from './components/ung-button/ung-button.component';
+import { UngDateInput } from './components/ung-date-input/ung-date-input.component';
+import { UngPasswordInput } from './components/ung-password-input/ung-password-input.component';
+import { UngSelectInput } from './components/ung-select-input/ung-select-input.component';
+import { UngTextInput } from './components/ung-text-input/ung-text-input.component';
+import { UngUserAvatar } from './components/user-avatar/ung-user-avatar.component';
 
 @NgModule({
   declarations: [
-    LoadingSpinnerComponent, 
-    BlueButtonComponent, 
-    ConfirmModalComponent
+    LoadingSpinnerComponent,
+    ConfirmModalComponent,
+    UngButtonComponent,
+    UngDateInput,
+    UngPasswordInput,
+    UngSelectInput,
+    UngTextInput,
+    UngUserAvatar
   ],
   imports: [CommonModule, TranslateModule, FormsModule],
   exports: [
     TranslateModule, 
     FormsModule, 
     LoadingSpinnerComponent, 
-    BlueButtonComponent, 
-    UngistorInputModule,
-    ConfirmModalComponent
+    ConfirmModalComponent,
+    UngButtonComponent,
+    UngDateInput,
+    UngPasswordInput,
+    UngSelectInput,
+    UngTextInput,
+    UngUserAvatar
   ]
 })
 export class SharedModule {}

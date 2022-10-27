@@ -1,0 +1,9 @@
+<main>
+    <div class="icon-container" *ngIf="deleteActive">
+        <i class="fas fa-trash-alt" (click)="delete()"></i>
+    </div>
+    <div class="avatar" (click)="select()">
+        <span class="initial">{{name.substring(0,1)}}</span>
+    </div>
+    <span class="name">{{name}}</span>
+</main>

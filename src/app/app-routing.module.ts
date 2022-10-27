@@ -1,9 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-
 import { DetailRoutingModule } from './detail/detail-routing.module';
-import { MainPageRoutingModule } from './main-page/main-page-routing.module';
-import { NuevoUsuarioComponent } from './nuevo-usuario/nuevo-usuario.component';
 
 const routes: Routes = [
   {
@@ -19,6 +16,16 @@ const routes: Routes = [
   {
     path: 'main-page',
     redirectTo: 'main-page'
+  },
+  {
+    path: 'seleccion-usuario',
+    redirectTo: 'seleccion-usuario',
+    pathMatch: 'full'
+  },
+  {
+    path: 'entrar',
+    redirectTo: 'entrar',
+    pathMatch: 'full'
   }
 ];
 
