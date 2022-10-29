@@ -7,6 +7,8 @@ const db = require('./utils/db');
 const usuariosRoute = require('./routes/usuarios');
 const tablasRoute = require('./routes/tablas');
 const tareasTablaRoute = require('./routes/tareas_tabla');
+const tablerosKanban =  require('./routes/tableros_kanban');
+const tareasKanban = require('./routes/tareas_kanban');
 
 // Init app
 const app = express();
@@ -23,6 +25,8 @@ app.use((req, res, next) => {
 app.use(usuariosRoute);
 app.use(tablasRoute);
 app.use(tareasTablaRoute);
+app.use(tablerosKanban);
+app.use(tareasKanban);
 
 const server = app.listen(3000);
 
