@@ -5,6 +5,10 @@ import { ConfigPageComponent } from "../config-page/config-page.component";
 import { GanttPageComponent } from "../gantt-page/gantt-page.component";
 import { HomePageComponent } from "../home-page/home-page.component";
 import { KanbanPageComponent } from "../kanban-page/kanban-page.component";
+import { LandingGanttPageComponent } from "../landing-gantt-page/landing-gantt-page.component";
+import { LandingKanbanPageComponent } from "../landing-kanban-page/landing-kanban-page.component";
+import { LandingSchedulePageComponent } from "../landing-schedule-page/landing-schedule-page.component";
+import { LandingTablePageComponent } from "../landing-table-page/landing-table-page.component";
 import { SchedulePageComponent } from "../schedule-page/schedule-page.component";
 import { TablePageComponent } from "../table-page/table-page.component";
 import { MainPageComponent } from "./main-page.component";
@@ -38,7 +42,23 @@ const routes: Routes = [
         {
             path: 'config-page',
             component: ConfigPageComponent
-        }
+        },
+        {
+            path: 'landing-table-page',
+            component: LandingTablePageComponent
+        },
+        {
+            path: 'landing-kanban-page',
+            component: LandingKanbanPageComponent
+        },
+        {
+            path: 'landing-gantt-page',
+            component: LandingGanttPageComponent
+        },
+        {
+            path: 'landing-schedule-page',
+            component: LandingSchedulePageComponent
+        },
       ]
     }
   ];

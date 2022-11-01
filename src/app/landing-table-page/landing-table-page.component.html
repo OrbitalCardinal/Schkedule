@@ -1,0 +1,24 @@
+<loading-spinner *ngIf="isLoading"></loading-spinner>
+
+<main *ngIf="!isLoading" class="fadeIn">
+  <header>
+    <div class="title">
+      <i class="fas fa-clipboard"></i>
+      <h2>Mis tablas</h2>
+    </div>
+    <ung-button leadingIcon="fas fa-plus" variant="filled"
+      >Nueva tabla</ung-button
+    >
+  </header>
+  <div class="separator"></div>
+
+  <div class="main-container">
+    <project-card
+      *ngFor="let project of data"
+      [title]="project['nombre']"
+      [date]="project['createdAt']"
+      (selectEvent)="projectSelect(project['id'])"
+      (deleteEvent)="projectDelete(project['id'])"
+    ></project-card>
+  </div>
+</main>

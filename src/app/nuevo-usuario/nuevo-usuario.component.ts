@@ -18,14 +18,14 @@ export class NuevoUsuarioComponent {
 
         if(data['contrasena'] != data['confirmarContrasena']) return;
         
-        this.http.post('http://localhost:3000/usuarios', {
-            'nombres': data['nombres'],
-            'apellidos': data['apellidos'],
-            'correo': data['correo'],
-            'contrasena': data['contrasena']
-        }).subscribe((result) => {
-            console.log(result);
-            this.router.navigateByUrl('/seleccion-usuario')
-        });
+        // this.http.post('http://localhost:3000/usuarios', {
+        //     'nombres': data['nombres'],
+        //     'apellidos': data['apellidos'],
+        //     'correo': data['correo'],
+        //     'contrasena': data['contrasena']
+        // }).subscribe((result) => {
+        //     console.log(result);
+        // });
+        this.router.navigateByUrl('/seleccion-usuario')
     }
 }

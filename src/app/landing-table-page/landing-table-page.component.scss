@@ -1,0 +1,30 @@
+header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.separator {
+    border: 1px solid #CBCBCB;
+    margin: 15px 0px;
+}
+
+.title {
+    color: #0B7EAF;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    h2 {
+        font-size: 28px;
+    }
+
+    i {
+        font-size: 26px;
+    }
+}
+
+.main-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}

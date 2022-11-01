@@ -10,18 +10,25 @@ import { Router } from "@angular/router";
 
 export class SeleccionUsuarioComponent implements OnInit {
     constructor(private http: HttpClient, private router: Router) {}
-    users: any[] = [];
+    users: any[] = [
+        {
+            'nombres': 'Edson Raul',
+            'apellidos': 'Cepeda Marquez',
+            'correo': 'edson@edson.com',
+            'contrasena': '123'
+        }
+    ];
 
     ngOnInit(): void {
-        this.http.get('http://localhost:3000/usuarios').subscribe((result: any[]) => {
-            this.users = result;
-        });
+        // this.http.get('http://localhost:3000/usuarios').subscribe((result: any[]) => {
+        //     this.users = result;
+        // });
     }
 
     deleteUser(user: any) {
-        this.http.delete(`http://localhost:3000/usuarios?id=${user['id']}`).subscribe((result) => {
-            console.log(result);
-        });
+        // this.http.delete(`http://localhost:3000/usuarios?id=${user['id']}`).subscribe((result) => {
+        //     console.log(result);
+        // });
 
         this.users = this.users.filter((element) => element['id'] != user['id']);
     }

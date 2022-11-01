@@ -1,0 +1,38 @@
+.main {
+    position: relative;
+    color: #585858;
+    border: 1px solid #585858;
+    width: 280px;
+
+    &:hover {
+        cursor: pointer;
+    }
+
+    i {
+        font-size: 18px;
+        position: absolute;
+        top: 0;
+        right: 0;
+        padding: 10px;
+        color: red;
+        z-index: 1000;
+
+        &:hover {
+            color: rgb(203, 0, 0);
+        }
+    }
+}
+
+.title {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.date {
+    font-weight: bold;
+}
+
+.clickable-area {
+    padding: 20px;
+    z-index: 0;
+}

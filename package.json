@@ -26,7 +26,7 @@
   "scripts": {
     "postinstall": "electron-builder install-app-deps",
     "ng": "ng",
-    "start": "npm-run-all -p electron:serve ng:serve express:serve",
+    "start": "npm-run-all -p electron:serve ng:serve",
     "ng:serve": "ng serve -c web",
     "express:serve": "nodemon api/index.js",
     "build": "npm run electron:serve-tsc && ng build --base-href ./",

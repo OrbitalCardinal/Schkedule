@@ -12,15 +12,15 @@ export class TablePageComponent implements OnInit {
   isLoading = true;
 
   ngOnInit() {
-    // setTimeout(() => {
-    //   this.isLoading = false;
-    // }, 1000);
-    this.http
-      .get("http://localhost:3000/usuarios")
-      .subscribe((results: any) => {
-        console.log(results);
-        this.isLoading = false;
-      });
+    setTimeout(() => {
+      this.isLoading = false;
+    }, 1000);
+    // this.http
+    //   .get("http://localhost:3000/usuarios")
+    //   .subscribe((results: any) => {
+    //     console.log(results);
+    //     this.isLoading = false;
+    //   });
   }
 
   // Global variables
