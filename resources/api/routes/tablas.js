@@ -49,8 +49,10 @@ router.patch('/tablas', (req, res) => {
 router.delete('/tablas', (req, res) => {
     let id = req.query['id'];
     let query = `DELETE FROM tablas WHERE id = ${id}`;
+    let query2 = `DELETE FROM tareas_tabla WHERE id_tabla = ${id}`
     db.serialize(() => {
         db.exec(query, (err) => console.log(err));
+        db.exec(query2, (err) => console.log(err));
     });
     res.status(200).json({
         "id_deleted": id

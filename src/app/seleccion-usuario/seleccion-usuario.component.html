@@ -6,7 +6,7 @@
       <ung-user-avatar
         *ngFor="let user of users"
         [name]="user['nombres'].split(' ')[0]"
-        (deleteEvent)="deleteUser(user)"
+        (deleteEvent)="deleteModalActive = !deleteModalActive; actualUser = user"
         (selectEvent)="selectUser(user)"
       ></ung-user-avatar>
     </div>
@@ -20,3 +20,19 @@
     </div>
   </div>
 </main>
+
+<modal-wrapper
+  class="fadeIn"
+  modalTitle="Eliminar tarea"
+  modalSubtitle="¿Esta seguro que desea eliminar este usuario?"
+  *ngIf="deleteModalActive"
+  contentDirection="row"
+  (closeModal)="deleteModalActive = !deleteModalActive"
+>
+  <ung-button variant="filled" (click)="deleteUser()">Eliminar</ung-button>
+  <ung-button
+    variant="outlined"
+    (click)="deleteModalActive = !deleteModalActive"
+    >Cancelar</ung-button
+  >
+</modal-wrapper>

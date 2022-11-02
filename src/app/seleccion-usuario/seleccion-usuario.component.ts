@@ -11,19 +11,21 @@ import { Router } from "@angular/router";
 export class SeleccionUsuarioComponent implements OnInit {
     constructor(private http: HttpClient, private router: Router) {}
     users: any[] = [];
+    actualUser: any = null;
+    deleteModalActive = false;
 
     ngOnInit(): void {
-        this.http.get('http://localhost:3000/usuarios').subscribe((result: any[]) => {
+        this.http.get('http://localhost:3000/usuarios').subscribe((result: any) => {
             this.users = result;
         });
     }
 
-    deleteUser(user: any) {
-        this.http.delete(`http://localhost:3000/usuarios?id=${user['id']}`).subscribe((result) => {
-            console.log(result);
+    deleteUser() {
+        this.http.delete(`http://localhost:3000/usuarios?id=${this.actualUser['id']}`).subscribe((result) => {
+            this.users = this.users.filter((element) => element['id'] != this.actualUser['id']);
+            this.deleteModalActive = !this.deleteModalActive;
         });
         
-        this.users = this.users.filter((element) => element['id'] != user['id']);
     }
 
     selectUser(user: any) {

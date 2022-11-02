@@ -12,7 +12,7 @@ export class TablePageComponent implements OnInit {
 
   isLoading = true;
   tableId = null;
-  project = null;
+  project: any | undefined = null;
   data: any[] = [];
 
   ngOnInit() {
@@ -21,7 +21,7 @@ export class TablePageComponent implements OnInit {
       this.tableId = this.project["id"];
       this.http
         .get(`http://localhost:3000/tareas_tabla?id_tabla=${this.tableId}`)
-        .subscribe((results: any[]) => {
+        .subscribe((results: any) => {
           this.isLoading = false;
           this.data = results;
         });
@@ -40,10 +40,9 @@ export class TablePageComponent implements OnInit {
   modalActive = false;
   deleteModalActive = false;
   editModalActive = false;
-  @ViewChild("edit") editForm: NgForm;
 
   // Actual task variables
-  deleteId: number = null;
+  deleteId: any = null;
   actualTask: any = null;
 
   newTask(data: NgForm) {
@@ -76,7 +75,17 @@ export class TablePageComponent implements OnInit {
       });
   }
 
-  editTask() {
-    console.log(this.actualTask);
+  editTask(data: NgForm) {
+    this.http.patch(`http://localhost:3000/tareas_tabla?id=${this.actualTask['id']}`, data.value).subscribe((response: any) => {
+      let editIndex = this.data.findIndex((element) => element['id'] == this.actualTask['id'])
+      this.data[editIndex]['nombre'] = data.value['nombre'];
+      this.data[editIndex]['categoria'] = data.value['categoria'];
+      this.data[editIndex]['estado'] = data.value['estado'];
+      this.data[editIndex]['fecha_inicial'] = data.value['fecha_inicial'];
+      this.data[editIndex]['fecha_final'] = data.value['fecha_final'];
+      this.editModalActive = !this.editModalActive;
+    });
+
+
   }
 }

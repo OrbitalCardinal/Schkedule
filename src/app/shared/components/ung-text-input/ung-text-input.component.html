@@ -1,8 +1,15 @@
 <div class="input-container">
-    <label >{{label}}</label>
-    <div class="input-content">
-        <i [ngClass]="[leadingIcon]" *ngIf="leadingIcon != ''"></i>
-        <input [type]="type" [name]="name" [ngClass]="variant" [placeholder]="placeholder">
-        <i [ngClass]="[trailingIcon]" *ngIf="trailingIcon != ''"></i>
-    </div>
+  <label>{{ label }}</label>
+  <div class="input-content">
+    <i [ngClass]="[leadingIcon]" *ngIf="leadingIcon != ''"></i>
+    <input
+      [type]="type"
+      [name]="name"
+      [ngClass]="variant"
+      [placeholder]="placeholder"
+      [value]="value"
+      (keyup)="changeValue($event)"
+    />
+    <i [ngClass]="[trailingIcon]" *ngIf="trailingIcon != ''"></i>
+  </div>
 </div>

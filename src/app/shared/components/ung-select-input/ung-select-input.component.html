@@ -2,7 +2,7 @@
   <label>{{ label }}</label>
   <div class="input-content">
     <i [ngClass]="[leadingIcon]" *ngIf="leadingIcon != ''"></i>
-    <select>
+    <select [value]="value" (change)="changeValue($event)">
       <option
         [value]="option"
         *ngFor="let option of options; index as i"

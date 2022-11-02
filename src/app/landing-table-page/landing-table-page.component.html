@@ -6,23 +6,60 @@
       <i class="fas fa-clipboard"></i>
       <h2>Mis tablas</h2>
     </div>
-    <ung-button leadingIcon="fas fa-plus" variant="filled" (click)="modalActive = !modalActive">Nueva tabla</ung-button>
+    <ung-button
+      leadingIcon="fas fa-plus"
+      variant="filled"
+      (click)="modalActive = !modalActive"
+      >Nueva tabla</ung-button
+    >
   </header>
   <div class="separator"></div>
-
-  <div class="main-container">
+  
+  <h3 *ngIf="data.length == 0">No hay tablas que mostrar</h3>
+  <div class="main-container" *ngIf="data.length > 0">
     <project-card
       *ngFor="let project of data"
       [title]="project['nombre']"
       [date]="formatDate(project['created_at'])"
       (selectEvent)="projectSelect(project)"
-      (deleteEvent)="projectDelete(project['id'])"
+      (deleteEvent)="deleteModalActive = !deleteModalActive; actualTable = project"
     ></project-card>
   </div>
   <form (ngSubmit)="createTable(f)" #f="ngForm">
-    <modal-wrapper class="fadeIn" modalTitle="Nueva tabla" *ngIf="modalActive" (closeModal)="modalActive = !modalActive">
-      <ung-text-input name="nombre" label="Nombre de la tabla" ngModel ngDefaultControl required></ung-text-input>
-      <ung-button leadingIcon="fas fa-plus" variant="filled" [disabled]="!f.valid">Crear tabla</ung-button>
+    <modal-wrapper
+      class="fadeIn"
+      modalTitle="Nueva tabla"
+      *ngIf="modalActive"
+      (closeModal)="modalActive = !modalActive"
+    >
+      <ung-text-input
+        name="nombre"
+        label="Nombre de la tabla"
+        ngModel
+        required
+      ></ung-text-input>
+      <ung-button
+        leadingIcon="fas fa-plus"
+        variant="filled"
+        [disabled]="!f.valid"
+        >Crear tabla</ung-button
+      >
     </modal-wrapper>
   </form>
 </main>
+
+<modal-wrapper
+  class="fadeIn"
+  modalTitle="Eliminar tarea"
+  modalSubtitle="¿Esta seguro que desea eliminar esta tabla?"
+  *ngIf="deleteModalActive"
+  contentDirection="row"
+  (closeModal)="deleteModalActive = !deleteModalActive"
+>
+  <ung-button variant="filled" (click)="deleteTable()">Eliminar</ung-button>
+  <ung-button
+    variant="outlined"
+    (click)="deleteModalActive = !deleteModalActive"
+    >Cancelar</ung-button
+  >
+</modal-wrapper>

@@ -15,7 +15,8 @@
   </div>
 
   <div class="table-container">
-    <table>
+    <h2 *ngIf="data.length == 0">No hay tareas para mostrar</h2>
+    <table *ngIf="data.length > 0">
       <thead>
         <tr>
           <th>Tarea</th>
@@ -48,7 +49,7 @@
     </table>
   </div>
 
-  <form (ngSubmit)="editTask()" #edit="ngForm">
+  <form (ngSubmit)="editTask(edit)" #edit="ngForm">
     <modal-wrapper
       class="fadeIn"
       modalTitle="Modificar tarea"
@@ -58,40 +59,35 @@
       <ung-text-input
         label="Nombre de la tarea"
         name="nombre"
-        [(ngModel)]="actualTask['nombre']"
-        ngDefaultControl
+        [ngModel]="actualTask['nombre']"
         required
       ></ung-text-input>
       <ung-text-input
         label="Categoria"
         name="categoria"
-        [(ngModel)]="actualTask['categoria']"
-        ngDefaultControl
+        [ngModel]="actualTask['categoria']"
         required
       ></ung-text-input>
       <ung-select-input
         label="Estado"
         name="estado"
         [options]="['Pendiente', 'En progreso', 'Hecho']"
-        [(ngModel)]="actualTask['estado']"
-        ngDefaultControl
-        required=""
+        [ngModel]="actualTask['estado']"
+        required
       ></ung-select-input>
       <ung-date-input
         label="Fecha inicial"
         name="fecha_inicial"
         [min]="minDate"
-        [(ngModel)]="actualTask['fecha_inicial']"
-        ngDefaultControl
-        required=""
+        [ngModel]="actualTask['fecha_inicial']"
+        required
       ></ung-date-input>
       <ung-date-input
         label="Fecha final"
         name="fecha_final"
         [min]="minDate"
-        [(ngModel)]="actualTask['fecha_final']"
-        ngDefaultControl
-        required=""
+        [ngModel]="actualTask['fecha_final']"
+        required
       ></ung-date-input>
       <ung-button
         leadingIcon="fas fa-plus"
@@ -129,14 +125,12 @@
         label="Nombre de la tarea"
         name="nombre"
         ngModel
-        ngDefaultControl
         required
       ></ung-text-input>
       <ung-text-input
         label="Categoria"
         name="categoria"
         ngModel
-        ngDefaultControl
         required
       ></ung-text-input>
       <ung-select-input
@@ -144,14 +138,12 @@
         name="estado"
         [options]="['Pendiente', 'En progreso', 'Hecho']"
         ngModel
-        ngDefaultControl
       ></ung-select-input>
       <ung-date-input
         label="Fecha inicial"
         name="fecha_inicial"
         [min]="minDate"
         ngModel
-        ngDefaultControl
         required
       ></ung-date-input>
       <ung-date-input
@@ -159,7 +151,6 @@
         name="fecha_final"
         [min]="minDate"
         ngModel
-        ngDefaultControl
         required
       ></ung-date-input>
       <ung-button

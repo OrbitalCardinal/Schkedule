@@ -4,7 +4,8 @@
     <i [ngClass]="[leadingIcon]" *ngIf="leadingIcon != ''"></i>
     <input
       type="date"
-      name="ung"
+      [value]="value"
+      (change)="changeValue($event)"
       [ngClass]="variant"
       [placeholder]="placeholder"
       [min]="min"
