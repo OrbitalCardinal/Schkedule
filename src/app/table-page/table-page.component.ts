@@ -26,7 +26,7 @@ export class TablePageComponent implements OnInit {
           this.data = results;
         });
       console.log(this.minDate);
-    }, 0);
+    }, 500);
   }
 
   formatDate(date: string) {

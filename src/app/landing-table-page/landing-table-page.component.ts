@@ -25,7 +25,7 @@ export class LandingTablePageComponent implements OnInit {
       this.user = JSON.parse(localStorage.getItem('user') || '{}');
       this.fetchTables();
       ;
-    }, 0);
+    }, 500);
   }
 
   fetchTables() {
