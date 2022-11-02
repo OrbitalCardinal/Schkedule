@@ -15,7 +15,7 @@ const routes: Routes = [
   },
   {
     path: 'main-page',
-    redirectTo: 'main-page'
+    redirectTo: 'main-page/home-page'
   },
   {
     path: 'seleccion-usuario',

@@ -1,11 +1,16 @@
 <div class="input-container">
-    <label>{{label}}</label>
-    <div class="input-content">
-        <i [ngClass]="[leadingIcon]" *ngIf="leadingIcon != ''"></i>
-        <select>
-            <option [value]="option" *ngFor="let option of options">{{option}}</option>
-        </select>
-        <!-- <input type="select" name="ung" [ngClass]="variant" [placeholder]="placeholder"> -->
-        <i [ngClass]="[trailingIcon]" *ngIf="trailingIcon != ''"></i>
-    </div>
+  <label>{{ label }}</label>
+  <div class="input-content">
+    <i [ngClass]="[leadingIcon]" *ngIf="leadingIcon != ''"></i>
+    <select>
+      <option
+        [value]="option"
+        *ngFor="let option of options; index as i"
+      >
+        {{ option }}
+      </option>
+    </select>
+    <!-- <input type="select" name="ung" [ngClass]="variant" [placeholder]="placeholder"> -->
+    <i [ngClass]="[trailingIcon]" *ngIf="trailingIcon != ''"></i>
+  </div>
 </div>

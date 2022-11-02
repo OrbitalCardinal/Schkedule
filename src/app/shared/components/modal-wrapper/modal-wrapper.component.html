@@ -1,0 +1,20 @@
+<main>
+  <div class="modal-container">
+    <header>
+      <span class="modal-title">{{ modalTitle }}</span>
+      <i class="fas fa-times exit-button" (click)="onCloseModal()"></i>
+    </header>
+
+    <h3 class="modal-subtitle" *ngIf="modalSubtitle != ''">{{modalSubtitle}}</h3>
+
+    <div
+      class="modal-content"
+      [ngClass]="
+        contentDirection == 'row' ? 'content-horizontal' : 'content-vertical'
+      "
+    >
+    
+      <ng-content></ng-content>
+    </div>
+  </div>
+</main>

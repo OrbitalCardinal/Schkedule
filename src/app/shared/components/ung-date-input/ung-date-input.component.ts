@@ -14,4 +14,5 @@ export class UngDateInput {
     @Input() type: string = 'text';
     @Input() min: string = '';
     @Input() max: string = '';
+    @Input() value: any = '';
 }

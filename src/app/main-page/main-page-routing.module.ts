@@ -10,6 +10,7 @@ import { LandingKanbanPageComponent } from "../landing-kanban-page/landing-kanba
 import { LandingSchedulePageComponent } from "../landing-schedule-page/landing-schedule-page.component";
 import { LandingTablePageComponent } from "../landing-table-page/landing-table-page.component";
 import { SchedulePageComponent } from "../schedule-page/schedule-page.component";
+import { SharedModule } from "../shared/shared.module";
 import { TablePageComponent } from "../table-page/table-page.component";
 import { MainPageComponent } from "./main-page.component";
 
@@ -21,7 +22,8 @@ const routes: Routes = [
       children: [
         {
             path: 'table-page',
-            component: TablePageComponent
+            component: TablePageComponent,
+
         },
         {
             path: 'kanban-page',

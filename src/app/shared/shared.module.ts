@@ -13,6 +13,7 @@ import { UngSelectInput } from './components/ung-select-input/ung-select-input.c
 import { UngTextInput } from './components/ung-text-input/ung-text-input.component';
 import { UngUserAvatar } from './components/user-avatar/ung-user-avatar.component';
 import { ProjectCardComponent } from './components/project-card/project-card.component';
+import { ModalWrapperComponent } from './components/modal-wrapper/modal-wrapper.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { ProjectCardComponent } from './components/project-card/project-card.com
     UngSelectInput,
     UngTextInput,
     UngUserAvatar,
-    ProjectCardComponent
+    ProjectCardComponent,
+    ModalWrapperComponent
   ],
   imports: [CommonModule, TranslateModule, FormsModule],
   exports: [
@@ -38,7 +40,8 @@ import { ProjectCardComponent } from './components/project-card/project-card.com
     UngSelectInput,
     UngTextInput,
     UngUserAvatar,
-    ProjectCardComponent
+    ProjectCardComponent,
+    ModalWrapperComponent
   ]
 })
 export class SharedModule {}

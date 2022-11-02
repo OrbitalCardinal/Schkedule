@@ -2,10 +2,13 @@ const express = require("express");
 
 // Database
 const db = require('./utils/db');
-const path = require('path');
 
 // Routes imports
-const usuariosRoute = require(path.join(__dirname, './routes/usuarios'));
+const usuariosRoute = require('./routes/usuarios');
+const tablasRoute = require('./routes/tablas');
+const tareasTablaRoute = require('./routes/tareas_tabla');
+const tablerosKanban =  require('./routes/tableros_kanban');
+const tareasKanban = require('./routes/tareas_kanban');
 
 // Init app
 const app = express();
@@ -20,6 +23,10 @@ app.use((req, res, next) => {
 });
 // Routes declaration
 app.use(usuariosRoute);
+app.use(tablasRoute);
+app.use(tareasTablaRoute);
+app.use(tablerosKanban);
+app.use(tareasKanban);
 
 const server = app.listen(3000);
 

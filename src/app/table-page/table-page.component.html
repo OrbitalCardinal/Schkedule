@@ -3,12 +3,16 @@
 <div *ngIf="!isLoading" class="fadeIn">
   <div class="header">
     <div class="header__sup">
-      <div class="header__title">Proyecto: Final de curso</div>
+      <div class="header__title">Proyecto: {{ project["nombre"] }}</div>
       <div class="header__subtitle">Tabla de tareas</div>
     </div>
-    <ung-button variant="filled" leadingIcon="fas fa-plus">Añadir tarea</ung-button>
+    <ung-button
+      variant="filled"
+      leadingIcon="fas fa-plus"
+      (click)="modalActive = !modalActive"
+      >Añadir tarea</ung-button
+    >
   </div>
-  
 
   <div class="table-container">
     <table>
@@ -24,14 +28,19 @@
       </thead>
       <tbody>
         <tr *ngFor="let tarea of data; let i = index">
-          <td (click)="openModal(tarea, i)" class="task">
-            {{ tarea["tarea"] }}
+          <td (click)="editModalActive = !editModalActive; actualTask = tarea" class="task">
+            {{ tarea["nombre"] }}
           </td>
           <td><badge badgeType="{{ tarea['estado'] }}"></badge></td>
           <td>{{ tarea["categoria"] }}</td>
-          <td>{{ tarea["fechaInicial"] }}</td>
-          <td>{{ tarea["fechaFinal"] }}</td>
-          <td class="options" (click)="openConfirmModal(i)">
+          <td>{{ formatDate(tarea["fecha_inicial"]) }}</td>
+          <td>{{ formatDate(tarea["fecha_final"]) }}</td>
+          <td
+            class="options"
+            (click)="
+              deleteModalActive = !deleteModalActive; deleteId = tarea['id']
+            "
+          >
             <i class="fas fa-trash-alt"></i>
           </td>
         </tr>
@@ -39,7 +48,130 @@
     </table>
   </div>
 
-  <task-modal
+  <form (ngSubmit)="editTask()" #edit="ngForm">
+    <modal-wrapper
+      class="fadeIn"
+      modalTitle="Modificar tarea"
+      *ngIf="editModalActive"
+      (closeModal)="editModalActive = !editModalActive"
+    >
+      <ung-text-input
+        label="Nombre de la tarea"
+        name="nombre"
+        [(ngModel)]="actualTask['nombre']"
+        ngDefaultControl
+        required
+      ></ung-text-input>
+      <ung-text-input
+        label="Categoria"
+        name="categoria"
+        [(ngModel)]="actualTask['categoria']"
+        ngDefaultControl
+        required
+      ></ung-text-input>
+      <ung-select-input
+        label="Estado"
+        name="estado"
+        [options]="['Pendiente', 'En progreso', 'Hecho']"
+        [(ngModel)]="actualTask['estado']"
+        ngDefaultControl
+        required=""
+      ></ung-select-input>
+      <ung-date-input
+        label="Fecha inicial"
+        name="fecha_inicial"
+        [min]="minDate"
+        [(ngModel)]="actualTask['fecha_inicial']"
+        ngDefaultControl
+        required=""
+      ></ung-date-input>
+      <ung-date-input
+        label="Fecha final"
+        name="fecha_final"
+        [min]="minDate"
+        [(ngModel)]="actualTask['fecha_final']"
+        ngDefaultControl
+        required=""
+      ></ung-date-input>
+      <ung-button
+        leadingIcon="fas fa-plus"
+        variant="filled"
+        [disabled]="!edit.valid"
+        >Modificar tarea</ung-button
+      >
+    </modal-wrapper>
+  </form>
+
+  <modal-wrapper
+    class="fadeIn"
+    modalTitle="Eliminar tarea"
+    modalSubtitle="¿Esta seguro que desea eliminar esta tarea?"
+    *ngIf="deleteModalActive"
+    contentDirection="row"
+    (closeModal)="deleteModalActive = !deleteModalActive"
+  >
+    <ung-button variant="filled" (click)="deleteTask()">Eliminar</ung-button>
+    <ung-button
+      variant="outlined"
+      (click)="deleteModalActive = !deleteModalActive"
+      >Cancelar</ung-button
+    >
+  </modal-wrapper>
+
+  <form (ngSubmit)="newTask(f)" #f="ngForm">
+    <modal-wrapper
+      class="fadeIn"
+      modalTitle="Nueva tarea"
+      *ngIf="modalActive"
+      (closeModal)="modalActive = !modalActive"
+    >
+      <ung-text-input
+        label="Nombre de la tarea"
+        name="nombre"
+        ngModel
+        ngDefaultControl
+        required
+      ></ung-text-input>
+      <ung-text-input
+        label="Categoria"
+        name="categoria"
+        ngModel
+        ngDefaultControl
+        required
+      ></ung-text-input>
+      <ung-select-input
+        label="Estado"
+        name="estado"
+        [options]="['Pendiente', 'En progreso', 'Hecho']"
+        ngModel
+        ngDefaultControl
+      ></ung-select-input>
+      <ung-date-input
+        label="Fecha inicial"
+        name="fecha_inicial"
+        [min]="minDate"
+        ngModel
+        ngDefaultControl
+        required
+      ></ung-date-input>
+      <ung-date-input
+        label="Fecha final"
+        name="fecha_final"
+        [min]="minDate"
+        ngModel
+        ngDefaultControl
+        required
+      ></ung-date-input>
+      <ung-button
+        leadingIcon="fas fa-plus"
+        variant="filled"
+        [disabled]="!f.valid"
+        >Agregar tarea</ung-button
+      >
+    </modal-wrapper>
+  </form>
+
+  <!-- <task-modal
     class="fadeIn"
     *ngIf="modalActive"
     (closeModalEvent)="modalActive = false"
@@ -48,5 +180,5 @@
     [taskIndex]="actualTaskIndex"
   ></task-modal>
 
-  <confirm-modal class="fadeIn" *ngIf="confirmModalActive" (closeModalEvent)="closeConfirmModal($event, actualDeleteIndex)"></confirm-modal>
+  <confirm-modal class="fadeIn" *ngIf="confirmModalActive" (closeModalEvent)="closeConfirmModal($event, actualDeleteIndex)"></confirm-modal> -->
 </div>

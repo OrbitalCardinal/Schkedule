@@ -21,6 +21,7 @@ $gray-2: #F6F6F6;
         align-items: center;
         padding: 10px;
         background-color: $gray-2;
+        border: 2px solid transparent;
 
         &:focus-within {
             border: 2px solid $primary;

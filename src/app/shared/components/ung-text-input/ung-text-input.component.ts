@@ -1,4 +1,4 @@
-import { Component, Input } from "@angular/core";
+import { Component, EventEmitter, Input, Output } from "@angular/core";
 
 @Component({
     'selector': 'ung-text-input',
@@ -15,4 +15,3 @@ export class UngTextInput {
     @Input() type: string = 'text';
     @Input() name: string = '';
 }
-

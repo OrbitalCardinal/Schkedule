@@ -1,5 +1,6 @@
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
+import { FormsModule } from "@angular/forms";
 import { ConfigPageModule } from "../config-page/config-page.module";
 import { GanttPageModule } from "../gantt-page/gantt-page.module";
 import { HomePageModule } from "../home-page/home-page.module";
@@ -31,7 +32,8 @@ import { MainPageComponent } from "./main-page.component";
         HomePageModule,
         SchedulePageModule,
         ConfigPageModule,
-        SharedModule
+        SharedModule,
+        FormsModule
     ]
 })
 

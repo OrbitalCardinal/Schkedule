@@ -19,6 +19,7 @@ export class EntrarComponent implements OnInit {
     entrar(formData: NgForm) {
         if(formData.value['contrasena'] == this.user['contrasena']) {
             this.router.navigateByUrl('/main-page');
+            localStorage.setItem('user', JSON.stringify(this.user));
         }
     }
 

@@ -6,9 +6,7 @@
       <i class="fas fa-clipboard"></i>
       <h2>Mis tablas</h2>
     </div>
-    <ung-button leadingIcon="fas fa-plus" variant="filled"
-      >Nueva tabla</ung-button
-    >
+    <ung-button leadingIcon="fas fa-plus" variant="filled" (click)="modalActive = !modalActive">Nueva tabla</ung-button>
   </header>
   <div class="separator"></div>
 
@@ -16,9 +14,15 @@
     <project-card
       *ngFor="let project of data"
       [title]="project['nombre']"
-      [date]="project['createdAt']"
-      (selectEvent)="projectSelect(project['id'])"
+      [date]="formatDate(project['created_at'])"
+      (selectEvent)="projectSelect(project)"
       (deleteEvent)="projectDelete(project['id'])"
     ></project-card>
   </div>
+  <form (ngSubmit)="createTable(f)" #f="ngForm">
+    <modal-wrapper class="fadeIn" modalTitle="Nueva tabla" *ngIf="modalActive" (closeModal)="modalActive = !modalActive">
+      <ung-text-input name="nombre" label="Nombre de la tabla" ngModel ngDefaultControl required></ung-text-input>
+      <ung-button leadingIcon="fas fa-plus" variant="filled" [disabled]="!f.valid">Crear tabla</ung-button>
+    </modal-wrapper>
+  </form>
 </main>
