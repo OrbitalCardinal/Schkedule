@@ -9,6 +9,10 @@ const tablasRoute = require('./routes/tablas');
 const tareasTablaRoute = require('./routes/tareas_tabla');
 const tablerosKanban =  require('./routes/tableros_kanban');
 const tareasKanban = require('./routes/tareas_kanban');
+const diagramasGantt = require('./routes/diagramas_gantt');
+const tareasGantt = require('./routes/tareas_gantt');
+const horarios = require('./routes/horarios');
+const actividadesHorario = require('./routes/actividades_horario');
 
 // Init app
 const app = express();
@@ -27,6 +31,10 @@ app.use(tablasRoute);
 app.use(tareasTablaRoute);
 app.use(tablerosKanban);
 app.use(tareasKanban);
+app.use(diagramasGantt);
+app.use(tareasGantt);
+app.use(horarios);
+app.use(actividadesHorario);
 
 const server = app.listen(3000);
 

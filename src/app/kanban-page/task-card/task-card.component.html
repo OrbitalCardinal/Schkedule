@@ -1,10 +1,10 @@
 <div class="container">
   <div class="header">
     <div class="categorie">{{ taskData["categoria"] }}</div>
-    <i class="fas fa-edit edit"></i>
+    <i class="fas fa-edit edit" (click)="fireEdit()"></i>
   </div>
 
-  <div class="title">{{ taskData["titulo"] }}</div>
+  <div class="title">{{ taskData["nombre"] }}</div>
   <div class="description">{{ taskData["descripcion"] }}</div>
   <div
     class="badge"

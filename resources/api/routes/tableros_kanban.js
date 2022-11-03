@@ -8,7 +8,7 @@ router.get('/tableros_kanban', (req, res) => {
     if(Object.keys(params).length == 0) {
         query = `SELECT * FROM tableros_kanban`;
     } else {
-        query = `SELECT * FROM tableros_kanban WHERE id = ${params['id']}`
+        query = `SELECT * FROM tableros_kanban WHERE id_usuario = ${params['id_usuario']}`
     }
     db.serialize(() => {
         db.all(query, (err, rows) => {
@@ -49,8 +49,10 @@ router.patch('/tableros_kanban', (req, res) => {
 router.delete('/tableros_kanban', (req, res) => {
     let id = req.query['id'];
     let query = `DELETE FROM tableros_kanban WHERE id = ${id}`;
+    let query2 = `DELETE FROM tareas_kanban WHERE id_tablero = ${id}`
     db.serialize(() => {
         db.exec(query, (err) => console.log(err));
+        db.exec(query2, (err) => console.log(err));
     });
     res.status(200).json({
         "id_deleted": id

@@ -1,4 +1,4 @@
-import { Component, Input } from "@angular/core";
+import { Component, EventEmitter, Input, Output } from "@angular/core";
 
 @Component({
     selector: 'task-card',
@@ -8,4 +8,9 @@ import { Component, Input } from "@angular/core";
 
 export class TaskCardComponent {
     @Input() taskData: any = [];
+    @Output() editEvent = new EventEmitter();
+
+    fireEdit() {
+        this.editEvent.emit();
+    }
 }

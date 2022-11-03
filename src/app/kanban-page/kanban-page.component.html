@@ -6,69 +6,177 @@
       <div class="header__title">Proyecto: Final de curso</div>
       <div class="header__subtitle">Tablero de Kanban</div>
     </div>
+    <ung-button
+      leadingIcon="fas fa-plus"
+      variant="filled"
+      (click)="modalActive = !modalActive"
+      >Nueva tarea</ung-button
+    >
   </div>
 </div>
 
 <div class="main-container fadeIn" *ngIf="!isLoading">
-    <div class="section" id="pendiente">
-      <div class="section__header">Pendiente</div>
-      <div
-        class="section__tasks"
-        cdkDropList
-        [cdkDropListData]="data_pendiente"
-        (cdkDropListDropped)="moveTask($event)"
-        #pendiente="cdkDropList"
-        [cdkDropListConnectedTo]="[progreso, hecho]"
-      >
-        <task-card
-          *ngFor="
-            let task of data_pendiente;
-            index as taskIndex;
-            trackBy: trackById
-          "
-          [taskData]="task"
-          cdkDrag
-        ></task-card>
-      </div>
-    </div>
-  
-    <div class="section" id="en_progreso">
-      <div class="section__header">En progreso</div>
-      <div
-        class="section__tasks"
-        cdkDropList
-        [cdkDropListData]="data_progreso"
-        (cdkDropListDropped)="moveTask($event)"
-        #progreso="cdkDropList"
-        [cdkDropListConnectedTo]="[pendiente, hecho]"
-      >
-        <task-card
-          *ngFor="
-            let task of data_progreso;
-            index as taskIndex;
-            trackBy: trackById
-          "
-          [taskData]="task"
-          cdkDrag
-        ></task-card>
-      </div>
-    </div>
-  
-    <div class="section" id="hecho">
-      <div class="section__header">Hecho</div>
-      <div
-        class="section__tasks"
-        cdkDropList
-        [cdkDropListData]="data_hecho"
-        (cdkDropListDropped)="moveTask($event)"
-        #hecho="cdkDropList"
-        [cdkDropListConnectedTo]="[pendiente, progreso]"
-      >
-        <task-card
-          *ngFor="let task of data_hecho; index as taskIndex; trackBy: trackById"
-          [taskData]="task"
-          cdkDrag
-        ></task-card>
-      </div>
+  <div class="section" id="pendiente">
+    <div class="section__header">Pendiente</div>
+    <div
+      class="section__tasks"
+      cdkDropList
+      [cdkDropListData]="data_pendiente"
+      (cdkDropListDropped)="moveTask($event, 'Pendiente')"
+      #pendiente="cdkDropList"
+      [cdkDropListConnectedTo]="[progreso, hecho]"
+    >
+      <task-card
+        *ngFor="
+          let task of data_pendiente;
+          index as taskIndex;
+          trackBy: trackById
+        "
+        [taskData]="task"
+        cdkDrag
+        (editEvent)="editModalActive = !editModalActive; actualTask = task"
+      ></task-card>
     </div>
   </div>
+
+  <div class="section" id="en_progreso">
+    <div class="section__header">En progreso</div>
+    <div
+      class="section__tasks"
+      cdkDropList
+      [cdkDropListData]="data_progreso"
+      (cdkDropListDropped)="moveTask($event, 'En progreso')"
+      #progreso="cdkDropList"
+      [cdkDropListConnectedTo]="[pendiente, hecho]"
+    >
+      <task-card
+        *ngFor="
+          let task of data_progreso;
+          index as taskIndex;
+          trackBy: trackById
+        "
+        [taskData]="task"
+        cdkDrag
+        (editEvent)="editModalActive = !editModalActive; actualTask = task"
+      ></task-card>
+    </div>
+  </div>
+
+  <div class="section" id="hecho">
+    <div class="section__header">Hecho</div>
+    <div
+      class="section__tasks"
+      cdkDropList
+      [cdkDropListData]="data_hecho"
+      (cdkDropListDropped)="moveTask($event, 'Hecho')"
+      #hecho="cdkDropList"
+      [cdkDropListConnectedTo]="[pendiente, progreso]"
+    >
+      <task-card
+        *ngFor="let task of data_hecho; index as taskIndex; trackBy: trackById"
+        [taskData]="task"
+        cdkDrag
+        (editEvent)="editModalActive = !editModalActive; actualTask = task"
+      ></task-card>
+    </div>
+  </div>
+</div>
+
+<form
+  (ngSubmit)="agregarTarea(f)"
+  #f="ngForm"
+  class="fadeIn"
+  *ngIf="modalActive"
+>
+  <modal-wrapper modalTitle="Nueva tarea" (closeModal)="modalActive = !modalActive">
+    <ung-text-input
+      label="Nombre de la tarea"
+      name="nombre"
+      ngModel
+      required
+    ></ung-text-input>
+    <ung-text-input label="Categoría" name="categoria" ngModel required></ung-text-input>
+    <ung-text-input
+      label="Descripción"
+      name="descripcion"
+      ngModel
+      required
+    ></ung-text-input>
+    <ung-select-input
+      label="Prioridad"
+      [options]="['Baja', 'Media', 'Alta']"
+      name="prioridad"
+      ngModel
+      required
+    ></ung-select-input>
+    <ung-select-input
+      label="Estado"
+      [options]="['Pendiente', 'En progreso', 'Hecho']"
+      name="estado"
+      ngModel
+      required
+    ></ung-select-input>
+    <ung-button leadingIcon="fas fa-plus" variant="filled" [disabled]="!f.valid"
+      >Agregar tarea</ung-button
+    >
+  </modal-wrapper>
+</form>
+
+
+<form
+  (ngSubmit)="editTask(editForm)"
+  #editForm="ngForm"
+  class="fadeIn"
+  *ngIf="editModalActive"
+>
+  <modal-wrapper modalTitle="Modificar tarea" (closeModal)="editModalActive = !editModalActive">
+    <ung-text-input
+      label="Nombre de la tarea"
+      name="nombre"
+      [ngModel]="actualTask['nombre']"
+      required
+    ></ung-text-input>
+    <ung-text-input label="Categoría" name="categoria" [(ngModel)]="actualTask['categoria']" required></ung-text-input>
+    <ung-text-input
+      label="Descripción"
+      name="descripcion"
+      [ngModel]="actualTask['descripcion']"
+      required
+    ></ung-text-input>
+    <ung-select-input
+      label="Prioridad"
+      [options]="['Baja', 'Media', 'Alta']"
+      name="prioridad"
+      [ngModel]="actualTask['prioridad']"
+      required
+    ></ung-select-input>
+    <ung-select-input
+      label="Estado"
+      [options]="['Pendiente', 'En progreso', 'Hecho']"
+      name="estado"
+      [ngModel]="actualTask['estado']"
+      required
+    ></ung-select-input>
+    <ung-button leadingIcon="fas fa-edit" variant="filled" [disabled]="!editForm.valid"
+      >Modificar tarea</ung-button
+    >
+    <ung-button leadingIcon="fas fa-trash" variant="outlined" type="button" (click)="deleteModalActive = !deleteModalActive">Eliminar tarea</ung-button
+    >
+  </modal-wrapper>
+</form>
+
+<modal-wrapper
+  class="fadeIn"
+  modalTitle="Eliminar tablero"
+  modalSubtitle="¿Esta seguro que desea eliminar este tablero?"
+  *ngIf="deleteModalActive"
+  contentDirection="row"
+  (closeModal)="deleteModalActive = !deleteModalActive"
+>
+  <ung-button variant="filled" (click)="deleteTask()">Eliminar</ung-button>
+  <ung-button
+    variant="outlined"
+    (click)="deleteModalActive = !deleteModalActive"
+    >Cancelar</ung-button
+  >
+</modal-wrapper>

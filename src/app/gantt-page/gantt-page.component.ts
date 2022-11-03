@@ -62,7 +62,7 @@ export class GanttPageComponent implements OnInit {
           this.fechas.push([newFecha, newFecha2]);
       }
       this.isLoading = false;
-    }, 1000);
+    }, 500);
 
     console.log(this.fechas)
   }

@@ -8,7 +8,7 @@ router.get('/tareas_kanban', (req, res) => {
     if(Object.keys(params).length == 0) {
         query = `SELECT * FROM tareas_kanban`;
     } else {
-        query = `SELECT * FROM tareas_kanban WHERE id = ${params['id']}`
+        query = `SELECT * FROM tareas_kanban WHERE id_tablero = ${params['id_tablero']}`
     }
     db.serialize(() => {
         db.all(query, (err, rows) => {

@@ -1,1 +1,64 @@
-<h2>Kanban</h2>
+<loading-spinner *ngIf="isLoading"></loading-spinner>
+
+<main *ngIf="!isLoading" class="fadeIn">
+  <header>
+    <div class="title">
+      <h2>Mis tableros Kanban</h2>
+    </div>
+    <ung-button
+      leadingIcon="fas fa-plus"
+      variant="filled"
+      (click)="modalActive = !modalActive"
+      >Nuevo tablero</ung-button
+    >
+  </header>
+  <div class="separator"></div>
+  
+  <h3 *ngIf="data.length == 0">No hay tablas que mostrar</h3>
+  <div class="main-container" *ngIf="data.length > 0">
+    <project-card
+      *ngFor="let project of data"
+      [title]="project['nombre']"
+      [date]="formatDate(project['created_at'])"
+      (selectEvent)="projectSelect(project)"
+      (deleteEvent)="deleteModalActive = !deleteModalActive; actualKanban = project"
+    ></project-card>
+  </div>
+  <form (ngSubmit)="createKanban(f)" #f="ngForm">
+    <modal-wrapper
+      class="fadeIn"
+      modalTitle="Nuevo tablero"
+      *ngIf="modalActive"
+      (closeModal)="modalActive = !modalActive"
+    >
+      <ung-text-input
+        name="nombre"
+        label="Nombre del tablero"
+        ngModel
+        required
+      ></ung-text-input>
+      <ung-button
+        leadingIcon="fas fa-plus"
+        variant="filled"
+        [disabled]="!f.valid"
+        >Crear tablero</ung-button
+      >
+    </modal-wrapper>
+  </form>
+</main>
+
+<modal-wrapper
+  class="fadeIn"
+  modalTitle="Eliminar tablero"
+  modalSubtitle="¿Esta seguro que desea eliminar este tablero?"
+  *ngIf="deleteModalActive"
+  contentDirection="row"
+  (closeModal)="deleteModalActive = !deleteModalActive"
+>
+  <ung-button variant="filled" (click)="deleteKanban()">Eliminar</ung-button>
+  <ung-button
+    variant="outlined"
+    (click)="deleteModalActive = !deleteModalActive"
+    >Cancelar</ung-button
+  >
+</modal-wrapper>
