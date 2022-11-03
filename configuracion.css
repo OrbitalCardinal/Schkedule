@@ -1,0 +1,13 @@
+* {
+    font-family: "Roboto", sans-serif;
+    margin-left: 5px;
+    margin-top: 8px;
+  }
+  
+.titulos{
+    color: #0B7EAF;
+    font-weight: bold;
+}
+.espacio{
+    text-indent: 10px;
+}
