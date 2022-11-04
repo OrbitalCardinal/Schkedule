@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class LandingGanttPageComponent implements OnInit {
 
-  isLoading = false;
+  isLoading = true;
 
   // Modal variables
   modalActive = false;
@@ -25,8 +25,11 @@ export class LandingGanttPageComponent implements OnInit {
   constructor(private http: HttpClient, private router: Router) { }
 
   ngOnInit() {
-    this.user = JSON.parse(localStorage.getItem('user'));
-    this.fetchGantt();
+    setTimeout(() => {
+      this.user = JSON.parse(localStorage.getItem('user'));
+      this.fetchGantt();
+      this.isLoading = false;
+    }, 500);
   }
 
   async fetchGantt() {

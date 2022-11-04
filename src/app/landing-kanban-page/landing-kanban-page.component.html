@@ -14,7 +14,7 @@
   </header>
   <div class="separator"></div>
   
-  <h3 *ngIf="data.length == 0">No hay tablas que mostrar</h3>
+  <h3 *ngIf="data.length == 0">No hay tableros que mostrar</h3>
   <div class="main-container" *ngIf="data.length > 0">
     <project-card
       *ngFor="let project of data"

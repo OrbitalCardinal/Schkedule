@@ -8,7 +8,7 @@ router.get('/horarios', (req, res) => {
     if(Object.keys(params).length == 0) {
         query = `SELECT * FROM horarios`;
     } else {
-        query = `SELECT * FROM tablas WHERE id_usuario = ${params['id_usuario']}`
+        query = `SELECT * FROM horarios WHERE id_usuario = ${params['id_usuario']}`
     }
     db.serialize(() => {
         db.all(query, (err, rows) => {

@@ -14,6 +14,6 @@ export class ConfigPageComponent implements OnInit {
         setTimeout(() => {
             this.user = JSON.parse(localStorage.getItem('user'));
             this.isLoading = false;
-        }, 1000 )
+        }, 500)
     }
 }
