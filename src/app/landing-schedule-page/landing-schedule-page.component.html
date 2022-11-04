@@ -1,1 +1,64 @@
-<p>landing-schedule-page works!</p>
+<loading-spinner *ngIf="isLoading"></loading-spinner>
+
+<main *ngIf="!isLoading" class="fadeIn">
+  <header>
+    <div class="title">
+      <h2>Mis horarios</h2>
+    </div>
+    <ung-button
+      leadingIcon="fas fa-plus"
+      variant="filled"
+      (click)="modalActive = !modalActive"
+      >Nuevo horario</ung-button
+    >
+  </header>
+  <div class="separator"></div>
+  
+  <h3 *ngIf="data.length == 0">No hay horarios que mostrar</h3>
+  <div class="main-container" *ngIf="data.length > 0">
+    <project-card
+      *ngFor="let project of data"
+      [title]="project['nombre']"
+      [date]="formatDate(project['created_at'])"
+      (selectEvent)="projectSelect(project)"
+      (deleteEvent)="deleteModalActive = !deleteModalActive; actualSchedule = project"
+    ></project-card>
+  </div>
+  <form (ngSubmit)="createSchedule(f)" #f="ngForm">
+    <modal-wrapper
+      class="fadeIn"
+      modalTitle="Nuevo horario"
+      *ngIf="modalActive"
+      (closeModal)="modalActive = !modalActive"
+    >
+      <ung-text-input
+        name="nombre"
+        label="Nombre del horario"
+        ngModel
+        required
+      ></ung-text-input>
+      <ung-button
+        leadingIcon="fas fa-plus"
+        variant="filled"
+        [disabled]="!f.valid"
+        >Crear horario</ung-button
+      >
+    </modal-wrapper>
+  </form>
+</main>
+
+<modal-wrapper
+  class="fadeIn"
+  modalTitle="Eliminar diagrama"
+  modalSubtitle="¿Esta seguro que desea eliminar este diagrama?"
+  *ngIf="deleteModalActive"
+  contentDirection="row"
+  (closeModal)="deleteModalActive = !deleteModalActive"
+>
+  <ung-button variant="filled" (click)="deleteSchedule()">Eliminar</ung-button>
+  <ung-button
+    variant="outlined"
+    (click)="deleteModalActive = !deleteModalActive"
+    >Cancelar</ung-button
+  >
+</modal-wrapper>

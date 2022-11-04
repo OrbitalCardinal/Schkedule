@@ -6,6 +6,7 @@
       <div class="header__title">Proyecto: Final de curso</div>
       <div class="header__subtitle">Horario</div>
     </div>
+    <ung-button leadingIcon="fas fa-plus" variant="filled" (click)="modalActive = !modalActive">Añadir actividad</ung-button>
   </div>
 </div>
 
@@ -37,111 +38,46 @@
       <div class="sin">Sabado</div>
       <div class="sin">Domingo</div>
 
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      
+      <div *ngFor="let item of [].constructor(105); let i = index">
+        <div class="activitie" *ngIf="data_number[i+1]" (click)="editModalActive = !editModalActive; actualActivitie = data_assigned[i+1]">{{data_assigned[i+1]['nombre']}}</div>
+      </div>
     </div>
   </div>
+
+  <form (ngSubmit)="addActivitie(f)" #f="ngForm" *ngIf="modalActive">
+    <modal-wrapper modalTitle="Nueva actividad" (closeModal)="modalActive = !modalActive" class="fadeIn">
+      <ung-text-input label="Nombre de la actividad" name="nombre" ngModel></ung-text-input>
+      <ung-select-input label="Dia" [options]="dias" name="dia" ngModel></ung-select-input>
+      <ung-select-input label="Hora" [options]="horas" name="hora" ngModel></ung-select-input>
+      <ung-button leadingIcon="fas fa-plus" variant="filled">Agregar actividad</ung-button>
+    </modal-wrapper>
+  </form>
+
+  <form (ngSubmit)="editActivitie(editForm)" #editForm="ngForm" *ngIf="editModalActive">
+    <modal-wrapper modalTitle="Nueva actividad" (closeModal)="editModalActive = !editModalActive" class="fadeIn">
+      <ung-text-input label="Nombre de la actividad" name="nombre" [ngModel]="actualActivitie['nombre']"></ung-text-input>
+      <ung-button leadingIcon="fas fa-edit" variant="filled">Modificar actividad</ung-button>
+      <ung-button leadingIcon="fas fa-trash" variant="outlined" type="button" (click)="deleteModalActive = true">Eliminar actividad</ung-button>
+    </modal-wrapper>
+  </form>
+
+
+<modal-wrapper
+  class="fadeIn"
+  modalTitle="Eliminar actividad"
+  modalSubtitle="¿Esta seguro que desea eliminar esta actividad?"
+  *ngIf="deleteModalActive"
+  contentDirection="row"
+  (closeModal)="deleteModalActive = !deleteModalActive"
+>
+  <ung-button variant="filled" (click)="deleteActivitie()">Eliminar</ung-button>
+  <ung-button
+    variant="outlined"
+    (click)="deleteModalActive = !deleteModalActive"
+    >Cancelar</ung-button
+  >
+</modal-wrapper>
+
+<modal-wrapper class="fadeIn" modalTitle="Error en actividad" modalSubtitle="La actividad se sobrepone con otra" *ngIf="isOverlapping">
+  <ung-button variant="filled" (click)="isOverlapping = false">Entendido</ung-button>
+</modal-wrapper>
