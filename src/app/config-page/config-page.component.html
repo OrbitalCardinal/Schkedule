@@ -1,5 +1,14 @@
 <loading-spinner *ngIf="isLoading"></loading-spinner>
 
 <div *ngIf="!isLoading" class="fadeIn">
-    <h1>Configuración de usuario local</h1>
+  <h3 class="titulos">Datos de la cuenta</h3>
+  <hr>
+  <b>Nombre completo</b>
+  <p class="espacio">{{user['nombres'] + ' ' + user['apellidos']}}</p>
+  <b>Fecha de creación de cuenta</b>
+  <p class="espacio">{{user['created_at']}}</p>
+  <h3 class="titulos">Credenciales</h3>
+  <hr>
+  <b>Correo registrado</b>
+  <p class="espacio">{{user['correo']}}</p>
 </div>

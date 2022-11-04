@@ -77,13 +77,13 @@ export class TablePageComponent implements OnInit {
 
   editTask(data: NgForm) {
     this.http.patch(`http://localhost:3000/tareas_tabla?id=${this.actualTask['id']}`, data.value).subscribe((response: any) => {
-      let editIndex = this.data.findIndex((element) => element['id'] == this.actualTask['id'])
-      this.data[editIndex]['nombre'] = data.value['nombre'];
-      this.data[editIndex]['categoria'] = data.value['categoria'];
-      this.data[editIndex]['estado'] = data.value['estado'];
-      this.data[editIndex]['fecha_inicial'] = data.value['fecha_inicial'];
-      this.data[editIndex]['fecha_final'] = data.value['fecha_final'];
-      this.editModalActive = !this.editModalActive;
+      this.http
+        .get(`http://localhost:3000/tareas_tabla?id_tabla=${this.tableId}`)
+        .subscribe((results: any) => {
+          this.isLoading = false;
+          this.data = results;
+          this.editModalActive = !this.editModalActive;
+        });
     });
 
 

@@ -1,80 +1,85 @@
+import { HttpClient } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
 import { NgForm } from "@angular/forms";
 
 @Component({
   selector: "./gantt-page",
   templateUrl: "./gantt-page.component.html",
-  styleUrls: ["./gantt-page.component.scss"],
+  styleUrls: ["./gantt-page.component.scss", '../../styles.scss'],
 })
 export class GanttPageComponent implements OnInit {
-  confirmModalActive = false;
+
+  // Modal variables
+  modalActive = false;
+  deleteModalActive = false;
+  editModalActive = false;
+
   actualDeleteId = null;
   fechas: any[] = [];
-  data_gantt = {
-    nombre: "Proyecto Final",
-    fechaInicial: "2022-10-01",
-    semanas: 5,
-  };
+  data_gantt: any = null;
+  user: any = null;
+  data_tasks: any = [];
+  actualTask: any = null;
 
-  data_tasks = [
-    {
-      id: 1,
-      titulo: "Actividad 1",
-      fechaInicial: "2022-10-01",
-      fechaFinal: "2022-10-12",
-    },
-    {
-      id: 2,
-      titulo: "Actividad 2",
-      fechaInicial: "2022-10-16",
-      fechaFinal: "2022-10-19",
-    },
-    {
-      id: 3,
-      titulo: "Actividad 3",
-      fechaInicial: "2022-10-09",
-      fechaFinal: "2022-10-23",
-    },
-  ];
+  constructor(private http: HttpClient) {}
 
   isLoading = true;
   ngOnInit() {
     setTimeout(() => {
-      // Calcular fechas por periodos
-      let fechaInicialGantt = new Date(this.data_gantt["fechaInicial"]);
-      fechaInicialGantt = new Date(
-        fechaInicialGantt.setDate(fechaInicialGantt.getDate() + 1)
-      );
-      let semanas = this.data_gantt["semanas"];
-      let tempFecha = null;
-      let newFecha = new Date();
-      newFecha.setDate(fechaInicialGantt.getDate() + 6)
-      this.fechas.push([
-        fechaInicialGantt,
-        newFecha
-      ]);
-      for (var i = 0; i < semanas - 1; i++) {
-          tempFecha = this.fechas[i][1];
-          newFecha = new Date();
-          newFecha.setDate(tempFecha.getDate() + 1);
-          let newFecha2 = new Date();
-          newFecha2.setDate(newFecha.getDate() + 6);
-          this.fechas.push([newFecha, newFecha2]);
-      }
+      this.user = JSON.parse(localStorage.getItem('user'));
+      this.data_gantt = window.history.state['project'];
+      this.fetchTasks();
+      this.calcDates();
       this.isLoading = false;
     }, 500);
 
     console.log(this.fechas)
   }
 
-  formatDate(date: Date, sep: string) {
-    let year = date.getFullYear();
-    let month: any = date.getMonth() + 1;
+  async fetchTasks() {
+    await this.http.get(`http://localhost:3000/tareas_gantt?id_gantt=${this.data_gantt['id']}`).subscribe(response => {
+      this.data_tasks = response;
+    })
+  }
+
+  addDays(date: Date, days: number) {
+    var result = new Date(date);
+    result.setDate(result.getDate() + days);
+    return result;
+  }
+
+  calcDates() {
+    // Calcular fechas por periodos
+    let fechaInicialGantt = new Date(this.data_gantt['fecha_inicial']);
+    console.log(fechaInicialGantt);
+    let semanas = this.data_gantt['semanas'];
+    let tempDate = this.addDays(fechaInicialGantt, 6);
+    let tempFechas = [];
+    tempFechas.push(fechaInicialGantt, tempDate);
+    for(let i = 0; i< semanas - 1; i++) {
+      tempDate = this.addDays(tempDate, 6);
+      tempFechas.push(tempDate);
+    }
+
+    for(let i = 1; i <= semanas; i++) {
+      if(i < 2) {
+        this.fechas.push([tempFechas[i-1], tempFechas[i]]);
+      } else {
+        this.fechas.push([this.addDays(tempFechas[i-1], i-1), this.addDays(tempFechas[i],i-1)]);
+      }
+    }
+
+  }
+
+  formatDate(date: any, sep: string) {
+    date = new Date(date);
+    let year = date.getUTCFullYear();
+    let month: any = date.getUTCMonth() + 1;
     if (month < 10) {
       month = month.toString();
       month = "0" + month;
     }
-    let day: any = date.getDate();
+    let day: any = date.getUTCDate();
     if (day < 10) {
       day = day.toString();
       day = "0" + day;
@@ -92,8 +97,8 @@ export class GanttPageComponent implements OnInit {
     initialDate = new Date(initialDate);
     finalDate = new Date(finalDate);
 
-    initialDate.setDate(initialDate.getDate() + 1);
-    finalDate.setDate(finalDate.getDate() + 1);
+    // initialDate.setDate(initialDate.getDate());
+    // finalDate.setDate(finalDate.getDate());
 
     if (
       initialDate.getTime() <= finalSemana.getTime() &&
@@ -106,29 +111,29 @@ export class GanttPageComponent implements OnInit {
   }
 
   addTask(taskData: NgForm) {
-    let fechaInicial = new Date(taskData.value["fechaInicial"]);
-    let fechaFinal = new Date(taskData.value["fechaFinal"]);
-    fechaInicial.setDate(fechaInicial.getDate());
-    fechaFinal.setDate(fechaFinal.getDate());
-    console.log(fechaInicial);
-    console.log(fechaFinal);
-    if (fechaInicial.getTime() >= fechaFinal.getTime()) {
-      return;
-    }
-
     let newTask = {
-      id: this.data_tasks[this.data_tasks.length - 1]["id"] + 1,
-      titulo: taskData.value["titulo"],
-      fechaInicial: taskData.value["fechaInicial"],
-      fechaFinal: taskData.value["fechaFinal"],
-    };
-    this.data_tasks.push(newTask);
+      id_gantt: this.data_gantt['id'],
+      ...taskData.value
+    }
+    console.log(newTask);
+    this.http.post('http://localhost:3000/tareas_gantt', newTask).subscribe(response => {
+      this.fetchTasks();
+      this.modalActive = !this.modalActive;
+    });
   }
 
-  deleteTask(canDelete: boolean, id: number) {
-    if(canDelete) {
-      this.data_tasks = this.data_tasks.filter((element) => element["id"] != id);
-    }
-    this.confirmModalActive = false;
+  deleteTask() {
+    this.http.delete(`http://localhost:3000/tareas_gantt?id=${this.actualDeleteId}`).subscribe(response => {
+      this.data_tasks = this.data_tasks.filter((element) => element["id"] != this.actualDeleteId);
+      this.deleteModalActive = false;
+    });
   }
+
+  editTask(data: NgForm) {
+    this.http.patch(`http://localhost:3000/tareas_gantt?id=${this.actualTask['id']}`, data.value).subscribe(response => {
+      this.fetchTasks();
+      this.editModalActive = !this.editModalActive;
+    });
+  }
+
 }

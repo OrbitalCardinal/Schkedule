@@ -1,1 +1,71 @@
-<p>landing-gantt-page works!</p>
+<loading-spinner *ngIf="isLoading"></loading-spinner>
+
+<main *ngIf="!isLoading" class="fadeIn">
+  <header>
+    <div class="title">
+      <h2>Mis diagramas de Gantt</h2>
+    </div>
+    <ung-button
+      leadingIcon="fas fa-plus"
+      variant="filled"
+      (click)="modalActive = !modalActive"
+      >Nuevo diagrama</ung-button
+    >
+  </header>
+  <div class="separator"></div>
+  
+  <h3 *ngIf="data.length == 0">No hay tablas que mostrar</h3>
+  <div class="main-container" *ngIf="data.length > 0">
+    <project-card
+      *ngFor="let project of data"
+      [title]="project['nombre']"
+      [date]="formatDate(project['created_at'])"
+      (selectEvent)="projectSelect(project)"
+      (deleteEvent)="deleteModalActive = !deleteModalActive; actualGantt = project"
+    ></project-card>
+  </div>
+  <form (ngSubmit)="createGantt(f)" #f="ngForm">
+    <modal-wrapper
+      class="fadeIn"
+      modalTitle="Nuevo diagrama"
+      *ngIf="modalActive"
+      (closeModal)="modalActive = !modalActive"
+    >
+      <ung-text-input
+        name="nombre"
+        label="Nombre del diagrama"
+        ngModel
+        required
+      ></ung-text-input>
+      <ung-date-input name="fecha_inicial" ngModel label="Fecha inicial"></ung-date-input>
+      <ung-text-input
+        name="semanas"
+        label="Número de semanas del diagrama"
+        ngModel
+        required
+      ></ung-text-input>
+      <ung-button
+        leadingIcon="fas fa-plus"
+        variant="filled"
+        [disabled]="!f.valid"
+        >Crear tablero</ung-button
+      >
+    </modal-wrapper>
+  </form>
+</main>
+
+<modal-wrapper
+  class="fadeIn"
+  modalTitle="Eliminar diagrama"
+  modalSubtitle="¿Esta seguro que desea eliminar este diagrama?"
+  *ngIf="deleteModalActive"
+  contentDirection="row"
+  (closeModal)="deleteModalActive = !deleteModalActive"
+>
+  <ung-button variant="filled" (click)="deleteGantt()">Eliminar</ung-button>
+  <ung-button
+    variant="outlined"
+    (click)="deleteModalActive = !deleteModalActive"
+    >Cancelar</ung-button
+  >
+</modal-wrapper>

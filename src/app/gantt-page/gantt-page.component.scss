@@ -33,9 +33,10 @@
 .container {
   margin-top: 20px;
   display: flex;
+  flex-shrink: 0;
   background-color: #fcfcfc;
   border: 1px solid #ebebeb;
-  width: 100%;
+  width: 1550px;
   height: 90%;
   overflow-y: auto;
 }
@@ -44,6 +45,7 @@
   width: 300px;
   height: fit-content;
   display: flex;
+  flex-shrink: 0;
   flex-direction: column;
   background-color: #fcfcfc;
 
@@ -61,18 +63,29 @@
     font-size: 16px;
     height: 35px;
     width: auto;
+
+    .task__name {
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+    
   }
 }
 
 .timeline-area {
   display: flex;
-  width: 100%;
+  flex-shrink: 0;
+  overflow-x: auto;
+  width: 940px;
+  padding-left: 10px;
   background-color: #fcfcfc;
 
   .period {
     display: flex;
     flex-direction: column;
-    width: 100%;
+    flex-shrink: 0;
+    width: 200px;
     height: fit-content;
 
     .bar-container {
@@ -104,7 +117,8 @@
 }
 
 .date-area {
-  width: 200px;
+  flex-shrink: 0;
+  width: 100px;
   height: fit-content;
   display: flex;
   flex-direction: column;
@@ -129,11 +143,12 @@
 
 .action-area {
   height: fit-content;
-  width: 200px;
+  flex-shrink: 0;
   display: flex;
   flex-direction: column;
   background-color: #fcfcfc;
   color: #616161;
+  width: 100px;
 
   .title-bar {
     justify-content: center;

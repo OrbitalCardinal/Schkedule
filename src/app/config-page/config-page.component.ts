@@ -8,8 +8,11 @@ import { Component, OnInit } from "@angular/core";
 
 export class ConfigPageComponent implements OnInit {
     isLoading = true;
+    user: any = null;
+
     ngOnInit() {
         setTimeout(() => {
+            this.user = JSON.parse(localStorage.getItem('user'));
             this.isLoading = false;
         }, 1000 )
     }

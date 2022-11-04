@@ -6,30 +6,18 @@
         <div class="header__title">Proyecto: Final de curso</div>
         <div class="header__subtitle">Diagrama de gantt</div>
       </div>
+      <ung-button leadingIcon="fas fa-plus" variant="filled" (click)="modalActive = !modalActive">Añadir tarea</ung-button>
     </div>
   </div>
 
-
-<form (ngSubmit)="addTask(formData)" #formData="ngForm" *ngIf="!isLoading" style="display: none;">
-    <label for="titulo">Titulo</label>
-    <input type="text" name="titulo" ngModel>
-    <label for="initialDate">Fecha inicial</label>
-    <input type="date" name="fechaInicial" min="{{formatDate(fechas[0][0], '-')}}" max="{{formatDate(fechas[fechas.length - 1][1], '-')}}" ngModel>
-
-    <label for="finalDate">Fecha final</label>
-    <input type="date" name="fechaFinal" min="{{formatDate(fechas[0][0], '-')}}" max="{{formatDate(fechas[fechas.length - 1][1], '-')}}" ngModel>
-
-    <button type="submit">Agregar tarea</button>
-</form>
-
-<div class="container fadeIn" *ngIf="!isLoading">
+<div class="container" *ngIf="!isLoading">
     <div class="task-area">
         <div class="title-bar">
             Actividades
         </div>
 
-        <div class="task fadeIn" *ngFor="let task of data_tasks">
-            <div class="task__name">{{task['titulo']}}</div>
+        <div class="task" *ngFor="let task of data_tasks">
+            <div class="task__name">{{task['nombre']}}</div>
         </div>
     </div>
 
@@ -38,8 +26,8 @@
             Fecha inicial
         </div>
 
-        <div class="date fadeIn" *ngFor="let task of data_tasks">
-            {{task['fechaInicial']}}
+        <div class="date" *ngFor="let task of data_tasks">
+            {{formatDate(task['fecha_inicial'], '/')}}
         </div>
     </div>
 
@@ -49,8 +37,8 @@
             Fecha final
         </div>
         
-        <div class="date fadeIn" *ngFor="let task of data_tasks">
-            {{task['fechaFinal']}}
+        <div class="date" *ngFor="let task of data_tasks">
+            {{formatDate(task['fecha_final'], '/')}}
         </div>
     </div>
 
@@ -58,9 +46,9 @@
         <div class="title-bar">
             Acciones
         </div>
-        <div class="task__action-group fadeIn" *ngFor="let task of data_tasks">
-            <i class="fas fa-edit task__action edit"></i>
-            <i class="fas fa-trash-alt task__action delete" (click)="confirmModalActive = !confirmModalActive; actualDeleteId = task['id']"></i>
+        <div class="task__action-group" *ngFor="let task of data_tasks">
+            <i class="fas fa-edit task__action edit" (click)="editModalActive = !editModalActive; actualTask = task"></i>
+            <i class="fas fa-trash-alt task__action delete" (click)="deleteModalActive = !deleteModalActive; actualDeleteId = task['id']"></i>
         </div>
     </div>
     
@@ -70,16 +58,47 @@
                     {{formatDate(fechas[i][0], '/')}} - {{formatDate(fechas[i][1], '/')}}
                 </div>
 
-                <div class="bar-container fadeIn" *ngFor="let task of data_tasks">
-                    <div class="bar" [ngClass]="[calcPeriod(fechas[i][0], fechas[i][1], task['fechaInicial'], task['fechaFinal'])]">
+                <div class="bar-container" *ngFor="let task of data_tasks">
+                    <div class="bar" [ngClass]="[calcPeriod(fechas[i][0], fechas[i][1], task['fecha_inicial'], task['fecha_final'])]">
 
                     </div>
                 </div>
         </div>
-
     </div>
-
 </div>
 
-<confirm-modal class="fadeIn" *ngIf="confirmModalActive" (closeModalEvent)="deleteTask($event, actualDeleteId)"></confirm-modal>
+<form (ngSubmit)="addTask(f)" #f="ngForm">
+    <modal-wrapper modalTitle="Nueva tarea" (closeModal)="modalActive = !modalActive" *ngIf="modalActive" class="fadeIn">
+        <ung-text-input label="Nombre de la tarea" name="nombre" ngModel required></ung-text-input>
+        <ung-date-input label="Fecha inicial" name="fecha_inicial" ngModel required></ung-date-input>
+        <ung-date-input label="Fecha final" name="fecha_final" ngModel required></ung-date-input>
+        <ung-button leadingIcon="fas fa-plus" variant="filled" name="fecha_final" [disabled]="!f.valid">Añadir tarea</ung-button>
+    </modal-wrapper>
+</form>
+
+
+<form (ngSubmit)="editTask(editForm)" #editForm="ngForm">
+    <modal-wrapper modalTitle="Modificar tarea" (closeModal)="editModalActive = !editModalActive" *ngIf="editModalActive" class="fadeIn">
+        <ung-text-input label="Nombre de la tarea" name="nombre" [ngModel]="actualTask['nombre']" required></ung-text-input>
+        <ung-date-input label="Fecha inicial" name="fecha_inicial" [ngModel]="actualTask['fecha_inicial']" required></ung-date-input>
+        <ung-date-input label="Fecha final" name="fecha_final" [ngModel]="actualTask['fecha_final']" required></ung-date-input>
+        <ung-button leadingIcon="fas fa-plus" variant="filled" name="fecha_final" [disabled]="!f.valid">Modificar tarea</ung-button>
+    </modal-wrapper>
+</form>
+
+<modal-wrapper
+  class="fadeIn"
+  modalTitle="Eliminar tablero"
+  modalSubtitle="¿Esta seguro que desea eliminar este tablero?"
+  *ngIf="deleteModalActive"
+  contentDirection="row"
+  (closeModal)="deleteModalActive = !deleteModalActive"
+>
+  <ung-button variant="filled" (click)="deleteTask()">Eliminar</ung-button>
+  <ung-button
+    variant="outlined"
+    (click)="deleteModalActive = !deleteModalActive"
+    >Cancelar</ung-button
+  >
+</modal-wrapper>
 

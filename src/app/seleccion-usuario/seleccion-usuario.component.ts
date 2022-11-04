@@ -20,7 +20,36 @@ export class SeleccionUsuarioComponent implements OnInit {
         });
     }
 
-    deleteUser() {
+async deleteUser() {
+        let id = this.actualUser['id'];
+        this.http.get(`http://localhost:3000/tablas?id_usuario=${id}`).subscribe((response: any[]) => {
+            response.forEach(element => {
+                this.http.delete(`http://localhost:3000/tablas?id=${element['id']}`).subscribe(response2 => {
+                    console.log(`Deleted ${element['id']}`);
+                });
+            });
+        });
+        this.http.get(`http://localhost:3000/tableros_kanban?id_usuario=${id}`).subscribe((response: any[]) => {
+            response.forEach(element => {
+                this.http.delete(`http://localhost:3000/tableros_kanban?id=${element['id']}`).subscribe(response2 => {
+                    console.log(`Deleted ${element['id']}`);
+                });
+            });
+        });
+        this.http.get(`http://localhost:3000/diagramas_gantt?id_usuario=${id}`).subscribe((response: any[]) => {
+            response.forEach(element => {
+                
+                this.http.delete(`http://localhost:3000/diagramas_gantt?id=${element['id']}`).subscribe(response2 => {
+                    console.log(`Deleted ${element['id']}`);
+                });
+            });
+        });
+        // this.http.get(`http://localhost:3000/horarios?id_usuario=${id}`).subscribe((response: any[]) => {
+        //     response.forEach(element => {
+        //         console.log(`Deleting ${element}`);
+        //         this.http.get(`http://localhost:3000/horarios?id=${element['id']}`);
+        //     });
+        // });
         this.http.delete(`http://localhost:3000/usuarios?id=${this.actualUser['id']}`).subscribe((result) => {
             this.users = this.users.filter((element) => element['id'] != this.actualUser['id']);
             this.deleteModalActive = !this.deleteModalActive;
