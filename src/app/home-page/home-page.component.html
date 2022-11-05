@@ -1,5 +1,68 @@
 <loading-spinner *ngIf="isLoading"></loading-spinner>
 
-<div *ngIf="!isLoading" class="fadeIn">
-    <h1>Inicio</h1>
-</div>
+<main *ngIf="!isLoading" class="fadeIn">
+  <div class="header">
+    <div class="header__sup">
+      <div class="header__title">Tablero de estadisticas</div>
+      <div class="header__subtitle">Uso del sistema</div>
+    </div>
+  </div>
+
+  <div class="main-container">
+    <div class="left-container">
+        <div class="numero-actividades">
+            <div class="header__subtitle">Número de actividades</div>
+            <div class="numero-container">
+                <div class="numero-item">
+                    <span class="numero-item__title">Tablas</span>
+                    <span class="numero-item__digit">{{nTabla}}</span>
+                </div>
+
+                <div class="numero-item">
+                    <span class="numero-item__title">Tableros Kanban</span>
+                    <span class="numero-item__digit">{{nKanban}}</span>
+                </div>
+
+                <div class="numero-item">
+                    <span class="numero-item__title">Diagramas de Gantt</span>
+                    <span class="numero-item__digit">{{nGantt}}</span>
+                </div>
+
+                <div class="numero-item">
+                    <span class="numero-item__title">Horarios</span>
+                    <span class="numero-item__digit">{{nHorario}}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="estado-tareas">
+            <div class="header__subtitle">Estado de tareas</div>
+            <div class="estado-charts">
+                <div class="estado-item">
+                    <div class="estado-item__title">Tablas</div>
+                    <ngx-charts-bar-vertical class="estado-item__chart" [results]="stateTabla" [xAxis]="true" [yAxis]="true"></ngx-charts-bar-vertical>
+                </div>
+
+                <div class="estado-item">
+                    <div class="estado-item__title">Tableros de Kanban</div>
+                    <ngx-charts-bar-vertical class="estado-item__chart" [results]="stateKanban" [xAxis]="true" [yAxis]="true"></ngx-charts-bar-vertical>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="right-container">
+        <div class="header__subtitle">Uso de herramientas</div>
+        <ngx-charts-pie-chart
+        [view]="[700, 600]"
+        [results]="projectCount"
+        [doughnut]="true"
+        [labels]="true"
+        [legend]="true"
+        [legendTitle]="'Herramientas'"
+        [legendPosition]="below"
+        >
+        </ngx-charts-pie-chart>
+    </div>
+  </div>
+
+</main>

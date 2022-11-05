@@ -33,7 +33,7 @@ export class LandingGanttPageComponent implements OnInit {
   }
 
   async fetchGantt() {
-    await this.http.get('http://localhost:3000/diagramas_gantt').subscribe(response => {
+    await this.http.get(`http://localhost:3000/diagramas_gantt?id_usuario=${this.user['id']}`).subscribe(response => {
       this.data = response;
     });
   }

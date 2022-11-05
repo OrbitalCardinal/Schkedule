@@ -29,7 +29,7 @@ export class LandingSchedulePageComponent implements OnInit {
   }
 
   async fetchSchedule() {
-    await this.http.get('http://localhost:3000/horarios').subscribe(response => {
+    await this.http.get(`http://localhost:3000/horarios?id_usuario=${this.user['id']}`).subscribe(response => {
       this.data = response;
     });
   }

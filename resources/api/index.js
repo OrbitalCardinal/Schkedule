@@ -13,6 +13,7 @@ const diagramasGantt = require('./routes/diagramas_gantt');
 const tareasGantt = require('./routes/tareas_gantt');
 const horarios = require('./routes/horarios');
 const actividadesHorario = require('./routes/actividades_horario');
+const estadisticas = require('./routes/estadisticas');
 
 // Init app
 const app = express();
@@ -35,6 +36,7 @@ app.use(diagramasGantt);
 app.use(tareasGantt);
 app.use(horarios);
 app.use(actividadesHorario);
+app.use(estadisticas);
 
 const server = app.listen(3000);
 

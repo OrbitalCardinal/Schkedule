@@ -52,6 +52,7 @@ async deleteUser() {
                 });
             });
         });
+        
         this.http.delete(`http://localhost:3000/usuarios?id=${this.actualUser['id']}`).subscribe((result) => {
             this.users = this.users.filter((element) => element['id'] != this.actualUser['id']);
             this.deleteModalActive = !this.deleteModalActive;
