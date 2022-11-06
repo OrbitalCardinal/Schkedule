@@ -6,6 +6,13 @@
       "filter": [
         "**/*"
       ]
+    },
+    {
+      "from": "./app/node_modules",
+      "to": "node_modules/",
+      "filter": [
+        "**/*"
+      ]
     }
   ],
   "asar": true,
@@ -24,13 +31,14 @@
     }
   ],
   "win": {
-    "icon": "dist/assets/icons",
+    "icon": "icon.png",
     "target": [
       "portable"
-    ]
+    ],
+    "executableName": "Ungistor"
   },
   "portable": {
-    "splashImage": "dist/assets/icons/electron.bmp"
+    "splashImage": "splash.png"
   },
   "mac": {
     "icon": "dist/assets/icons",
